@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "PhotoTest1": {
+            "applicationId": "DbuUgYKaPqMHJ63Nut29Xw4rp95nHw0VCSP7MDAK", 
+            "masterKey": "Do7kcBNU2QF1O35hmgdZp4cSpIAeHYi8FuyVy4hG"
+        }, 
+        "_default": {
+            "link": "PhotoTest1"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.15"
+    }
+}
