@@ -10,29 +10,17 @@
 #import <Parse/Parse.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-
 @interface FinishedHalfsieVC : UIViewController
 
-//@property (strong, nonatomic) IBOutlet UIImageView *finishedHalfsieImageView;
-
 @property (strong, nonatomic) PFObject *messagePassedFromInbox;
-
 @property (nonatomic, retain) UIActionSheet *shareButtonForActionSheet;
-
 @property (nonatomic, retain) NSURL *imageFileURL;
-
 @property (nonatomic, retain) NSData *imageData;
-
 @property (nonatomic, retain) ACAccount *facebookAccount;
-
 @property (nonatomic, strong) UIImage *image;
 
-
--(IBAction)shareButton;
-
+- (IBAction)shareButton;
 - (IBAction)backButton;
-
-
 
 @end
 

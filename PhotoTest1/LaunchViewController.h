@@ -9,17 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-
-
-
 @interface LaunchViewController : UIViewController
+
+@property (strong, nonatomic) IBOutlet UIImageView *launchBackground;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backBarButton;
 
 -(IBAction)login;
 -(IBAction)signup;
 -(IBAction)termsOfService;
-
-@property (strong, nonatomic) IBOutlet UIImageView *launchBackground;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *backBarButton;
 
 @end
 

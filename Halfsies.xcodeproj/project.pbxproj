@@ -10,7 +10,6 @@
 		C30F12DB18C1578B0011685C /* SendToFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F12DA18C1578B0011685C /* SendToFriendsViewController.m */; };
 		C30F12DE18C1C5650011685C /* SMSWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F12DD18C1C5640011685C /* SMSWindowViewController.m */; };
 		C319F5F418EE1573007301E1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C319F5F318EE1573007301E1 /* CoreAudio.framework */; };
-		C31BF5FB18BF143D0002CC69 /* SampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31BF5FA18BF143D0002CC69 /* SampleCell.m */; };
 		C31C989618C0384B002F9E6B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31C989518C0384B002F9E6B /* MessageUI.framework */; };
 		C331E102194BB5B300A88D7A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C331E101194BB5B300A88D7A /* Crashlytics.framework */; };
 		C34153D518DA5D20003EB03B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34153D418DA5D20003EB03B /* Social.framework */; };
@@ -30,7 +29,6 @@
 		C359D650191BD7460084F63A /* FindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C359D64F191BD7460084F63A /* FindFriendsViewController.m */; };
 		C35D628818B6861200C9FB1F /* UIImage+so1.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D628718B6861200C9FB1F /* UIImage+so1.m */; };
 		C36261BE1888E65D008A172C /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C36261BD1888E65D008A172C /* Person.m */; };
-		C366947A18B9D43100D2E2C9 /* PotentialFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = C366947918B9D43100D2E2C9 /* PotentialFriend.m */; };
 		C367A91C192938FF007744D0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C367A91B192938FF007744D0 /* SearchViewController.m */; };
 		C378735F186B4CC5009F7FFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C378735E186B4CC5009F7FFB /* Foundation.framework */; };
 		C3787361186B4CC5009F7FFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3787360186B4CC5009F7FFB /* CoreGraphics.framework */; };
@@ -39,7 +37,6 @@
 		C378736B186B4CC5009F7FFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C378736A186B4CC5009F7FFB /* main.m */; };
 		C378736F186B4CC5009F7FFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C378736E186B4CC5009F7FFB /* AppDelegate.m */; };
 		C3787372186B4CC6009F7FFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3787370186B4CC6009F7FFB /* Main.storyboard */; };
-		C3787375186B4CC6009F7FFB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3787374186B4CC6009F7FFB /* ViewController.m */; };
 		C3787377186B4CC7009F7FFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3787376186B4CC7009F7FFB /* Images.xcassets */; };
 		C378737E186B4CC7009F7FFB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C378737D186B4CC7009F7FFB /* XCTest.framework */; };
 		C378737F186B4CC7009F7FFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C378735E186B4CC5009F7FFB /* Foundation.framework */; };
@@ -76,8 +73,6 @@
 		C30F12DC18C1C5640011685C /* SMSWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSWindowViewController.h; sourceTree = "<group>"; };
 		C30F12DD18C1C5640011685C /* SMSWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSWindowViewController.m; sourceTree = "<group>"; };
 		C319F5F318EE1573007301E1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		C31BF5F918BF143D0002CC69 /* SampleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCell.h; sourceTree = "<group>"; };
-		C31BF5FA18BF143D0002CC69 /* SampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleCell.m; sourceTree = "<group>"; };
 		C31C989518C0384B002F9E6B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		C331E101194BB5B300A88D7A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C34153D418DA5D20003EB03B /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -103,8 +98,6 @@
 		C35D628718B6861200C9FB1F /* UIImage+so1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+so1.m"; sourceTree = "<group>"; };
 		C36261BC1888E65D008A172C /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		C36261BD1888E65D008A172C /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		C366947818B9D43100D2E2C9 /* PotentialFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PotentialFriend.h; sourceTree = "<group>"; };
-		C366947918B9D43100D2E2C9 /* PotentialFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PotentialFriend.m; sourceTree = "<group>"; };
 		C367A91A192938FF007744D0 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		C367A91B192938FF007744D0 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		C378735B186B4CC5009F7FFB /* Halfsies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfsies.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,8 +111,6 @@
 		C378736D186B4CC5009F7FFB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C378736E186B4CC5009F7FFB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C3787371186B4CC6009F7FFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C3787373186B4CC6009F7FFB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C3787374186B4CC6009F7FFB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C3787376186B4CC7009F7FFB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C378737C186B4CC7009F7FFB /* PhotoTest1-OGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PhotoTest1-OGTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C378737D186B4CC7009F7FFB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -280,10 +271,6 @@
 				C3D2FA8518E3EAAE0053C4E9 /* PFFile+NSCoding.m */,
 				C3D2FA8618E3EAAE0053C4E9 /* PFObject+NSCoding.h */,
 				C3D2FA8718E3EAAE0053C4E9 /* PFObject+NSCoding.m */,
-				C366947818B9D43100D2E2C9 /* PotentialFriend.h */,
-				C366947918B9D43100D2E2C9 /* PotentialFriend.m */,
-				C31BF5F918BF143D0002CC69 /* SampleCell.h */,
-				C31BF5FA18BF143D0002CC69 /* SampleCell.m */,
 				C367A91A192938FF007744D0 /* SearchViewController.h */,
 				C367A91B192938FF007744D0 /* SearchViewController.m */,
 				C30F12D918C1578B0011685C /* SendToFriendsViewController.h */,
@@ -295,8 +282,6 @@
 				C3787365186B4CC5009F7FFB /* Supporting Files */,
 				C35D628618B6861100C9FB1F /* UIImage+so1.h */,
 				C35D628718B6861200C9FB1F /* UIImage+so1.m */,
-				C3787373186B4CC6009F7FFB /* ViewController.h */,
-				C3787374186B4CC6009F7FFB /* ViewController.m */,
 			);
 			path = PhotoTest1;
 			sourceTree = "<group>";
@@ -447,7 +432,6 @@
 				C3D2FA8B18E3EAAE0053C4E9 /* PFObject+NSCoding.m in Sources */,
 				C344806B186F87BC00B9DB48 /* SignupViewController.m in Sources */,
 				C359D650191BD7460084F63A /* FindFriendsViewController.m in Sources */,
-				C3787375186B4CC6009F7FFB /* ViewController.m in Sources */,
 				C36261BE1888E65D008A172C /* Person.m in Sources */,
 				C35D628818B6861200C9FB1F /* UIImage+so1.m in Sources */,
 				C378736F186B4CC5009F7FFB /* AppDelegate.m in Sources */,
@@ -457,7 +441,6 @@
 				C393FA0E18C7F4BF00A12848 /* MediaCaptureVCResponse.m in Sources */,
 				C37C6AFF1933B568005572C1 /* FinalFindFriendsViewController.m in Sources */,
 				C3D28E3418B53D720012ACE9 /* MediaCaptureVC.m in Sources */,
-				C31BF5FB18BF143D0002CC69 /* SampleCell.m in Sources */,
 				C378736B186B4CC5009F7FFB /* main.m in Sources */,
 				C30F12DB18C1578B0011685C /* SendToFriendsViewController.m in Sources */,
 				C3D2FA8818E3EAAE0053C4E9 /* NSObject+Properties.m in Sources */,
@@ -468,7 +451,6 @@
 				C3A1311918C9920E0088F0F8 /* FinishedHalfsieVC.m in Sources */,
 				C30F12DE18C1C5650011685C /* SMSWindowViewController.m in Sources */,
 				C367A91C192938FF007744D0 /* SearchViewController.m in Sources */,
-				C366947A18B9D43100D2E2C9 /* PotentialFriend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

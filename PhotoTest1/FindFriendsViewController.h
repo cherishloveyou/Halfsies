@@ -11,42 +11,19 @@
 #import <Parse/Parse.h>
 #import "MBProgressHUD.h"
 
-
 @interface FindFriendsViewController : UIViewController <MBProgressHUDDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
-
 @property (nonatomic, strong) PFUser *currentUser;
-
-
-
 @property (nonatomic, retain) UITableView *addFriendsTableView;
-
 @property (nonatomic, strong) UITableViewCell *cell;
-
-
 @property (nonatomic, strong) UIButton *addFriendButton;
-
-
-
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
-
-
-
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @property (strong, nonatomic) MBProgressHUD *refreshHUD;
-
 @property (strong, nonatomic) NSMutableArray *friends;
-
 @property (strong, nonatomic) NSArray *parseUsers;
-
-
-
 
 -(void)handleBack;
 -(void)finishedAddingFriends;
-
-
-
-
 
 @end

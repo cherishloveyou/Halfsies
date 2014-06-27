@@ -10,17 +10,12 @@
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-//@property (strong, nonatomic) CustomLoginViewController *customLoginViewController;
-
-
-- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 
 - (void)userLoggedIn;
 - (void)userLoggedOut;
-
+- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 
 @end

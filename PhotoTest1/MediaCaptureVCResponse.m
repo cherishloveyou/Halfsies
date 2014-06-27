@@ -13,25 +13,15 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 
-
 @interface MediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (strong, nonatomic) NSData *imageData;
 @property (strong, nonatomic) NSString *photo;
-
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIImageView *imageView2;
-
 @property (strong, nonatomic) NSString *senderName;
 
-
-
-
-
--(UIImage*)rotate:(UIImageOrientation)orient;
-
-
-
+- (UIImage*)rotate:(UIImageOrientation)orient;
 
 @end
 

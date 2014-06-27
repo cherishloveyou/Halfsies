@@ -15,12 +15,8 @@
 
 @interface InboxViewController : UIViewController <UITableViewDataSource>
 
-- (void)setUpImages:(NSArray *)images;
-
 @property (nonatomic, strong) UITableViewCell *cell;
-
 @property (nonatomic, strong) PFObject *selectedMessage;
-
 @property (strong, nonatomic) IBOutlet UIImageView *settingsBackground;
 @property (strong, nonatomic) IBOutlet UIButton *findFriendsButton;
 @property (strong, nonatomic) IBOutlet UIButton *inviteFriendsButton;
@@ -31,6 +27,8 @@
 -(IBAction)hideSettings;
 -(IBAction)findFriends;
 -(IBAction)inviteFriends;
+
+- (void)setUpImages:(NSArray *)images;
 
 @end
 

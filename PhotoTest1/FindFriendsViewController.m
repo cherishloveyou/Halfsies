@@ -14,33 +14,15 @@
 #import <Parse/Parse.h>
 #import "MediaCaptureVC.h"
 #import "MBProgressHUD.h"
-
 #import "SMSWindowViewController.h"
-
 
 @interface FindFriendsViewController ()
 
-
-
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
 @property (strong, nonatomic) NSMutableArray *potentiaFriendsNotInParseFirstNamesArray;
 @property (strong, nonatomic) NSMutableArray *potentiaFriendsPhoneNumberArray;
-
-
-
 @property (strong, nonatomic) NSMutableArray *usersToInviteToHalfsies;
-
-
-
-
-
 @property (strong, nonatomic) NSString *numberValues;
-
-
-
 
 @end
 

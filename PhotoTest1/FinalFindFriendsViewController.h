@@ -14,5 +14,4 @@
 - (IBAction)inviteFriends;
 - (IBAction)addFriends;
 
-
 @end

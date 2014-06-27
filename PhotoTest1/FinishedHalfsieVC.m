@@ -16,17 +16,11 @@
 
 @interface FinishedHalfsieVC () <UIActionSheetDelegate, UIAlertViewDelegate>
 
-//@property (nonatomic, strong) FBSession *session;
-
 @property (strong, nonatomic) NSString *senderName;
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) NSString *recipientId;
 @property (strong, nonatomic) NSString *originalSender;
 @property (strong, nonatomic) NSString *twitterStatus;
-
-
-
-
 
 @end
 

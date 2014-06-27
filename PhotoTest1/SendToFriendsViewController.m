@@ -11,17 +11,12 @@
 #include <stdlib.h>
 #include "MediaCaptureVC.h"
 
-
 @interface SendToFriendsViewController ()
 
-//You still need to connect this outlet to the table view on the storyboard.
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @property (strong, nonatomic) NSArray *finalParseStrings;
 
--(void)uploadPhoto;
-
+- (void)uploadPhoto;
 
 @end
 

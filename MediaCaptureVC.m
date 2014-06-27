@@ -15,12 +15,7 @@
 
 @property (strong, nonatomic) NSData *imageData;
 @property (strong, nonatomic) UIImage *image;
-//@property (strong, nonatomic) CGImageRef *imageRef;
-
 @property (strong, nonatomic) UIImageView *imageView;
-
-
-
 
 @end
 

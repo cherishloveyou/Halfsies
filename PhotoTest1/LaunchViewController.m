@@ -9,11 +9,7 @@
 #import "LaunchViewController.h"
 #import "PotentialFriend.h"
 
-//
-
-
-
-@interface LaunchViewController () 
+@interface LaunchViewController ()
 
 @end
 

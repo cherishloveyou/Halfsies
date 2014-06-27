@@ -18,23 +18,13 @@
 @property (strong, nonatomic) NSString *uniqueVerificationCode;
 @property (strong, nonatomic) NSString *userSubmittedUsername;
 @property (strong, nonatomic) NSString *objectId;
-
 @property (strong, nonatomic) NSString *userSubmittedPassword;
 @property (strong, nonatomic) NSString *userSubmittedEmail;
-
-
-
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
-
--(IBAction)didTapSignup:(id)sender;
-
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-
-
-
-
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
-
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+
+- (IBAction)didTapSignup:(id)sender;
 
 @end

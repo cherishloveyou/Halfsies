@@ -13,24 +13,10 @@
 #import "MediaCaptureVC.h"
 #import "FindFriendsViewController.h"
 
-
-
-
 @interface InboxViewController ()
 
 @property (nonatomic, strong) NSArray *messages;
 @property (nonatomic, strong) NSArray *messages2and3;
-
-
-
-
-
-
-
-
-//@property (nonatomic, strong) NSArray *allMessages;
-
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

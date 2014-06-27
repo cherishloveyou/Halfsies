@@ -10,12 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVVideoSettings.h>
 #import "SendToFriendsViewController.h"
-
-
 #import <AudioToolbox/AudioToolbox.h>
-
-
-
 
 @interface MediaCaptureVC : UIViewController
 
