@@ -13,7 +13,7 @@
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABPerson.h>
 
-@interface InboxViewController : UIViewController <UITableViewDataSource>
+@interface InboxViewController : UIViewController
 
 @property (nonatomic, strong) UITableViewCell *cell;
 @property (nonatomic, strong) PFObject *selectedMessage;

@@ -26,48 +26,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
     [super viewWillAppear:NO];
-    
-    
     [self.navigationController setNavigationBarHidden:YES];
-    
-    
 }
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
 - (IBAction)cancelButton {
-    
-    
     [self performSegueWithIdentifier:@"finalFriendsToMediaCapture" sender:self];
-    
-    
 }
 
 - (IBAction)inviteFriends {
-    
     [self performSegueWithIdentifier:@"finalFriendsToFindFriends" sender:self];
-    
 }
 
 - (IBAction)addFriends {
-    
     [self.navigationController setNavigationBarHidden:NO];
-
-    
     [self performSegueWithIdentifier:@"finalFriendsToSearch" sender:self];
-    
 }
+
 @end

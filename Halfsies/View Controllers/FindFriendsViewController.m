@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 #import "SMSWindowViewController.h"
 
-@interface FindFriendsViewController ()
+@interface FindFriendsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *potentiaFriendsNotInParseFirstNamesArray;
@@ -27,9 +27,6 @@
 @end
 
 @implementation FindFriendsViewController
-
-
-
 
 - (void)viewDidLoad
 {
@@ -44,11 +41,7 @@
     self.HUD.mode = MBProgressHUDAnimationFade;
     self.HUD.labelText = @"Finding Friends";
     
-    
     [self performSelector:@selector(myTask) withObject:nil afterDelay:0.001];
-    
-    
-    
     
     [self.navigationController setNavigationBarHidden:NO];
     
@@ -84,7 +77,6 @@
     [self.navigationItem setBackBarButtonItem:nil];
     
     
-    
     //Create left bar button.
     
     CGRect frame2 = CGRectMake(0, 0, 25, 25);
@@ -106,25 +98,10 @@
     [self.navigationItem setHidesBackButton:YES animated:YES];
     [self.navigationItem setBackBarButtonItem:nil];
     
-    
-    
-    
-    
 }
 
-
-
-
 -(void)viewWillAppear:(BOOL)animated {
-    
-    
-    
-    
     [super viewWillAppear:NO];
-    
-    
-        
-    
 }
 
 
@@ -134,12 +111,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-
-
 
 -(void)myTask {
     
@@ -349,18 +320,7 @@
         
         
     }
-    
-    
-    
-        
-        
-        
-        
-    
-    
-    
-    
-    
+
     //Set table view's datasource and delegate.
     
     self.tableView.dataSource = self;

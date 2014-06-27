@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 #import "SMSWindowViewController.h"
 
-@interface AddFriendsViewController ()
+@interface AddFriendsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *potentiaFriendsNotInParseFirstNamesArray;

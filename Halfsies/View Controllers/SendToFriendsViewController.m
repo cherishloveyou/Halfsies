@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "MediaCaptureVC.h"
 
-@interface SendToFriendsViewController ()
+@interface SendToFriendsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *finalParseStrings;
