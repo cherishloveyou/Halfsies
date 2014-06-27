@@ -28,7 +28,6 @@
 		C347A961186FDEC000C3B662 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C347A960186FDEC000C3B662 /* SystemConfiguration.framework */; };
 		C359D650191BD7460084F63A /* FindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C359D64F191BD7460084F63A /* FindFriendsViewController.m */; };
 		C35D628818B6861200C9FB1F /* UIImage+so1.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D628718B6861200C9FB1F /* UIImage+so1.m */; };
-		C36261BE1888E65D008A172C /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = C36261BD1888E65D008A172C /* Person.m */; };
 		C367A91C192938FF007744D0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C367A91B192938FF007744D0 /* SearchViewController.m */; };
 		C378735F186B4CC5009F7FFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C378735E186B4CC5009F7FFB /* Foundation.framework */; };
 		C3787361186B4CC5009F7FFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3787360186B4CC5009F7FFB /* CoreGraphics.framework */; };
@@ -96,8 +95,6 @@
 		C359D64F191BD7460084F63A /* FindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFriendsViewController.m; sourceTree = "<group>"; };
 		C35D628618B6861100C9FB1F /* UIImage+so1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+so1.h"; sourceTree = "<group>"; };
 		C35D628718B6861200C9FB1F /* UIImage+so1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+so1.m"; sourceTree = "<group>"; };
-		C36261BC1888E65D008A172C /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		C36261BD1888E65D008A172C /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		C367A91A192938FF007744D0 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		C367A91B192938FF007744D0 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		C378735B186B4CC5009F7FFB /* Halfsies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfsies.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +188,6 @@
 		C3787352186B4CC3009F7FFB = {
 			isa = PBXGroup;
 			children = (
-				C36261BC1888E65D008A172C /* Person.h */,
-				C36261BD1888E65D008A172C /* Person.m */,
 				C35E5C6D18BD310000719B72 /* images */,
 				C3787364186B4CC5009F7FFB /* PhotoTest1 */,
 				C3787383186B4CC7009F7FFB /* PhotoTest1Tests */,
@@ -432,7 +427,6 @@
 				C3D2FA8B18E3EAAE0053C4E9 /* PFObject+NSCoding.m in Sources */,
 				C344806B186F87BC00B9DB48 /* SignupViewController.m in Sources */,
 				C359D650191BD7460084F63A /* FindFriendsViewController.m in Sources */,
-				C36261BE1888E65D008A172C /* Person.m in Sources */,
 				C35D628818B6861200C9FB1F /* UIImage+so1.m in Sources */,
 				C378736F186B4CC5009F7FFB /* AppDelegate.m in Sources */,
 				C3D2FA8918E3EAAE0053C4E9 /* PFACL+NSCoding.m in Sources */,
