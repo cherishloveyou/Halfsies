@@ -139,16 +139,12 @@
     self.finalParseStrings = [[NSArray alloc]init];
 
     
-    PFUser *currentUser = [PFUser currentUser];
     
-    NSString *string = [NSString stringWithFormat:@"%@", currentUser];
     
-    NSString *cURL=[self stringBetweenString:@"username = " andString:@";" withstring:string];
     
     
     //Creates a PFquery object called "query" and query's with a class name of @"_User" which basically represents the master class for our entire Parse DB.
     
-    //PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     
     //We then tell Parse, "Hey, now that we're accessing everything in the _User class, lets narrow it down to the username key(keys are columns in the Parse DB), and we only want to use the username key substring that is equal to whatever value is contained in our cURL object.
     
@@ -593,7 +589,6 @@
     
     if([segue.identifier isEqualToString:@"backToMediaCaptureVC"]) {
     
-    MediaCaptureVC *mvc = segue.destinationViewController;
         
     
     }

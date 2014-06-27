@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PotentialFriend.h"
 #import <Parse/Parse.h>
 #import "MBProgressHUD.h"
 

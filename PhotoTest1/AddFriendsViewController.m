@@ -12,8 +12,6 @@
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABPerson.h>
 #import <Parse/Parse.h>
-#import "Person.h"
-#import "PotentialFriend.h"
 #import "MediaCaptureVC.h"
 #import "MBProgressHUD.h"
 #import "SMSWindowViewController.h"

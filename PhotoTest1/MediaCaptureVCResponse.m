@@ -1096,7 +1096,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         //The below code should be used for complex "activity" sharing via open graph.
         
-        /*
+        
          // stage an image
          [FBRequestConnection startForUploadStagingResourceWithImage:self.finishedHalfsieImageView.image completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
          if(!error) {

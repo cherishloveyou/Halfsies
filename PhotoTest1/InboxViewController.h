@@ -28,7 +28,6 @@
 -(IBAction)findFriends;
 -(IBAction)inviteFriends;
 
-- (void)setUpImages:(NSArray *)images;
 
 @end
 

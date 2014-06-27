@@ -356,7 +356,6 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellButton.tag inSection:1];
     
     
-    UITableView *tableView = [[UITableView alloc]init];
     
 
     
@@ -391,8 +390,7 @@
         NSLog(@"BUTTON FOR SECOND SECTION PRESSED!");
 
     
-        UITableView *tableView = [[UITableView alloc]init];
-        
+    
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         
         cell = [_tableView cellForRowAtIndexPath:indexPath];
@@ -444,7 +442,6 @@
         NSLog(@"prepareForSegue to MediaCaptureVC.");
 
         
-        MediaCaptureVC *mvc = segue.destinationViewController;
         
         
         

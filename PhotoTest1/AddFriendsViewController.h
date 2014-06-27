@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PotentialFriend.h"
 #import <Parse/Parse.h>
 #import "MBProgressHUD.h"
 
@@ -21,6 +20,6 @@
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @property (strong, nonatomic) MBProgressHUD *refreshHUD;
 
--(IBAction)finishedAddingFriends:(id)sender;
+-(IBAction)finishedAddingFriends;
 
 @end

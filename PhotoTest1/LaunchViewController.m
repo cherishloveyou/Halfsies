@@ -7,7 +7,6 @@
 //
 
 #import "LaunchViewController.h"
-#import "PotentialFriend.h"
 
 @interface LaunchViewController ()
 
@@ -123,9 +122,7 @@
     
     
     
-    PotentialFriend *potentialFriend = [[PotentialFriend alloc]init];
-    potentialFriend.name = @"Steve";
-    NSLog(@"Is potentialFriend working?: %@", potentialFriend.name);
+   
     
 }
 
