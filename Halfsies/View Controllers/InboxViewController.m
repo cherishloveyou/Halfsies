@@ -13,7 +13,7 @@
 #import "MediaCaptureVC.h"
 #import "FindFriendsViewController.h"
 
-@interface InboxViewController ()
+@interface InboxViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *messages;
 @property (nonatomic, strong) NSArray *messages2and3;
@@ -630,14 +630,6 @@
                             NSLog(@"The retreivedArray2: %@", retrievedArray2);
                             
                             NSLog(@"Count of the retreivedArray2: %d", retrievedArray2.count);
-                            
-                            
-                            
-            
-             
-           
-            
-            
                     
                 }
             }];
@@ -649,14 +641,10 @@
         
     }];
     
-    
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
     self.cell = [[UITableViewCell alloc]init];
-    
-             
     
 }
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import "FindFriendsViewController.h"
+#import "AddFriendsViewController.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <AddressBook/ABAddressBook.h>
@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 #import "SMSWindowViewController.h"
 
-@interface FindFriendsViewController ()
+@interface AddFriendsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *potentiaFriendsNotInParseFirstNamesArray;
@@ -26,33 +26,16 @@
 
 @end
 
-@implementation FindFriendsViewController
-
-
-
+@implementation AddFriendsViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+
     self.currentUser = [PFUser currentUser];
-    
-    // Setup and show HUD here
-    
-    self.HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    self.HUD.mode = MBProgressHUDAnimationFade;
-    self.HUD.labelText = @"Finding Friends";
-    
-    
-    [self performSelector:@selector(myTask) withObject:nil afterDelay:0.001];
-    
-    
-    
-    
+
     [self.navigationController setNavigationBarHidden:NO];
-    
-    
+
     // Hide the back bar button item.
     
     
@@ -106,6 +89,14 @@
     [self.navigationItem setHidesBackButton:YES animated:YES];
     [self.navigationItem setBackBarButtonItem:nil];
     
+
+    
+    
+    //[self performSelector:@selector(myTask) withObject:nil afterDelay:0.001];
+    
+    
+    
+    
     
     
     
@@ -122,28 +113,14 @@
     
     [super viewWillAppear:NO];
     
-    
-        
+   
     
 }
 
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-
-
-
--(void)myTask {
+-(void)viewDidAppear:(BOOL)animated {
     
-    NSLog(@"myTask has been triggered.");
+    [super viewDidAppear:NO];
     
     
     
@@ -164,8 +141,6 @@
     
     
     self.numberValues = [[NSString alloc]init];
-    
-    self.friends = [[NSMutableArray alloc]init];
     
     
     
@@ -216,11 +191,46 @@
     }
     
     
+    if (accessGranted == 0) {
+        
+        NSLog(@"Access not granted.");
+        
+        //Hide the HUD
+        
+        //[self.HUD hide:YES];
+        
+        
+        
+        //Segue straight to the media capture VC.
+        
+        [self performSegueWithIdentifier:@"addFriendsToMediaCaptureSegue" sender:self];
+        
+        
+        
+        
+        //MediaCaptureVC *mvc = [[MediaCaptureVC alloc]init];
+        
+        //[self.navigationController pushViewController:mvc animated:NO];
+        
+    }
+    
+    
+      
     
     
     //If access is granted.
     
     if (accessGranted == 1) {
+        
+        
+        NSLog(@"Access granted.");
+        
+        
+        // Setup and show HUD here
+        
+        self.HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        self.HUD.mode = MBProgressHUDAnimationFade;
+        self.HUD.labelText = @"Finding Friends";
         
         
         NSArray *allContacts = (__bridge_transfer NSArray
@@ -253,11 +263,7 @@
             //Create phone number from contact's phone number property.
             
             ABMultiValueRef *phoneNumber = ABRecordCopyValue(contactPerson, kABPersonPhoneProperty);
-            
-            
-            
-            
-            
+
             NSMutableArray *numbers = [[NSMutableArray alloc]init];
             
             NSString *number = [[NSString alloc]init];
@@ -350,24 +356,10 @@
         
     }
     
-    
-    
-        
-        
-        
-        
-    
-    
-    
-    
-    
     //Set table view's datasource and delegate.
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
-    
-    
     
     //Hide the MBProgress HUD.
     
@@ -377,7 +369,28 @@
     
     [self.tableView reloadData];
     
+    
 }
+
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+
+
+
+
+-(void)myTask {
+    
+    NSLog(@"myTask has been triggered.");
+    
+   }
 
 
 
@@ -404,13 +417,12 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    NSLog(@"self.friends count is: %d", [self.friends count]);
     
-  
- 
+    
     return [self.potentiaFriendsNotInParseFirstNamesArray count];
-
-   
+    
+    
+    
     
 }
 
@@ -418,8 +430,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     
-        return @"Friends to Invite";
     
+    return @"Friends to Invite";
     
 }
 
@@ -437,49 +449,50 @@
     UITableViewCell  *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     
-        
-        NSString *firstNameForTableView2 = [self.potentiaFriendsNotInParseFirstNamesArray objectAtIndex:indexPath.row];
-        
-        //Create string from phone number in array.
-        
-        NSString *userNameForTableView2 = [self.potentiaFriendsPhoneNumberArray objectAtIndex:indexPath.row];
-        
-        
-        //Create cell button
-        
-        UIImage *addFriendButtonImage = [UIImage imageNamed:@"invitefriend1"];
-        UIImage *addFriendButtonImageHighlighted = [UIImage imageNamed:@"inviteselected1"];
-        
-        UIButton *addFriendButton = [[UIButton alloc]init];
-        
-        addFriendButton.frame = CGRectMake(237, 7, 70, 30);
-        
-        [addFriendButton setImage:addFriendButtonImage forState:UIControlStateNormal];
-        [addFriendButton setImage:addFriendButtonImageHighlighted forState:UIControlStateHighlighted];
-        [addFriendButton setImage:addFriendButtonImageHighlighted forState:UIControlStateSelected];
-        
-        [addFriendButton addTarget:self action:@selector(handleTouchUpInsideForNonUsers:) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        //Set cell button's tag property.
-        
-        addFriendButton.tag = indexPath.row;
-        
-        //Set cell's title.
-        
-        [cell.textLabel setText:firstNameForTableView2];
-        
-        //Set cell's subtitle.
-        
-        [cell.detailTextLabel setText:userNameForTableView2];
-        
-        //Add cell button to cell's content view.
-        
-        [cell.contentView addSubview:addFriendButton];
-  
-      
-        
+    //If first section of table view.
     
+    
+    
+    //Create string from first name in array.
+    
+    NSString *firstNameForTableView2 = [self.potentiaFriendsNotInParseFirstNamesArray objectAtIndex:indexPath.row];
+    
+    //Create string from phone number in array.
+    
+    NSString *userNameForTableView2 = [self.potentiaFriendsPhoneNumberArray objectAtIndex:indexPath.row];
+    
+    
+    //Create cell button
+    
+    UIImage *addFriendButtonImage = [UIImage imageNamed:@"invitefriend1"];
+    UIImage *addFriendButtonImageHighlighted = [UIImage imageNamed:@"inviteselected1"];
+    
+    UIButton *addFriendButton = [[UIButton alloc]init];
+    
+    addFriendButton.frame = CGRectMake(237, 7, 70, 30);
+    
+    [addFriendButton setImage:addFriendButtonImage forState:UIControlStateNormal];
+    [addFriendButton setImage:addFriendButtonImageHighlighted forState:UIControlStateHighlighted];
+    [addFriendButton setImage:addFriendButtonImageHighlighted forState:UIControlStateSelected];
+    
+    [addFriendButton addTarget:self action:@selector(handleTouchUpInsideForNonUsers:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //Set cell button's tag property.
+    
+    addFriendButton.tag = indexPath.row;
+    
+    //Set cell's title.
+    
+    [cell.textLabel setText:firstNameForTableView2];
+    
+    //Set cell's subtitle.
+    
+    [cell.detailTextLabel setText:userNameForTableView2];
+    
+    //Add cell button to cell's content view.
+    
+    [cell.contentView addSubview:addFriendButton];
     
     
     return cell;
@@ -548,12 +561,12 @@
         
         
         
-        [self performSegueWithIdentifier:@"findFriendsToMediaCaptureSegue" sender:self];
+        [self performSegueWithIdentifier:@"addFriendsToMediaCaptureSegue" sender:self];
         
         
     } else {
         
-        [self performSegueWithIdentifier:@"findFriendsToSMSWindowSegue" sender:self];
+        [self performSegueWithIdentifier:@"addFriendsToSMSWindowSegue" sender:self];
         
         [self.navigationController setNavigationBarHidden:YES];
         
@@ -566,7 +579,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self {
     
     
-    if ([segue.identifier isEqualToString:@"findFriendsToSMSWindowSegue"]) {
+    if ([segue.identifier isEqualToString:@"addFriendsToSMSWindowSegue"]) {
         
         
         
@@ -604,16 +617,10 @@
 
 -(void)handleBack {
     
-    NSLog(@"handleBack button pressed.");
     
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
     
-    
-       
     
 }
-
-
-
 
 @end

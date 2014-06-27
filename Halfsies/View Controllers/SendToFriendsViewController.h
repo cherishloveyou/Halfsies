@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface SendToFriendsViewController : UIViewController <UITableViewDataSource, UIAlertViewDelegate>
+@interface SendToFriendsViewController : UIViewController <UIAlertViewDelegate>
 
 @property (nonatomic, strong) PFRelation *friendsRelation;
 @property (nonatomic, strong) NSArray *friends;
