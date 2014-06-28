@@ -55,8 +55,8 @@
         return;
     }
     
-    NSArray *recipents = _usersToInviteToHalfsies;
-    NSString *message = _textMessageInviteText;
+    NSArray *recipents = self.usersToInviteToHalfsies;
+    NSString *message = self.textMessageInviteText;
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;

@@ -97,13 +97,13 @@
     
     NSLog(@"after");
     
-    [_usernameEntry setDelegate:self];
-    [_passwordEntry setDelegate:self];
+    [self.usernameEntry setDelegate:self];
+    [self.passwordEntry setDelegate:self];
     
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
 
     
-    [_usernameEntry setText:[standardDefaults objectForKey:@"username"]];
+    [self.usernameEntry setText:[standardDefaults objectForKey:@"username"]];
     
     
      NSLog(@"NSLOG FOR THE NSUSERDEFAULT testing: %@", [standardDefaults objectForKey:@"testing"]);
@@ -125,17 +125,17 @@
     
     
     
-    NSString *user = [_usernameEntry text];
-    NSString *pass = [_passwordEntry text];
+    NSString *user = [self.usernameEntry text];
+    NSString *pass = [self.passwordEntry text];
     
     if ([user length] < 4 || [pass length] < 4) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Entry" message:@"Username and Password must both be at least 4 characters long." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alert show];
     } else {
-        [_activityIndicator startAnimating];
+        [self.activityIndicator startAnimating];
         
         [PFUser logInWithUsernameInBackground:user password:pass block:^(PFUser *user, NSError *error) {
-            [_activityIndicator stopAnimating];
+            [self.activityIndicator stopAnimating];
             if (user) {
                 NSLog(@"Successful login");
                 
@@ -164,11 +164,11 @@
     
     if(textField.tag == 1) {
         
-        [_passwordEntry becomeFirstResponder];
+        [self.passwordEntry becomeFirstResponder];
         
     } else {
         
-        [_passwordEntry resignFirstResponder];
+        [self.passwordEntry resignFirstResponder];
         
         [self didTapLoginButton:self];
     }
@@ -185,7 +185,7 @@
     
     if (buttonIndex == 0) {
         
-        [_passwordEntry becomeFirstResponder];
+        [self.passwordEntry becomeFirstResponder];
 
         
         

@@ -363,7 +363,7 @@
     
 
     
-    cell = [_tableView cellForRowAtIndexPath:indexPath];
+    cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
 
     
@@ -393,7 +393,7 @@
     
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         
-        cell = [_tableView cellForRowAtIndexPath:indexPath];
+        cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
         self.selectedMessage = [self.messages2and3 objectAtIndex:indexPath.row];
        

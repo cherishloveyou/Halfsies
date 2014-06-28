@@ -120,9 +120,9 @@
     }];
     
     
-    NSLog(@"Was the halfsies photo received? %@", _halfsiesPhotoToSend);
+    NSLog(@"Was the halfsies photo received? %@", self.halfsiesPhotoToSend);
     
-    //[_halfsiesPhotoToSend]
+    //[self.halfsiesPhotoToSend]
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -222,19 +222,19 @@
             
             int index;
             
-            for(index = 0; index < _finalParseStrings.count; index++) {
+            for(index = 0; index < self.finalParseStrings.count; index++) {
                 
                 NSString *string = [[NSString alloc]init];
                 
                 //The individual strings pulled out of the array are placed in "string".
                 
-                string = _finalParseStrings[index];
+                string = self.finalParseStrings[index];
                 
-                NSLog(@"all good string count1: %d", _finalParseStrings.count);
+                NSLog(@"all good string count1: %d", self.finalParseStrings.count);
 
             }
 
-            NSLog(@"all good string count2: %d", _finalParseStrings.count);
+            NSLog(@"all good string count2: %d", self.finalParseStrings.count);
 
             [self.tableView reloadData];
         } }
@@ -340,7 +340,7 @@
         
         sendToUserButton.tag = indexPath.row;
         
-        NSLog(@"THE USER BUTTON TAG IS: %ld", (long)_sendToUserButton.tag);
+        NSLog(@"THE USER BUTTON TAG IS: %ld", (long)self.sendToUserButton.tag);
         
     
         
@@ -351,7 +351,7 @@
         [cell.contentView addSubview:sendToUserButton];
         
         
-        NSLog(@"Has the state of the button changed? %u", _sendToUserButton.state);
+        NSLog(@"Has the state of the button changed? %u", self.sendToUserButton.state);
         
     
     
@@ -376,7 +376,7 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
-    cell = [_tableView cellForRowAtIndexPath:indexPath];
+    cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     //This takes all of the extra blank space out of the username before we place it inside the array.
     
@@ -390,9 +390,9 @@
         
         PFUser *user = [self.friends objectAtIndex:indexPath.row];
         
-        [_recipients addObject:user.objectId];
+        [self.recipients addObject:user.objectId];
         
-        NSLog(@"CONTENTS OF ARRAY 1: %@", _recipients);
+        NSLog(@"CONTENTS OF ARRAY 1: %@", self.recipients);
         
     } else {
         
@@ -400,9 +400,9 @@
         
         PFUser *user = [self.friends objectAtIndex:indexPath.row];
 
-        [_recipients removeObject:user.objectId];
+        [self.recipients removeObject:user.objectId];
         
-        NSLog(@"CONTENTS OF ARRAY 2: %@", _recipients);
+        NSLog(@"CONTENTS OF ARRAY 2: %@", self.recipients);
         
     }
     

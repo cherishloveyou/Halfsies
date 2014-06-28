@@ -98,9 +98,9 @@
     
     
     
-    [_usernameEntry setDelegate:self];
-    [_passwordEntry setDelegate:self];
-    [_emailEntry setDelegate:self];
+    [self.usernameEntry setDelegate:self];
+    [self.passwordEntry setDelegate:self];
+    [self.emailEntry setDelegate:self];
     
 
 }
@@ -115,13 +115,13 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     if (textField.tag == 1) {
-        [_usernameEntry becomeFirstResponder];
+        [self.usernameEntry becomeFirstResponder];
     } else if (textField.tag == 2) {
-        [_passwordEntry becomeFirstResponder];
+        [self.passwordEntry becomeFirstResponder];
         
     } else {
         
-        [_passwordEntry resignFirstResponder];
+        [self.passwordEntry resignFirstResponder];
         
         [self didTapSignup:self];
         
@@ -141,9 +141,9 @@
 
 - (IBAction)didTapSignup:(id)sender {
     
-    NSString *user = [_usernameEntry text];
-    NSString *pass = [_passwordEntry text];
-    NSString *email = [_emailEntry text];
+    NSString *user = [self.usernameEntry text];
+    NSString *pass = [self.passwordEntry text];
+    NSString *email = [self.emailEntry text];
     
     self.userSubmittedUsername = user;
     self.userSubmittedPassword = pass;
@@ -238,7 +238,7 @@
     
     if (buttonIndex == 0) {
         
-        [_emailEntry becomeFirstResponder];
+        [self.emailEntry becomeFirstResponder];
         
         
         
@@ -254,7 +254,7 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if(textField == _usernameEntry || textField == _passwordEntry)
+    if(textField == self.usernameEntry || textField == self.passwordEntry)
     {
         
         NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"];

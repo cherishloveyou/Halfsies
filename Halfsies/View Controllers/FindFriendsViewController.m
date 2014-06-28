@@ -464,7 +464,7 @@
     
     
     UITableViewCell *cell = [[UITableViewCell alloc]init];
-    cell = [_tableView cellForRowAtIndexPath:indexPath];
+    cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     
     
@@ -474,17 +474,17 @@
         
         NSLog(@"Crash area?");
         
-        [_usersToInviteToHalfsies addObject:cell.detailTextLabel.text];
+        [self.usersToInviteToHalfsies addObject:cell.detailTextLabel.text];
         
-        NSLog(@"CONTENTS OF ARRAY 3: %@", _usersToInviteToHalfsies);
+        NSLog(@"CONTENTS OF ARRAY 3: %@", self.usersToInviteToHalfsies);
         
     } else {
         
         //This removes the username from the array.
         
-        [_usersToInviteToHalfsies removeObject:cell.detailTextLabel.text];
+        [self.usersToInviteToHalfsies removeObject:cell.detailTextLabel.text];
         
-        NSLog(@"CONTENTS OF ARRAY 4: %@", _usersToInviteToHalfsies);
+        NSLog(@"CONTENTS OF ARRAY 4: %@", self.usersToInviteToHalfsies);
         
     }
     
@@ -497,14 +497,14 @@
     
     
     
-    NSLog(@"Pulling phone numbers properly?: %@", _usersToInviteToHalfsies);
+    NSLog(@"Pulling phone numbers properly?: %@", self.usersToInviteToHalfsies);
     
     
     
     //This will segue to the next VC which is the Media Capture VC.
     
     
-    if(![_usersToInviteToHalfsies count]) {
+    if(![self.usersToInviteToHalfsies count]) {
         
         
         
@@ -540,7 +540,7 @@
         
         //The below statements are all about passing data to the next VC so we can properly launch the SMS text message invite window.
         
-        //This set's the media capture's VC property called "usersToInviteToHalfsies" to the phone numbers that are currently in this view controller's "_usersToInviteHalfsies" array.
+        //This set's the media capture's VC property called "usersToInviteToHalfsies" to the phone numbers that are currently in this view controller's "self.usersToInviteHalfsies" array.
         
         smsVC.usersToInviteToHalfsies = _usersToInviteToHalfsies;
         

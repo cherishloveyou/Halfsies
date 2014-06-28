@@ -127,7 +127,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     [self.navigationController setNavigationBarHidden:YES];
     
     
-    NSLog(@"Just finished signing up? %@", _justFinishedSigningUp);
+    NSLog(@"Just finished signing up? %@", self.justFinishedSigningUp);
     
     NSLog(@"Were the phone numbers passed from the add friends VC? %@", self.usersToInviteToHalfsies);
     NSLog(@"Was the text message body passed from the add friends VC? %@", self.textMessageInviteText);
@@ -164,14 +164,14 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:&error];
     
-    NSLog(@"Currently using this device: %@", _deviceInput.device);
+    NSLog(@"Currently using this device: %@", self.deviceInput.device);
     
     
     if([self.session canAddInput:self.deviceInput])
         [self.session addInput:self.deviceInput];
     
     
-    _previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:_session];
+    self.previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:self.session];
     
   
     
@@ -182,14 +182,14 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     [self.rootLayer setMasksToBounds:YES];
     
     
-    [_previewLayer setFrame:CGRectMake(0, self.rootLayer.bounds.size.height/2, self.rootLayer.bounds.size.width, self.rootLayer.bounds.size.height/2)];
+    [self.previewLayer setFrame:CGRectMake(0, self.rootLayer.bounds.size.height/2, self.rootLayer.bounds.size.width, self.rootLayer.bounds.size.height/2)];
     
     NSLog(@"The root layer's y coordinate: %f", self.rootLayer.bounds.size.height/2);
     
-    [_previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
     
-    [self.rootLayer insertSublayer:_previewLayer atIndex:0];
+    [self.rootLayer insertSublayer:self.previewLayer atIndex:0];
     
     
     
@@ -209,7 +209,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     
     
-    [_session startRunning];
+    [self.session startRunning];
     
     
     
@@ -267,7 +267,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
         
     }
     
-    CGFloat widthToHeightRatio = _previewLayer.bounds.size.width / _previewLayer.bounds.size.height;
+    CGFloat widthToHeightRatio = self.previewLayer.bounds.size.width / self.previewLayer.bounds.size.height;
     
     CGRect cropRect;
     // Set the crop rect's smaller dimension to match the image's smaller dimension, and
@@ -633,23 +633,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         
-        [_session removeInput:_deviceInput];
+        [self.session removeInput:self.deviceInput];
         
-        [_session removeOutput:_stillImageOutput];
+        [self.session removeOutput:self.stillImageOutput];
         
-        [_session stopRunning];
+        [self.session stopRunning];
         
         
         
-        _session = nil;
+        self.session = nil;
         
-        _inputDevice = nil;
+        self.inputDevice = nil;
         
-        _deviceInput = nil;
+        self.deviceInput = nil;
         
-        _previewLayer = nil;
+        self.previewLayer = nil;
         
-        _stillImageOutput = nil;
+        self.stillImageOutput = nil;
         
         self.imageData = nil;
         self.image = nil;
@@ -674,21 +674,21 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
-    if (actionSheet == _xButtonAfterPhotoTaken && buttonIndex == 0)
+    if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 0)
     {
         //[self performSegueWithIdentifier:@"backToHomeFromMediaCaptureVC" sender:self];
         
         //Now, after the user has captured a photo, if they press the "Delete" button on the action sheet, it will call this method below which basically refreshes the sublayer.
         
-        //[_subLayer setNeedsDisplay];
+        //[self.subLayer setNeedsDisplay];
         
-        //We set the _afterPhotoView to hidden "YES" becuase this is the UIView we display only after the photo is taken.
+        //We set the self.afterPhotoView to hidden "YES" becuase this is the UIView we display only after the photo is taken.
         
-        [_afterPhotoView setHidden:YES];
+        [self.afterPhotoView setHidden:YES];
         
-        //We set the _takingPhotoView back to hidden "NO" because this is the view we want for a fresh camera interface.
+        //We set the self.takingPhotoView back to hidden "NO" because this is the view we want for a fresh camera interface.
         
-        [_takingPhotoView setHidden:NO];
+        [self.takingPhotoView setHidden:NO];
         
         self.image = nil;
         self.bottomHalfView.image = nil;
@@ -725,8 +725,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         self.imageData = nil;
         self.image = nil;
         
-        NSLog(@"hasUserTakenAPhoto should be NO? %@", _hasUserTakenAPhoto);
-        //NSLog(@"Was subLayer deleted? %@", _subLayer);
+        NSLog(@"hasUserTakenAPhoto should be NO? %@", self.hasUserTakenAPhoto);
+        //NSLog(@"Was subLayer deleted? %@", self.subLayer);
         NSLog(@"Was imageData deleted? %@", self.imageData);
         NSLog(@"Was image deleted? %@", self.image);
         
@@ -1308,14 +1308,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         desiredPosition = AVCaptureDevicePositionFront;
     
     for (_inputDevice in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-        if ([_inputDevice position] == desiredPosition) {
-            [[_previewLayer session] beginConfiguration];
-            _deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_inputDevice error:nil];
-            for (AVCaptureInput *oldInput in [[_previewLayer session] inputs]) {
-                [[_previewLayer session] removeInput:oldInput];
+        if ([self.inputDevice position] == desiredPosition) {
+            [[self.previewLayer session] beginConfiguration];
+            self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:nil];
+            for (AVCaptureInput *oldInput in [[self.previewLayer session] inputs]) {
+                [[self.previewLayer session] removeInput:oldInput];
             }
-            [[_previewLayer session] addInput:_deviceInput];
-            [[_previewLayer session] commitConfiguration];
+            [[self.previewLayer session] addInput:self.deviceInput];
+            [[self.previewLayer session] commitConfiguration];
             break;
         }
     }
@@ -1383,11 +1383,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         //AddFriendsViewController *addFriendsVC = segue.destinationViewController;
         SendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
         
-        //We then set the verifyViewController object that we just created to the property of uniqueVerificationCode which we set equal to the value that is stored inside _uniqueVerificationCode.
+        //We then set the verifyViewController object that we just created to the property of uniqueVerificationCode which we set equal to the value that is stored inside self.uniqueVerificationCode.
         
-        //addFriendsVC.uniqueVerificationCode = _uniqueVerificationCode;
+        //addFriendsVC.uniqueVerificationCode = self.uniqueVerificationCode;
         
-        //UIImage* image2 = [UIImage imageWithCGImage:(__bridge CGImageRef)(_subLayer.contents)];
+        //UIImage* image2 = [UIImage imageWithCGImage:(__bridge CGImageRef)(self.subLayer.contents)];
         
         
         sendFriendsVC.halfsiesPhotoToSend = _image;
