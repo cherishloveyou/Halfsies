@@ -16,26 +16,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    //self.backgroundImage.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
     self.backgroundImage.image = [UIImage imageNamed:@"launchBackgroundSignup"];
     
     
     UIImage* firstButtonImage = [UIImage imageNamed:@"nextbutton3"];
     
-    NSLog(@"size of image: %@", NSStringFromCGSize(firstButtonImage.size));
-    
-    
-    
-    
-    
-    
-    
-    
-    
     CGRect frame = CGRectMake(0, 0, 70, 30);
     
-    //I think 30 is a good height. Now just increase the width.
     
     UIButton * someButton = [[UIButton alloc] initWithFrame:frame];
     [someButton setBackgroundImage:firstButtonImage forState:UIControlStateNormal];
@@ -70,31 +58,10 @@
     
     
     
-   /* UIImage* backButtonImage = [UIImage imageNamed:@"nextbutton2"];;
-    
-    NSLog(@"size of image: %@", NSStringFromCGSize(firstButtonImage.size));
-    
-    
-    CGRect frame2 = CGRectMake(0, 0, 30, 30);
-    
-    //I think 30 is a good height. Now just increase the width.
-    
-    UIButton * someButton2 = [[UIButton alloc] initWithFrame:frame2];
-    [someButton2 setBackgroundImage:backButtonImage forState:UIControlStateNormal];
-    [someButton2 addTarget:self action:@selector(didTapSignup:)
-         forControlEvents:UIControlEventTouchUpInside];
-    
-    self.backBarButton = [[UIBarButtonItem alloc] initWithCustomView:someButton2];
-    
-    self.navItem.backBarButtonItem = self.backBarButton;
-    
-    
-    */
     
     [self.emailEntry becomeFirstResponder];
     
     
-    //Here you are calling the registerForKeyboardNotifications method that you have implemented below.
     
     
     
@@ -125,18 +92,9 @@
         
         [self didTapSignup:self];
         
-        //[textField resignFirstResponder];
     }
     return YES;
 }
-
-// Below is our prepareForSegue code and I had to add this because it is needed whenever you want to pass data between View Controllers. This enables us to pass the 4 digit code generated in this VC(Signup), to the Verification View Controller.
-
-// Implements the function prepareForSegue with the input of a UIStoryboardSegue object called segue.
-
-
-
-
 
 
 - (IBAction)didTapSignup:(id)sender {
@@ -149,10 +107,7 @@
     self.userSubmittedPassword = pass;
     self.userSubmittedEmail = email;
     
-    
-    NSLog(@"%@", user);
-    NSLog(@"%@", pass);
-    NSLog(@"%@", email);
+  
     
     if ([user length] < 3 || [pass length] < 4) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Entry" message:@"Username and Password must both be at least 4 characters long." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
@@ -185,20 +140,11 @@
                 
                 
                 
-                NSLog(@"No errors in signup process");
-                
-                NSLog(@"New user's objectId in Parse Database: %@", newUser.objectId);
-                
                 self.objectId = newUser.objectId;
-                
-                NSLog(@"New user's objectId placed inside this VC's objectId property object: %@", self.objectId);
-
-                
-                //This calls the performSegueWithIdentifier method and actually performs the segue to the Verification View Controller.
+              
                 
                 if(succeeded == 1) {
                     
-                    NSLog(@"Succeeded value right before segue: %d", succeeded);
                     
                     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
                     
@@ -207,11 +153,7 @@
                     
                     [standardDefaults setObject:user forKey:@"username"];
                     [standardDefaults synchronize];
-                    
-                    NSLog(@"NSLOG FOR THE NSUSERDEFAULT username: %@", [standardDefaults objectForKey:@"username"]);
-                    
-                    
-
+                   
                 [self performSegueWithIdentifier:@"signupToAddFriendsSegue" sender:self];
                     
                 

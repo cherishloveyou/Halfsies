@@ -56,9 +56,6 @@ int myCfunction(int a)
     
     [super viewDidLoad];
     
-    NSLog(@"MediaCaptureVC has loaded");
-    
-    NSLog(@"%d", myCfunction(27));
     
 
     self.takingPhotoView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height    );
@@ -68,16 +65,7 @@ int myCfunction(int a)
     self.topHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
     
     
-    NSLog(@"Is takingPhotoView hidden? %d", [self.takingPhotoView isHidden]);
-    NSLog(@"Is afterPhotoView hidden? %d", [self.afterPhotoView isHidden]);
-    NSLog(@"Is topHalfView hidden? %d", [self.topHalfView isHidden]);
-
-    NSLog(@"are they null? %@", self.takingPhotoView);
     
-    
-    NSLog(@"takingPhotoView frame: %@", NSStringFromCGRect(self.takingPhotoView.frame));
-    NSLog(@"afterPhotoView frame: %@", NSStringFromCGRect(self.afterPhotoView.frame));
-    NSLog(@"topHalfview frame: %@", NSStringFromCGRect(self.topHalfView.frame));
 
     
     
@@ -90,20 +78,7 @@ int myCfunction(int a)
     [self.view addSubview:self.imageView];
 
     
-   /* if([self.justFinishedSigningUp isEqual:@"YES"]) {
-        
-        
-        //[self performSelector:@selector(showSMS)];
-        [self showSMS];
-
-        
-        
-    } */
     
-    NSLog(@"Just finished signing up? %@", self.justFinishedSigningUp);
-    
-    NSLog(@"Were the phone numbers passed from the add friends VC? %@", self.usersToInviteToHalfsies);
-    NSLog(@"Was the text message body passed from the add friends VC? %@", self.textMessageInviteText);
     
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         // iOS 7
@@ -126,7 +101,6 @@ int myCfunction(int a)
   
     
     self.inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
     NSLog(@"The current device position is: %d", self.inputDevice.position);
     
     
@@ -136,7 +110,6 @@ int myCfunction(int a)
     
     self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:&error];
     
-    NSLog(@"Currently using this device: %@", self.deviceInput.device);
     
     
     if([self.session canAddInput:self.deviceInput])
@@ -150,29 +123,14 @@ int myCfunction(int a)
     
     [rootLayer setMasksToBounds:YES];
     
-    //zzzzzzz
     
     [self.previewLayer setFrame:CGRectMake(0, 0, rootLayer.bounds.size.width, rootLayer.bounds.size.height/2)];
     
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
     
-    NSLog(@"THE FRAME: %@", NSStringFromCGRect(self.previewLayer.frame));
-    
-    NSLog(@"Coordinates 1: %f", rootLayer.bounds.size.width);
-    NSLog(@"Coordinates 2: %f", rootLayer.bounds.size.height/2);
-    
-    
     [rootLayer insertSublayer:self.previewLayer atIndex:0];
 
-
-   // self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    
-    
-    
-    
-    
-    
     
     self.videoOutput = [[AVCaptureVideoDataOutput alloc] init];
     self.videoOutput.videoSettings = @{ (NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA) };
@@ -186,7 +144,6 @@ int myCfunction(int a)
     
     
     
-    //[self.session addOutput:self.stillImageOutput];
     
     [self.session startRunning];
     
@@ -234,56 +191,33 @@ int myCfunction(int a)
 
 -(IBAction)stillImageCapture {
     
-    //play then shutter.wav sound
-    //AudioServicesPlaySystemSound(SoundID);
+    
     
     AudioServicesPlaySystemSound(1108);
 
     
-   /* NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"shutter" ofType: @"wav"];
-    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:soundFilePath ];
-    self.myAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-    //self.myAudioPlayer.numberOfLoops = 0; //infinite loop
-    [self.myAudioPlayer play]; */
-
     
     
     self.imageData = [[NSData alloc]init];
-    //self.image = [[UIImage alloc]init];
     
     self.hasUserTakenAPhoto = @"YES";
     
     [self.session stopRunning];
 
     
-    NSLog(@"self.image: %@", self.image);
-    NSLog(@"self.image.size: %@", NSStringFromCGSize(self.image.size));
-    
-    
     
     
             if(self.inputDevice.position == 2) {
            
-            //self.subLayer.frame = self.previewLayer.frame;
                 
-                NSLog(@"Input device position 2! It's a selfie!");
-
-            
                 self.image = [self rotate:UIImageOrientationRightMirrored];
 
                 
-                NSLog(@"self.image: %@", self.image);
-                NSLog(@"self.image.size: %@", NSStringFromCGSize(self.image.size));
-                
-            
             } else {
                 
                 
                 
                 self.image = [self rotate:UIImageOrientationRight];
-                
-                NSLog(@"self.image: %@", self.image);
-                NSLog(@"self.image.size after rotation: %@", NSStringFromCGSize(self.image.size));
                 
                 
                 
@@ -313,7 +247,6 @@ int myCfunction(int a)
                 cropRect.origin.x = 0;
                 cropRect.origin.y = (self.image.size.height - cropRect.size.height)/2.0;
                 
-                NSLog(@"Y Math: %f", (self.image.size.height - cropRect.size.height));
 
                 
             } else {
@@ -326,7 +259,7 @@ int myCfunction(int a)
                 
                 float cropValueDoubled = self.image.size.height - 568;
                 
-                //852 - 480 =
+                
                 
                //So we need to create a new float and set it equal to the doubled value divided by 2.
             
@@ -356,12 +289,6 @@ int myCfunction(int a)
     
             CGRect cropRectFinal = CGRectMake(cropRect.origin.x, finalXValueForCrop, cropRect.size.width, 568);
     
-    //CGRect cropRectFinal = CGRectMake(cropRect.origin.x, finalXValueForCrop, cropRect.size.width, 568);
-
-    
-            NSLog(@"cropRectFinal: %@", NSStringFromCGRect(cropRectFinal));
-
-    
                 CGImageRef imageRef = CGImageCreateWithImageInRect([self.image CGImage], cropRectFinal);
     
     
@@ -385,7 +312,6 @@ int myCfunction(int a)
             
             if ([self.hasUserTakenAPhoto isEqual:@"YES"] && self.inputDevice.position == 2) {
                 
-                NSLog(@"Logic");
                 
                 
                 [self.takingPhotoView setHidden:YES];
@@ -397,12 +323,11 @@ int myCfunction(int a)
                 
                 // We take the screenshot right after we set the image.
 
-                NSLog(@"self.image size before screenshot: %@", NSStringFromCGSize(self.image.size));
+                
 
                 
                 self.image = [self screenshot];
                 
-                NSLog(@"self.image size after screenshot: %@", NSStringFromCGSize(self.image.size));
                 
                 // Because the image is bigger than half the screen on a 3.5 inch phone, we set the topHalfView to hidden right after we take the screenshot. This allows us to capture our 4 inch half screenshot without the user noticing a "half" view that is actually too large.
                 
@@ -421,7 +346,6 @@ int myCfunction(int a)
                 
                 
                 
-                NSLog(@"Not a selfie");
                 
                 
                 [self.takingPhotoView setHidden:YES];
@@ -460,30 +384,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
     
-    NSLog(@"1: %@", self.image.description);
-    
-    
-    // Create a UIImage from the sample buffer data
-    
-    // You are manually calling this.
-    
-    
-    
     
     self.image = [self imageFromSampleBuffer:sampleBuffer];
     
     
-    NSLog(@"self.image.size: %@", NSStringFromCGSize(self.image.size));
-    
-    //self.image = [self rotate:UIImageOrientationRight];
-    
-    //self.topHalfView.image = self.image;
-    
-    
-    
-    //< Add your code here that uses the image >
-    
-    //NSLog(@"2: %@", self.image.description);
     
 }
 
@@ -631,13 +535,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice *device in devices) {
         
-        NSLog(@"Does this device support flash? %d", [device hasFlash]);
-        NSLog(@"Does this device support torch? %d", [device hasTorch]);
+        
         
         
         if ([device hasTorch] == YES) {
             
-            NSLog(@"Current Device Torch Mode: %d", device.torchMode);
             
             
             [device lockForConfiguration:nil];
@@ -645,29 +547,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             if(device.torchMode == 0) {
                 
-                //[device setFlashMode:AVCaptureFlashModeOn];
                 [device setTorchMode:AVCaptureTorchModeOn];
-                
-                NSLog(@"New device flash mode: %d", device.flashMode);
-                NSLog(@"New device torch mode: %d", device.torchMode);
-                
-                
                 
                 
             } else if (device.torchMode == 1) {
                 
-                //[device setFlashMode:AVCaptureFlashModeOff];
                 [device setTorchMode:AVCaptureTorchModeOff];
-                
-                
-                NSLog(@"New device flash mode: %d", device.flashMode);
-                NSLog(@"New device torch mode: %d", device.torchMode);
-                
-                
                 
             } else if (device.torchMode == 2) {
                 
-                //[device setFlashMode:AVCaptureFlashModeOn];
                 [device setTorchMode:AVCaptureTorchModeOn];
                 
                 
@@ -793,9 +681,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(IBAction)xButton {
     
-    NSLog(@"Has the user take a photo? %@", self.hasUserTakenAPhoto);
-    
-    //NSString *title;
     
     //Check the global variable "hasUserTakenAPhoto" to see if it contains the string "YES"
     
@@ -809,9 +694,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     } else {
         
     
-        //[self.session removeInput:self.deviceInput];
         
-        //[self.session removeOutput:self.stillImageOutput];
         
         [self.session stopRunning];
         
@@ -844,12 +727,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
     if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 0)
     {
-        //[self performSegueWithIdentifier:@"backToHomeFromMediaCaptureVC" sender:self];
-        
-        //Now, after the user has captured a photo, if they press the "Delete" button on the action sheet, it will call this method below which basically refreshes the sublayer.
-        
-        
-        //We set the self.afterPhotoView to hidden "YES" becuase this is the UIView we display only after the photo is taken.
         
         [self.afterPhotoView setHidden:YES];
         
@@ -869,9 +746,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if (buttonIndex == actionSheet.destructiveButtonIndex)
     {
-        // Do something...
-        
-        NSLog(@"DELETE BUTTON HAS BEEN PRESSED!");
         
         self.hasUserTakenAPhoto = @"NO";
         
@@ -880,13 +754,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         self.imageData = nil;
         self.image = nil;
         
-        
-        
-        NSLog(@"hasUserTakenAPhoto should be NO? %@", self.hasUserTakenAPhoto);
-        NSLog(@"Was subLayer deleted? %@", self.subLayer);
-        NSLog(@"Was imageData deleted? %@", self.imageData);
-        NSLog(@"Was image deleted? %@", self.image);
-
+    
     }
     
     
@@ -896,7 +764,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
 {
-    NSLog(@"Canceled");
+    
 }
 
 
@@ -985,7 +853,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
-//This is the method implementation that handles someof the MFMessageComposeViewController's functionality.
+//This is the method implementation that handles some of the MFMessageComposeViewController's functionality.
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
@@ -1020,19 +888,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self {
     
-    // This is our actual implmenetation body code which starts with an if statement. This says "If our segue identifier is equal to signupYoVerificationSegue then do this...
+    
     if ([segue.identifier isEqualToString:@"mediaCaptureToSendToFriendsSegue"]) {
         
-        //If the string IS equal to signupToVerificationSegue then we create a new object of our  custom View Controller class VerificationViewController and we set the value of this object to the segue property of destinationViewController.
-        
-        //AddFriendsViewController *addFriendsVC = segue.destinationViewController;
+       
         SendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
-        
-        //We then set the verifyViewController object that we just created to the property of uniqueVerificationCode which we set equal to the value that is stored inside self.uniqueVerificationCode.
-        
-        //addFriendsVC.uniqueVerificationCode = self.uniqueVerificationCode;
-        
-        
         
         sendFriendsVC.halfsiesPhotoToSend = _image;
 

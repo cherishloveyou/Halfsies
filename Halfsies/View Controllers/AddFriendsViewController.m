@@ -42,7 +42,6 @@
     
     //Create right bar button.
     UIImage* firstButtonImage = [UIImage imageNamed:@"nextbutton3"];
-    NSLog(@"size of image: %@", NSStringFromCGSize(firstButtonImage.size));
     
     CGRect frame = CGRectMake(0, 0, 70, 30);
     
@@ -88,8 +87,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:NO];
-    //This initializes our NSMutable Arrays that will hold the first names and phone numbers of people
-    //that were not found in the Parse DB aka have not signed up for the app yet.
+    
     self.potentiaFriendsNotInParseFirstNamesArray = [[NSMutableArray alloc]init];
     self.potentiaFriendsPhoneNumberArray = [[NSMutableArray alloc]init];
     
@@ -122,8 +120,7 @@
                                                  
                                                  {
                                                      accessGranted = granted;
-                                                     NSLog(@"Has access been granted?: %hhd", accessGranted);
-                                                     NSLog(@"Has there been an error? %@", error);
+                                                     
                                                      dispatch_semaphore_signal(sema);
                                                  });
         
@@ -132,14 +129,11 @@
     
     if (accessGranted == 0) {
         
-        NSLog(@"Access not granted.");
-        
-        //Segue straight to the media capture VC.
+       
         [self performSegueWithIdentifier:@"addFriendsToMediaCaptureSegue" sender:self];
     }
     else if (accessGranted == 1) {
-        NSLog(@"Access granted.");
-        // Setup and show HUD here
+                // Setup and show HUD here
         
         self.HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         self.HUD.mode = MBProgressHUDAnimationFade;
@@ -176,7 +170,6 @@
                     number = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phoneNumber, i);
                     CFStringRef label = ABMultiValueCopyLabelAtIndex(phoneNumber, i);
                     if (label) {
-                        NSLog(@"Number about to be added for %@: %@", firstName, number);
                         
                         //Add current number to array.
                         if(firstName.length > 0) {
@@ -195,13 +188,11 @@
             //Loop through all of the contact's numbers.
             
             for(numbersIndex = 0; numbersIndex < numbers.count; numbersIndex++) {
-                NSLog(@"Final loop.");
                 
                 //Set string global to current number.
                 
                 self.numberValues = numbers[numbersIndex];
                 
-                NSLog(@"numberValues: %@", self.numberValues);
                 
                 //Add current first name to both arrays. We want them to match for later.
                 
@@ -211,19 +202,10 @@
                 
                 [self.potentiaFriendsPhoneNumberArray addObject:self.numberValues];
                 
-                NSLog(@"Final phone number array: %@", self.potentiaFriendsPhoneNumberArray);
             }
         }
         
-        //At this point, all of the first names are in the notInParseFirstNames array.
-        
-        //And all of the phone numbers are in the phone number array.
-        
-        //Both of the arrays should have equal counts.
-
-        NSLog(@"Count of names: %d", self.potentiaFriendsNotInParseFirstNamesArray.count);
-        NSLog(@"Count of numbers: %d", self.potentiaFriendsPhoneNumberArray.count);
-    }
+           }
     
     //Set table view's datasource and delegate.
     
@@ -328,22 +310,18 @@
         
         //This add's the username to the array.
         
-        NSLog(@"Crash area?");
         
         [self.usersToInviteToHalfsies addObject:cell.detailTextLabel.text];
         
-        NSLog(@"CONTENTS OF ARRAY 3: %@", self.usersToInviteToHalfsies);
     } else {
         //This removes the username from the array.
         
         [self.usersToInviteToHalfsies removeObject:cell.detailTextLabel.text];
         
-        NSLog(@"CONTENTS OF ARRAY 4: %@", self.usersToInviteToHalfsies);
     }
 }
 
 -(IBAction)finishedAddingFriends {
-    NSLog(@"Pulling phone numbers properly?: %@", self.usersToInviteToHalfsies);
     
     //This will segue to the next VC which is the Media Capture VC.
     if(![self.usersToInviteToHalfsies count]) {
@@ -364,11 +342,7 @@
         NSString *stringForProperty = [[NSString alloc] init];
         stringForProperty = @"YES";
         
-        //The below statements are all about passing data to the next VC so we can properly launch the SMS text message invite window.
-        
-        //This set's the media capture's VC property called "usersToInviteToHalfsies" to the phone numbers that are currently in this view controller's "self.usersToInviteHalfsies" array.
-        
-        smsVC.usersToInviteToHalfsies = _usersToInviteToHalfsies;
+                smsVC.usersToInviteToHalfsies = _usersToInviteToHalfsies;
         
         //inviteText creates the custom text message that will be loaded in the next VC. It even includes the current user's username.
         NSString *inviteText = [[NSString alloc]initWithFormat:@"Hey, come join this cool new app called Halfsies, and we can go halfsies on creating photos together! My username is %@ and you can download the iPhone app here in the App Store: https://itunes.apple.com/app/id869085222", _currentUser.username];

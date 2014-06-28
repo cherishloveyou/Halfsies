@@ -108,30 +108,10 @@ static inline CGSize swapWidthAndHeight(CGSize size)
 
     [self.imageView setClipsToBounds:YES];
     
-    NSLog(@"The image view's content mode is: %d", self.imageView.contentMode);
-    
-    
-    //self.topHalfView.image = [UIImage imageWithData:self.imageData];
-    
     [self.view addSubview:self.imageView];
     [self.view sendSubviewToBack:self.imageView];
     
-    
-    
-    
-    NSLog(@"topHalfView.image.size: %@", NSStringFromCGSize(self.imageView.image.size));
-
-    NSLog(@"IMAGE FOR THE TOP HALF: %@", self.imageView.image);
-    
-    
     [self.navigationController setNavigationBarHidden:YES];
-    
-    
-    NSLog(@"Just finished signing up? %@", self.justFinishedSigningUp);
-    
-    NSLog(@"Were the phone numbers passed from the add friends VC? %@", self.usersToInviteToHalfsies);
-    NSLog(@"Was the text message body passed from the add friends VC? %@", self.textMessageInviteText);
-    
     
     
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
@@ -142,12 +122,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
         // iOS 6
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
-    
-    
-    
-    
-	
-    
+   
     self.session =[[AVCaptureSession alloc]init];
     
     
@@ -157,14 +132,12 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     self.inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
-    NSLog(@"The current device position is: %d", self.inputDevice.position);
     
     NSError *error;
     
     
     self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:&error];
     
-    NSLog(@"Currently using this device: %@", self.deviceInput.device);
     
     
     if([self.session canAddInput:self.deviceInput])
@@ -184,7 +157,6 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     [self.previewLayer setFrame:CGRectMake(0, self.rootLayer.bounds.size.height/2, self.rootLayer.bounds.size.width, self.rootLayer.bounds.size.height/2)];
     
-    NSLog(@"The root layer's y coordinate: %f", self.rootLayer.bounds.size.height/2);
     
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
@@ -203,15 +175,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     [self.videoOutput setSampleBufferDelegate:self queue:queue];
     
-    //Same thing as above statement!
-    //[[self videoOutput]setSampleBufferDelegate:self queue:queue];
-
-    
-    
-    
     [self.session startRunning];
-    
-    
     
 }
 
@@ -237,33 +201,21 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     [self.session stopRunning];
     
     
-    NSLog(@"self.image: %@", self.image);
-    NSLog(@"self.image.size: %@", NSStringFromCGSize(self.image.size));
+    
     
     
     if(self.inputDevice.position == 2) {
         
-        NSLog(@"Input device position 2!");
         
-        //self.image = [self selfieCorrection:self.image];
-        
-        //self.image = [self selfieCorrection:self.image];
         
         self.image = [self rotate:UIImageOrientationRightMirrored];
 
-        
-        NSLog(@"self.image: %@", self.image);
-        NSLog(@"self.image.size: %@", NSStringFromCGSize(self.image.size));
         
         
     } else {
         
         
         self.image = [self rotate:UIImageOrientationRight];
-        
-        NSLog(@"self.image: %@", self.image);
-        NSLog(@"self.image.size: %@", NSStringFromCGSize(self.image.size));
-        
         
     }
     
@@ -285,7 +237,6 @@ static inline CGSize swapWidthAndHeight(CGSize size)
         cropRect.origin.x = 0;
         cropRect.origin.y = (self.image.size.height - cropRect.size.height)/2.0;
         
-        NSLog(@"Y Math: %f", (self.image.size.height - cropRect.size.height));
         
         
     } else {
@@ -331,12 +282,10 @@ static inline CGSize swapWidthAndHeight(CGSize size)
 
 
     
-    //self.bottomHalfView.image = self.image;
     
     
     if ([self.hasUserTakenAPhoto isEqual:@"YES"] && self.inputDevice.position == 2) {
         
-        NSLog(@"Bottom half is a selfie");
         
         
         [self.takingPhotoView setHidden:YES];
@@ -346,50 +295,27 @@ static inline CGSize swapWidthAndHeight(CGSize size)
         //tophalfview and topandbottomhalfview
         
         
-        //self.bottomHalfView.image = self.image;
         
         
         self.imageView2 = [[UIImageView alloc]initWithImage:self.image];
         
         self.imageView2.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
         
-        //self.image = self.imageView2.image;
         
-        //[self performSelector:@selector(uploadPhoto)];
-        
-        NSLog(@"the frame of imageView2 is: %@", NSStringFromCGRect(self.imageView2.frame));
 
         
         self.imageView2.contentMode = UIViewContentModeScaleAspectFill;
         
         [self.imageView2 setClipsToBounds:YES];
         
-        NSLog(@"The image view's content mode is: %d", self.imageView2.contentMode);
         
         
-        //self.topHalfView.image = [UIImage imageWithData:self.imageData];
         
         [self.view addSubview:self.imageView2];
-        //[self.view sendSubviewToBack:self.imageView2];
         
-        //[self.imageView setHidden:YES];
         
-        NSLog(@"Context of screenshot: %@", NSStringFromCGSize(self.imageView2.bounds.size));
         
         self.image = [self screenshot];
-        
-        NSLog(@"self.image size BEFORE combining: %@", NSStringFromCGSize (self.image.size));
-
-        //[self performSelector:@selector(uploadPhoto)];
-
-        NSLog(@"Just took screenshot");
-        NSLog(@"Uploading screenshot to Parse");
-        
-        //[self performSelector:@selector(uploadPhoto)];
-        
-        
-        //[self saveToLibray];
-        
         
         [self.imageView2 setHidden:YES];
 
@@ -402,7 +328,6 @@ static inline CGSize swapWidthAndHeight(CGSize size)
         self.image = [self imageByCombiningImage:self.image9 withImage:self.image];
         
 
-        NSLog(@"self.image size AFTER combining: %@", NSStringFromCGSize(self.image.size));
 
         
         [self.afterPhotoView setHidden:NO];
@@ -412,7 +337,6 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     } else if ([self.hasUserTakenAPhoto isEqual:@"YES"]) {
         
         
-    NSLog(@"This should not NSLog when the bottom half is a selfie");
         
     
     [self.takingPhotoView setHidden:YES];
@@ -450,20 +374,16 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     CGSize newImageSize = CGSizeMake(MAX(self.view.bounds.size.width, self.view.bounds.size.width), MAX(568, 568));
     
-    NSLog(@"newImageSize: %@", NSStringFromCGSize(newImageSize));
     
     if (UIGraphicsBeginImageContextWithOptions != NULL) {
         
-        NSLog(@"It's not NULL");
         
-        NSLog(@"UIScreen mainScreen scale: %f", [[UIScreen mainScreen]scale]);
         
         UIGraphicsBeginImageContextWithOptions(newImageSize, NO, [[UIScreen mainScreen] scale]);
         
     } else {
         
         
-        NSLog(@"It is NULL");
         
         
         UIGraphicsBeginImageContext(newImageSize);
@@ -476,24 +396,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
     
     [secondImage drawInRect:CGRectMake(0, 568/2, self.view.bounds.size.width, 568/2)];
     
-    NSLog(@"Here come the crop values for firstImage");
-    
-    NSLog(@"firstImage's self.view.bounds.size.width: %f", self.view.bounds.size.width);
-    NSLog(@"firstImage's self.view.bounds.size.height/2: %f", self.view.bounds.size.height/2);
-    
-    NSLog(@"Here come the crop values for secondImage");
-    
-    NSLog(@"secondImage's self.view.bounds.size.height/2: %f", self.view.bounds.size.height/2);
-    
-    
-    
-    NSLog(@"secondImage size: %@", NSStringFromCGSize(secondImage.size));
-    NSLog(@"secondImage description: %@", secondImage.description);
-    
-    NSLog(@"secondImage height divided by 2: %f", self.view.bounds.size.height/2);
-    
-    
-    image = UIGraphicsGetImageFromCurrentImageContext();
+        image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     return image;
@@ -508,15 +411,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
     
-    NSLog(@"1: %@", self.image.description);
-    
-    
-    // Create a UIImage from the sample buffer data
-    
-    // You are manually calling this.
-    
-    
-    
     
     self.image = [self imageFromSampleBuffer:sampleBuffer];
     
@@ -525,15 +419,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     self.image = [self rotate:UIImageOrientationRight];
     
-    //self.topHalfView.image = self.image;
-    
-    
-    
-    //< Add your code here that uses the image >
-    
-    //NSLog(@"2: %@", self.image.description);
-    
-}
+    }
 
 
 
@@ -544,13 +430,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice *device in devices) {
         
-        NSLog(@"Does this device support flash? %d", [device hasFlash]);
-        NSLog(@"Does this device support torch? %d", [device hasTorch]);
-
+        
         
         if ([device hasTorch] == YES) {
             
-            NSLog(@"Current Device Torch Mode: %d", device.torchMode);
             
             
             [device lockForConfiguration:nil];
@@ -558,29 +441,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             if(device.torchMode == 0) {
                 
-                //[device setFlashMode:AVCaptureFlashModeOn];
                 [device setTorchMode:AVCaptureTorchModeOn];
-                
-                NSLog(@"New device flash mode: %d", device.flashMode);
-                NSLog(@"New device torch mode: %d", device.torchMode);
-                
-
                 
                 
             } else if (device.torchMode == 1) {
                 
-                //[device setFlashMode:AVCaptureFlashModeOff];
                 [device setTorchMode:AVCaptureTorchModeOff];
                 
                 
-                NSLog(@"New device flash mode: %d", device.flashMode);
-                NSLog(@"New device torch mode: %d", device.torchMode);
-
                 
                 
             } else if (device.torchMode == 2) {
                 
-                //[device setFlashMode:AVCaptureFlashModeOn];
                 [device setTorchMode:AVCaptureTorchModeOn];
 
                 
@@ -599,11 +471,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 -(IBAction)xButton {
     
     
-    NSLog(@"Has the user take a photo? %@", self.hasUserTakenAPhoto);
-    
-    //NSString *title;
-    
-    //Check the global variable "hasUserTakenAPhoto" to see if it contains the string "YES"
     
     if ([self.hasUserTakenAPhoto isEqual:@"YES"])
         
@@ -629,7 +496,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
     {
         
-        //Delete as much as you can here before you segue.
         
         
         
@@ -664,7 +530,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
         
         
-        //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
         
     }
 }
@@ -676,11 +541,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
     if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 0)
     {
-        //[self performSegueWithIdentifier:@"backToHomeFromMediaCaptureVC" sender:self];
         
         //Now, after the user has captured a photo, if they press the "Delete" button on the action sheet, it will call this method below which basically refreshes the sublayer.
         
-        //[self.subLayer setNeedsDisplay];
         
         //We set the self.afterPhotoView to hidden "YES" becuase this is the UIView we display only after the photo is taken.
         
@@ -703,14 +566,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if (buttonIndex == actionSheet.destructiveButtonIndex)
     {
-        // Do something...
         
-        NSLog(@"DELETE BUTTON HAS BEEN PRESSED!");
+        
         
         [self.topHalfView setHidden:NO];
         
-        //[self.topAndBottomHalfView setHidden:YES];
-        //self.topAndBottomHalfView = nil;
         
         //The 2 comments above would not work for fixing the "disappearing" top half view after taking one response photo.
         //The only way to fix it was with the statement below, which sets the top and bottom half view's image property to nil.
@@ -737,29 +597,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
     {
         
-        NSLog(@"Finish going halfsies button pressed.");
-        
-        //We will now segue to the Share View Controller.
-        //We'll also have to pass the correct info that the Share View Controller will need.
+       
         
         
         [self uploadPhoto];
         
         
-        //[self performSegueWithIdentifier:@"segueToShareVC" sender:self];
-        
-        NSLog(@"Dismiss the current action sheet!");
-        
-      /*  [actionSheet dismissWithClickedButtonIndex:1 animated:YES];
-        
-        
-        //Create the new action sheet for sharing.
-        
-        self.shareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", @"Copy Share Link", nil];
-        
-        //Display the new sharing action sheet.
-        
-        [self.shareSheet showInView:self.view]; */
+      
         
         
     }
@@ -769,51 +613,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
     {
         
-        NSLog(@"Cancel button pressed!");
         
-        // Do something...
-        
-       /* NSLog(@"Save to Library Has Been Pressed.");
-        
-        NSLog(@"Authorization Status for Photo Library Access: %d", [ALAssetsLibrary authorizationStatus]);
-        
-        
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        
-        
-        // Request to save the image to camera roll
-        [library writeImageToSavedPhotosAlbum:[self.image CGImage] orientation:(ALAssetOrientation)[self.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-            
-            if (error) {
-                
-                //NOT SAVED
-                //DISPLAY ERROR THE PICTURE CAN'T BE SAVED
-                
-                
-                NSLog(@"There was an error: %@", error);
-                
-                
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Could not save photo to your library. Please enable Halfsies in Settings > Privacy > Photos." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                
-                [alertView show];
-                
-                
-            } else {
-                
-                //SAVED
-                
-                NSLog(@"No errors with access and image was saved!");
-                
-                //Once we know that there hasn't been an error in the completion block, we release the core graphics image that we created above to save to the library.
-                
-                CGImageRelease([self.image CGImage]);
-                
-                
-                
-            }
-        }];
-        
-        */
         
         
         
@@ -822,7 +622,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if(actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 3) {
         
-        NSLog(@"Cancel button pressed!");
         
     }
     
@@ -835,10 +634,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     {
         
         
-        
-        NSLog(@"Share on Twitter has been pressed.");
-        
-        //Twitter code from Techtopia
         
         ACAccountStore *account = [[ACAccountStore alloc] init];
         ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:
@@ -859,7 +654,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
              
              if(granted == NO) {
                  
-                 NSLog(@"Granted is equal to NO");
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      
@@ -869,18 +663,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                      
                  });
                  
-                 NSLog(@"Alert View should show now");
                  
              }
              
              
              if (granted == YES)
              {
-                 // Get account and communicate with Twitter API.
                  
-                 NSLog(@"Twitter access has been granted!");
-                 
-                 //Now that access has been granted, we need to place the Twitter account in an object.
                  
                  
                  NSArray *arrayOfAccounts = [account
@@ -965,235 +754,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
         
         
-       /* NSLog(@"Share on Facebook Has Been Pressed.");
-        
-        //We will now segue to the Share View Controller.
-        //We'll also have to pass the correct info that the Share View Controller will need.
-        
-        NSLog(@"Session's permissions777: %@", FBSession.activeSession.permissions);
-        
-        
-        // If the session state is any of the two "open" states when the button is clicked
-        
-        if (FBSession.activeSession.state == FBSessionStateOpen
-            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-            
-            // Close the session and remove the access token from the cache
-            // The session state handler (in the app delegate) will be called automatically
-            //[FBSession.activeSession closeAndClearTokenInformation];
-            
-            // If the session state is not any of the two "open" states when the button is clicked
-            
-            
-            
-            NSLog(@"fbsession 1");
-            
-            //If the if statement above is true, then we are ready to call the post photos to facebook method.
-            //NOTE: As of April 2nd, it seems like the above if statement is never true.
-            
-            NSString *album = @"FrontStack";
-            
-            NSLog(@"right before facebook method call in app delegate");
-            
-            [self postPhotosToFacebook:self.image withAlbumID:album];
-            
-            
-            
-            
-        } else {
-            
-            
-            //Since the above if statement was not met, we have to do extra work to successfully post to Facebook.
-            
-            //Create user defaults object.
-            
-            NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-            
-            //Create PNG vesion of self.image and set as user default/
-            
-            [[NSUserDefaults standardUserDefaults] setObject:UIImagePNGRepresentation(self.image) forKey:@"specialfacebookimage"];
-            
-            NSLog(@"self.image right before synchronize: %@", self.image);
-            
-            //Save the new user defaults.
-            
-            [standardDefaults synchronize];
-            
-            //These defaults will be used now in AppDelegate.m once a facebook session has been successfully opened.
-            
-
-            
-            NSLog(@"fbsession 2");
-            
-            // Open a session showing the user the login UI
-            // You must ALWAYS ask for basic_info permissions when opening a session
-            
-            //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
-
-            
-            [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
-                                               allowLoginUI:YES
-                                          completionHandler:
-             ^(FBSession *session, FBSessionState state, NSError *error) {
-                 
-                 
-                 if(error) {
-                     
-                     
-                     NSLog(@"There was an error when opening the new active session with read permissions");
-                     
-                     NSLog(@"Here's the error: %@", error);
-                     
-                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Something went wrong. Please try again and make sure Halfsies is enabled in Settings > Privacy > Facebook" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                     
-                     [alertView show];
-                     
-                     
-                 }
-                 
-                 NSLog(@"Active session has been opened!");
-                 
-                 NSLog(@"Session: %@", session);
-                 
-                 NSLog(@"Session state: %u", state);
-                 
-                 
-                 // Retrieve the app delegate
-                 AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-                 
-                 // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-                 //[appDelegate sessionStateChanged:session state:state error:error];
-                 
-                 NSLog(@"Session's permissions1: %@", FBSession.activeSession.permissions);
-                 
-                 [FBSession setActiveSession:session];
-                 
-                 NSLog(@"facebook session set1");
-                 
-                 
-                 
-                 NSLog(@"right before method call in app delegate");
-                 
-                 NSString *album = @"FrontStack";
-                 
-                 
-                 [self postPhotosToFacebook:self.image withAlbumID:album];
-                 
-                 
-             }];
-            
-            
-            
-            
-        }
-        
-        
-        
-        
-        //NSLog(@"About to run the image staging code.");
-        
-        //You have commented out this code now that you have found another solution that is exactly like how Frontback shares to Facebook.
-        
-        //The below code should be used for complex "activity" sharing via open graph.
-        
-        
-         // stage an image
-         [FBRequestConnection startForUploadStagingResourceWithImage:self.finishedHalfsieImageView.image completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-         if(!error) {
-         
-         // Log the uri of the staged image
-         NSLog(@"Successfuly staged image with staged URI: %@", [result objectForKey:@"uri"]);
-         
-         // Further code to post the OG story goes here
-         
-         
-         // instantiate a Facebook Open Graph object
-         NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
-         
-         // specify that this Open Graph object will be posted to Facebook
-         object.provisionedForPost = YES;
-         
-         // for og:title
-         object[@"title"] = @"Going halfsies on photos with friends! #halfsies #halfsiesapp";
-         
-         // for og:type, this corresponds to the Namespace you've set for your app and the object type name
-         
-         object[@"type"] = @"phototestnamespace:halfsies";
-         
-         // for og:description
-         //object[@"description"] = @"Crunchy pumpkin seeds roasted in butter and lightly salted.";
-         
-         // for og:url, we cover how this is used in the "Deep Linking" section below
-         //object[@"url"] = @"http://example.com/roasted_pumpkin_seeds";
-         
-         // for og:image we assign the image that we just staged, using the uri we got as a response
-         // the image has to be packed in a dictionary like this:
-         object[@"image"] = @[@{@"url": [result objectForKey:@"uri"], @"user_generated" : @"false" }];
-         
-         
-         // Post custom object
-         [FBRequestConnection startForPostOpenGraphObject:object completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-         if(!error) {
-         
-         // get the object ID for the Open Graph object that is now stored in the Object API
-         NSString *objectId = [result objectForKey:@"id"];
-         NSLog([NSString stringWithFormat:@"object id: %@", objectId]);
-         
-         // Further code to post the OG story goes here
-         
-         
-         // create an Open Graph action
-         id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
-         [action setObject:objectId forKey:@"halfsies"];
-         
-         // create action referencing user owned object
-         [FBRequestConnection startForPostWithGraphPath:@"/me/phototestnamespace:finish" graphObject:action completionHandler:^(FBRequestConnection *connection, id  result, NSError *error) {
-         if(!error) {
-         NSLog([NSString stringWithFormat:@"OG story posted, story id: %@", [result objectForKey:@"id"]]);
-         [[[UIAlertView alloc] initWithTitle:@"Success!"
-         message:@"This halfsies photo was shared to your Facebook profile."
-         delegate:self
-         cancelButtonTitle:@"OK"
-         otherButtonTitles:nil] show];
-      
-         
-         } else {
-         // An error occurred
-         NSLog(@"Encountered an error posting to Open Graph: %@", error);
-         }
-         }];
-         
-         
-         
-         
-         } else {
-         // An error occurred
-         NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
-         }
-         }];
-         
-         
-         
-         } else {
-         
-         // An error occurred
-         NSLog(@"Error staging an image: %@", error);
-         }
-         }];
-        
-        NSLog(@"right before facebook upload method call runs");
-        
-        NSString *album = @"FrontStack";
-        
-        //NSArray *arrayz = [[NSArray alloc]initWithObjects:self.finishedHalfsieImageView.image, nil];
-        
-        [self postPhotosToFacebook:self.image withAlbumID:album];
-        
-      
-        
-        
-    } */
-    
     
     if((actionSheet == self.shareSheet && buttonIndex == 1) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 1)) {
         
@@ -1211,18 +771,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         
-        NSLog(@"Copy Share Link has been pressed.");
         
         
         //Copy imageFileURL to the user's clipboard.
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         
-        NSLog(@"The finished image file URL before copying is: %@", self.finishedImageFileURL);
         
         pasteboard.URL = self.finishedImageFileURL;
         
-        NSLog(@"The final pasteboard URL is: %@", pasteboard.URL);
         
         
         
@@ -1232,7 +789,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if(actionSheet == self.uploadPhotoShareSheet && buttonIndex == 3) {
         
         
-        NSLog(@"Cancel button on special uploadPhotoShareSheet has been pressed!");
         
         //Take the user back to their inbox.
         
@@ -1250,7 +806,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         
-        NSLog(@"Back to inbox has been pressed.");
         
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
         
@@ -1263,7 +818,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         
-        NSLog(@"Report user has been pressed.");
         
         self.reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         
@@ -1364,10 +918,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     [self uploadPhoto];
     
-    //[self performSegueWithIdentifier:@"mediaCaptureToSendToFriendsSegue" sender:self];
-    
-    NSLog(@"uploadPhoto method called");
-    
     
 }
 
@@ -1375,21 +925,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self {
     
-    // This is our actual implmenetation body code which starts with an if statement. This says "If our segue identifier is equal to signupYoVerificationSegue then do this...
-    if ([segue.identifier isEqualToString:@"mediaCaptureToSendToFriendsSegue"]) {
+        if ([segue.identifier isEqualToString:@"mediaCaptureToSendToFriendsSegue"]) {
         
-        //If the string IS equal to signupToVerificationSegue then we create a new object of our  custom View Controller class VerificationViewController and we set the value of this object to the segue property of destinationViewController.
         
-        //AddFriendsViewController *addFriendsVC = segue.destinationViewController;
         SendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
-        
-        //We then set the verifyViewController object that we just created to the property of uniqueVerificationCode which we set equal to the value that is stored inside self.uniqueVerificationCode.
-        
-        //addFriendsVC.uniqueVerificationCode = self.uniqueVerificationCode;
-        
-        //UIImage* image2 = [UIImage imageWithCGImage:(__bridge CGImageRef)(self.subLayer.contents)];
-        
-        
+            
         sendFriendsVC.halfsiesPhotoToSend = _image;
         
         
@@ -1407,16 +947,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
-// Delegate routine that is called when a sample buffer was written
-
-//This is a delegate method implementation. This delegate method gets called when a sample buffer is written.
-
-
-
-
-// Create a UIImage from sample buffer data
-
-//This code ONLY runs when it is manually called in the method implementation above.
 
 
 
@@ -1577,7 +1107,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(void)uploadPhoto {
     
-    NSLog(@"self.image.size right before upload: %@", NSStringFromCGSize(self.image.size));
     
     NSString *fileType;
     NSString *halfOrFull;
@@ -1602,7 +1131,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         
-        NSLog(@"PFFile has been created: %@", imageFile);
         
         [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
@@ -1651,13 +1179,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                         
                         //Everything was successful.
                         
-                        NSLog(@"Everything was successful.");
                         
                         
                         
                         if(succeeded == 1) {
                             
-                            NSLog(@"Succeeded value right before 2nd save: %d", succeeded);
                             
                             
                             NSString *currentUsersObjectId = [[NSString alloc]init];
@@ -1684,21 +1210,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                     
                                 } else {
                                     
-                                    
-                                    
-                                    //Everything was successful.
-                                    
-                                    NSLog(@"Everything was successful.");
-                                    
-                                    
-                                    
-                            
-                                    
-                                    
+                                
                                     if(succeeded == 1) {
                                         
                                         
-                                        //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
+                                        
                                         
                                         
                                         NSString *originalSender2 = [[NSString alloc]init];
@@ -1707,7 +1223,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                         
                                         self.photoUploadAlertViewMessage = [[NSString alloc]initWithFormat:@"You just finished going halfsies with %@!", originalSender2];
                                         
-                                        //PFFile *imageFile = [self.message objectForKey:@"file"];
                                         
                                         self.finishedImageFile = imageFile;
 
@@ -1717,13 +1232,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                         
                                         [self.uploadPhotoAlertView show];
                                         
-                                        //[self.sharePhotoView setHidden:NO];
 
                                         
                                     }
                                     
                                     
-                                    //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
                                     
                                     
                                 }
@@ -1807,25 +1320,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)postPhotosToFacebook:(UIImage *)photo withAlbumID:(NSString *)albumID {
     
-    // Just testing with one image for now; I'll get in to multiple later..
-    //UIImage *image = [photos lastObject];
+   
     
     FBRequest *imageUploadRequest = [FBRequest requestForUploadPhoto:photo];
     
-    // CALL OUT: I'm guessing my problem is here - but I just don't know!
     [[imageUploadRequest parameters] setValue:albumID
                                        forKey:@"album"];
     
-    NSLog(@"imageUploadRequest parameters: %@",[imageUploadRequest parameters]);
     
-    // Results of DebugLog:
-    // imageUploadRequest parameters: {
-    //     album = 10151057144449632;
-    //     picture = "<UIImage: 0xc6b6920>";
-    // }
-    // The album data returns correctly using FB's Graph API explorer tool,
-    // so I know it's a legit album.
-    // https://developers.facebook.com/tools/explorer
     
     FBRequestConnection *connection = [[FBRequestConnection alloc] init];
     
@@ -1834,30 +1336,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
              
              if (!error) {
                  
-                 NSLog(@"Photo uploaded successfuly! %@",result);
-                 
-                 // Results of DebugLog:
-                 //
-                 // Photo uploaded successfuly! {
-                 //     id = 10151057147399632;
-                 //     "post_id" = "511304631_10151057094374632";
-                 // }
-                 // Again, the photo at that ID shows up correctly, etc -
-                 // BUT it's in the wrong album! It shows up in the default app album.
-                 
-                 //NSLog(@"And now we segue back to the inbox!");
-                 
-                 //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
-
+                
                  
              } else {
                  
                  NSLog(@"Photo uploaded failed :( %@",error.userInfo);
                  
-                /* UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Something went wrong. Please try again and make sure Halfsies is enabled in Settings > Privacy > Facebook" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                 
-                 [alertView show]; */
-             }
+                             }
              
          }];
     
@@ -1877,11 +1362,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         if (error) {
             
-            //NOT SAVED
-            //DISPLAY ERROR THE PICTURE CAN'T BE SAVED
-            
-            
-            NSLog(@"There was an error: %@", error);
+                       NSLog(@"There was an error: %@", error);
             
             
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Could not save photo to your library. Please enable Halfsies in Settings > Privacy > Photos." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];

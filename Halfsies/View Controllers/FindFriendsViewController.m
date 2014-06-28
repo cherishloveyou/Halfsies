@@ -58,7 +58,6 @@
     
     UIImage* firstButtonImage = [UIImage imageNamed:@"nextbutton3"];
     
-    NSLog(@"size of image: %@", NSStringFromCGSize(firstButtonImage.size));
     
     
     CGRect frame = CGRectMake(0, 0, 70, 30);
@@ -114,12 +113,7 @@
 
 -(void)myTask {
     
-    NSLog(@"myTask has been triggered.");
     
-    
-    
-    //This initializes our NSMutable Arrays that will hold the first names and phone numbers of people
-    //that were not found in the Parse DB aka have not signed up for the app yet.
     
     self.potentiaFriendsNotInParseFirstNamesArray = [[NSMutableArray alloc]init];
     self.potentiaFriendsPhoneNumberArray = [[NSMutableArray alloc]init];
@@ -151,7 +145,6 @@
     
     
     
-    NSLog(@"%@", m_addressbook);
     
     __block BOOL accessGranted = NO;
     if (ABAddressBookRequestAccessWithCompletion != NULL) {
@@ -169,10 +162,7 @@
                                                      
                                                      accessGranted = granted;
                                                      
-                                                     NSLog(@"Has access been granted?: %hhd", accessGranted);
                                                      
-                                                     
-                                                     NSLog(@"Has there been an error? %@", error);
                                                      
                                                      
                                                      dispatch_semaphore_signal(sema);
@@ -252,7 +242,6 @@
                             
                         }
                         
-                        NSLog(@"Number about to be added for %@: %@", firstName, number);
                         
                         //Add current number to array.
                         
@@ -283,13 +272,11 @@
             for(numbersIndex = 0; numbersIndex < numbers.count; numbersIndex++) {
                 
                 
-                NSLog(@"Final loop.");
                 
                 //Set string global to current number.
                 
                 self.numberValues = numbers[numbersIndex];
                 
-                NSLog(@"numberValues: %@", self.numberValues);
                 
                 //Add current first name to both arrays. We want them to match for later.
                 
@@ -299,24 +286,11 @@
                 
                 [self.potentiaFriendsPhoneNumberArray addObject:self.numberValues];
                 
-                NSLog(@"Final phone number array: %@", self.potentiaFriendsPhoneNumberArray);
                 
             }
             
         }
         
-        
-        
-        
-        //At this point, all of the first names are in the notInParseFirstNames array.
-        
-        //And all of the phone numbers are in the phone number array.
-        
-        //Both of the arrays should have equal counts.
-        
-        
-        NSLog(@"Count of names: %d", self.potentiaFriendsNotInParseFirstNamesArray.count);
-        NSLog(@"Count of numbers: %d", self.potentiaFriendsPhoneNumberArray.count);
         
         
     }
@@ -364,7 +338,6 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    NSLog(@"self.friends count is: %d", [self.friends count]);
     
   
  
@@ -472,11 +445,9 @@
         
         //This add's the username to the array.
         
-        NSLog(@"Crash area?");
         
         [self.usersToInviteToHalfsies addObject:cell.detailTextLabel.text];
         
-        NSLog(@"CONTENTS OF ARRAY 3: %@", self.usersToInviteToHalfsies);
         
     } else {
         
@@ -484,7 +455,6 @@
         
         [self.usersToInviteToHalfsies removeObject:cell.detailTextLabel.text];
         
-        NSLog(@"CONTENTS OF ARRAY 4: %@", self.usersToInviteToHalfsies);
         
     }
     
@@ -497,7 +467,6 @@
     
     
     
-    NSLog(@"Pulling phone numbers properly?: %@", self.usersToInviteToHalfsies);
     
     
     
@@ -538,9 +507,6 @@
         stringForProperty = @"YES";
         
         
-        //The below statements are all about passing data to the next VC so we can properly launch the SMS text message invite window.
-        
-        //This set's the media capture's VC property called "usersToInviteToHalfsies" to the phone numbers that are currently in this view controller's "self.usersToInviteHalfsies" array.
         
         smsVC.usersToInviteToHalfsies = _usersToInviteToHalfsies;
         
@@ -564,7 +530,6 @@
 
 -(void)handleBack {
     
-    NSLog(@"handleBack button pressed.");
     
     [self.navigationController popViewControllerAnimated:NO];
     

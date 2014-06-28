@@ -33,43 +33,7 @@
     //This is the first block of code from the Parse photo app tutorial located here: https://parse.com/tutorials/saving-images
     
    
-    
-  /*  PFUser *currentUser = [PFUser currentUser];
-    if (currentUser) {
-        [currentUser refresh:nil];
-    } else {
-        // Dummy username and password
-        PFUser *user = [PFUser user];
-        user.username = @"Matt";
-        user.password = @"password";
-        user.email = @"Matt@example.com";
-        
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [user refresh:nil];
-                NSLog(@"New User? %@", user);
-
-            } else {
-                [PFUser logInWithUsername:@"Matt" password:@"password"];
-                [user refresh:nil];
-                NSLog(@"New User? %@", user);
-
-            }
-        }];
-    }
-
-    NSLog(@"Current User? %@", currentUser); */
-    
-    
-    
-    
-    // Whenever a person opens the app, check for a cached session
-    
-    
-    
-
-    
-    // Override point for customization after application launch.
+ 
     return YES;
     
     }

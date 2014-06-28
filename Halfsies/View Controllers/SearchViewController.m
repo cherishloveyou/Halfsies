@@ -24,12 +24,9 @@
     
     UIImage *firstButtonImage = [UIImage imageNamed:@"donebutton"];
     
-    NSLog(@"size of image: %@", NSStringFromCGSize(firstButtonImage.size));
     
     CGRect frame = CGRectMake(0, 0, 70, 30);
     
-    // I think 30 is a good height. Now just increase the width.
-    // 70x370 seems to be the perfect size right now.
     
     UIButton *someButton = [[UIButton alloc] initWithFrame:frame];
     [someButton setBackgroundImage:firstButtonImage forState:UIControlStateNormal];
@@ -46,7 +43,7 @@
     
     UIButton *leftButton = [[UIButton alloc] initWithFrame:frame2];
     
-    // [leftButton addTarget:self action:@selector(handleBack:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     [leftButton setImage:leftButtonImage forState:UIControlStateNormal];
     [leftButton addTarget:self action:@selector(handleBack) forControlEvents:UIControlEventTouchUpInside];
@@ -82,16 +79,14 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSLog(@"Search button was clicked.");
+    ;
     
     // Setup the parse query here.
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:self.searchBar.text];
     
     self.parseUsers = [query findObjects];
-    
-    NSLog(@"Contens of array: %@", self.parseUsers);
-    NSLog(@"Count of array: %d", self.parseUsers.count);
+   
     
     [self.tableView reloadData];
     
@@ -206,14 +201,12 @@
 
 - (IBAction) handleBack
 {
-    NSLog(@"handleBack button pressed.");
     
     [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (IBAction) doneAddingFriends
 {
-    NSLog(@"Done adding friends.");
     [self performSegueWithIdentifier:@"searchFriendsToMCVC" sender:self];
 }
 

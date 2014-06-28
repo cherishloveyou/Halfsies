@@ -41,18 +41,13 @@
     
     UIImage* firstButtonImage = [UIImage imageNamed:@"loginbutton1"];
     
-    NSLog(@"size of image: %@", NSStringFromCGSize(firstButtonImage.size));
     
     
     
     
     
     CGRect frame = CGRectMake(0, 0, 70, 30);
-    
-    //I think 30 is a good height. Now just increase the width.
-    //70x370 seems to be the perfect size right now.
-    
-    UIButton * someButton = [[UIButton alloc] initWithFrame:frame];
+      UIButton * someButton = [[UIButton alloc] initWithFrame:frame];
     [someButton setBackgroundImage:firstButtonImage forState:UIControlStateNormal];
     [someButton addTarget:self action:@selector(didTapLoginButton:)
          forControlEvents:UIControlEventTouchUpInside];
@@ -63,7 +58,7 @@
 
     
     
-    //
+    
 
     
     
@@ -95,7 +90,6 @@
 
     
     
-    NSLog(@"after");
     
     [self.usernameEntry setDelegate:self];
     [self.passwordEntry setDelegate:self];
@@ -105,11 +99,6 @@
     
     [self.usernameEntry setText:[standardDefaults objectForKey:@"username"]];
     
-    
-     NSLog(@"NSLOG FOR THE NSUSERDEFAULT testing: %@", [standardDefaults objectForKey:@"testing"]);
-    
-        NSLog(@"NSLOG FOR THE NSUSERDEFAULT username: %@", [standardDefaults objectForKey:@"username"]);
-
     
 }
 
@@ -173,7 +162,6 @@
         [self didTapLoginButton:self];
     }
     
-    //[textField resignFirstResponder];
     
     return YES;
 }
@@ -181,7 +169,7 @@
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    //u need to change 0 to other value(,1,2,3) if u have more buttons.then u can check which button was pressed.
+    
     
     if (buttonIndex == 0) {
         
@@ -198,7 +186,6 @@
 
 -(IBAction)handleBack:(id)sender
 {
-    //    [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -38,7 +38,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    NSLog(@"INBOX VIEW HAS LOADED!");
     
     
     [self.navigationController setNavigationBarHidden:NO];
@@ -51,11 +50,7 @@
     
     [self.navigationItem setHidesBackButton:YES];
     
-    
-    //Query Parse for inbox data.
-    
-    //[self parseQueries];
-
+   
 
     
 }
@@ -65,7 +60,6 @@
   
 
     
-    NSLog(@"INBOX VIEW WILL APPEAR!");
     
     [super viewWillAppear:animated];
     
@@ -98,27 +92,17 @@
     UIButton *cameraButton = [[UIButton alloc]initWithFrame:cameraButtonFrame];
     
     [cameraButton setBackgroundImage:cameraButtonImage forState:UIControlStateNormal];
-    //[cameraButton setImage:cameraButtonImage forState:UIControlStateNormal];
     
     [cameraButton addTarget:self action:@selector(openMediaCaptureVC) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem * cameraButtonBarItem = [[UIBarButtonItem alloc]initWithCustomView:cameraButton];
     
     self.navigationItem.rightBarButtonItem = cameraButtonBarItem;
-    
-    
-    
-    
-    
-    
-    
-    
-    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     
     
     NSData *data = [standardDefaults objectForKey:@"parseMessages1"];
     NSArray *retrievedArray1 = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    //self.myDictionary = [[NSDictionary alloc] initWithDictionary:retrievedDictionary];
     
     
     
@@ -127,7 +111,6 @@
     
     NSData *data2 = [standardDefaults objectForKey:@"parseMessages2"];
     NSArray *retrievedArray2 = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
-    //self.myDictionary = [[NSDictionary alloc] initWithDictionary:retrievedDictionary];
     
    
 
@@ -263,13 +246,11 @@
         
         if([fileType isEqualToString:@"image"]) {
             
-            //cell.imageView.image = [UIImage imageNamed:@"icon_image"];
             
             
             
         } else {
             
-            //no image
         }
 
     
@@ -317,13 +298,11 @@
         
             if([fileType isEqualToString:@"image"]) {
             
-            //cell.imageView.image = [UIImage imageNamed:@"icon_image"];
             
             
             
         } else {
             
-            //no image
         }
 
         
@@ -335,7 +314,6 @@
     
     
     
-    //[cell.textLabel setText:userName];
     
     return cell;
     
@@ -387,7 +365,6 @@
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellButton.tag inSection:1];
     
-        NSLog(@"BUTTON FOR SECOND SECTION PRESSED!");
 
     
     
@@ -410,25 +387,17 @@
     
     if ([segue.identifier isEqualToString:@"segueToMediaCaptureVCResponse"]) {
         
-        NSLog(@"prepareForSegue to MediaCaptureVCResponse.");
         
         MediaCaptureVCResponse *topHalf = segue.destinationViewController;
         
-        //SMSWindowViewController *smsVC = segue.destinationViewController;
-        
-        
-        //NSString *stringForProperty = [[NSString alloc]init];
-        //stringForProperty = @"YES";
         
         topHalf.message = _selectedMessage;
         
-        //smsVC.usersToInviteToHalfsies = _usersToInviteToHalfsies;
         
         
     } else if ([segue.identifier isEqualToString:@"segueToFinishedHalfsieVC"]) {
         
         
-        NSLog(@"prepareForSegue to FinishedHalfsieVC.");
 
         
         FinishedHalfsieVC *finished = segue.destinationViewController;
@@ -439,7 +408,6 @@
     } else if ([segue.identifier isEqualToString:@"inboxToMediaCaptureVC"]) {
         
         
-        NSLog(@"prepareForSegue to MediaCaptureVC.");
 
         
         
@@ -468,7 +436,6 @@
     
     
     
-    NSLog(@"The current user's objectId is: %@", [[PFUser currentUser]objectId]);
     
     
     
@@ -487,7 +454,6 @@
         if(error) {
             
             
-            NSLog(@"Errors have happened: %@ %@", error, [error userInfo]);
             
         } else {
             
@@ -496,27 +462,12 @@
             
             self.messages = objects;
             
-            NSLog(@"query1 objects count: %lu", (unsigned long)objects.count);
-            NSLog(@"query1 objects : %@", objects);
-
-
-            //NSLog(@"Received %d messages.", [self.messages count]);
-            
-      
-    
-    
-            NSLog(@"2nd query starting..");
-            
-            
-            
-            //I THINK THIS QUERY WAS SPECIFICALLY FOR THE PERSON WHO JUST FINISHED THE FULL IMAGE
-            
+        
             
             PFQuery *query2 = [PFQuery queryWithClassName:@"Messages"];
             
             [query2 whereKey:@"senderId" equalTo:[[PFUser currentUser]objectId]];
             [query2 whereKey:@"halfOrFull" equalTo:@"full"];
-            //[query2 orderByDescending:@"createdAt"];
             
             
             
@@ -524,7 +475,6 @@
             
             [query3 whereKey:@"recipientIds" equalTo:[[PFUser currentUser]objectId]];
             [query3 whereKey:@"halfOrFull" equalTo:@"full"];
-            //[query3 orderByDescending:@"createdAt"];
             
             
             
@@ -536,50 +486,26 @@
                 
                 if(error) {
                     
-                    NSLog(@"There was an error: %@", error);
                     
                     
                 } else {
                     
                     
-                    NSLog(@"Everything was successful.");
-                    
-                    
-                    NSLog(@"query2and3 objects count: %lu", (unsigned long)objects2and3.count);
-                    NSLog(@"query2and3 objects: %@", objects2and3);
-
                     
                     self.messages2and3 = objects2and3;
                     
-                    
-                
-                
-                
-                
-                
-                NSLog(@"self.messages.count: %lu", (unsigned long)self.messages.count);
-                NSLog(@"self.messages2and3.count: %lu", (unsigned long)self.messages2and3.count);
-                
-
-            
-            
-        
-                    
-                            
                             [self.tableView reloadData];
                             
                     
                             
-                            //Start adding the NSUserDefaults code here
-                            
+                    
                             
                             
                             //Create an instance of NSUserDefaults
                             
                             NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
                             
-                            
-                            //Add our NSArray object called messages to the user defaults for key "parseMessages1"
+                    
                             
                             if (self.messages.count != 0) {
                                 
@@ -590,8 +516,7 @@
                                 
                                 
                             }
-                            
-                            //Add our NSArray object called messages2 to the user defaults for key "parseMessages2"
+                    
                             
                             
                             if (self.messages2and3.count != 0) {
@@ -614,22 +539,10 @@
                             
                             NSData *data = [standardDefaults objectForKey:@"parseMessages1"];
                             NSArray *retrievedArray1 = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                            //self.myDictionary = [[NSDictionary alloc] initWithDictionary:retrievedDictionary];
-                            
-                            
-                            NSLog(@"The retreivedArray1: %@", retrievedArray1);
-                            
-                            NSLog(@"Count of the retreivedArray1: %d", retrievedArray1.count);
-                            
-                            
+                    
                             NSData *data2 = [standardDefaults objectForKey:@"parseMessages2"];
                             NSArray *retrievedArray2 = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
-                            //self.myDictionary = [[NSDictionary alloc] initWithDictionary:retrievedDictionary];
-                            
-                            
-                            NSLog(@"The retreivedArray2: %@", retrievedArray2);
-                            
-                            NSLog(@"Count of the retreivedArray2: %d", retrievedArray2.count);
+                    
                     
                 }
             }];
@@ -650,13 +563,6 @@
 
 -(IBAction)logOut {
     
-   //[PFUser logOut];
-   
-    //NSLog(@"User has been logged out from Parse.");
-    
-    //[self.navigationController popToRootViewControllerAnimated:NO];
-    
-    
     
     [self.settingsBackground setHidden:NO];
     [self.findFriendsButton setHidden:NO];
@@ -666,28 +572,14 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     
-    
-    //[self.settingsBackground setAlpha:0.7];
-    
-    
-   /* FindFriendsViewController *findFriendsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FindFriendsViewController"];
-    
-    [self.navigationController pushViewController:findFriendsVC animated:YES]; */
-    
-}
+ }
 
 -(IBAction)openMediaCaptureVC {
     
-    NSLog(@"User has pressed the camera button");
     
-    //MediaCaptureVC *mvc = [[MediaCaptureVC alloc]init];
     
     [self performSegueWithIdentifier:@"inboxToMediaCaptureVC" sender:self];
-    
-    //[self.navigationController pushViewController:mvc animated:YES];
-    //[self.navigationController presentViewController:mvc animated:YES completion:nil];
-    
-}
+   }
 
 - (IBAction)hideSettings {
     
@@ -748,11 +640,6 @@
                                                  {
                                                      
                                                      accessGranted = granted;
-                                                     
-                                                     NSLog(@"Has access been granted?: %hhd", accessGranted);
-                                                     
-                                                     
-                                                     NSLog(@"Has there been an error? %@", error);
                                                      
                                                      
                                                      dispatch_semaphore_signal(sema);
