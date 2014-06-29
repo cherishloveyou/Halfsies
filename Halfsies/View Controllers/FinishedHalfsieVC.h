@@ -16,7 +16,6 @@
 @property (nonatomic, retain) UIActionSheet *shareButtonForActionSheet;
 @property (nonatomic, retain) NSURL *imageFileURL;
 @property (nonatomic, retain) NSData *imageData;
-@property (nonatomic, retain) ACAccount *facebookAccount;
 @property (nonatomic, strong) UIImage *image;
 
 - (IBAction)shareButton;

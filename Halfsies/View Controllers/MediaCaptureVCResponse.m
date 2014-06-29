@@ -10,7 +10,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Social/Social.h>
 #import<Accounts/Accounts.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 
 @interface MediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
@@ -717,8 +716,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                       performRequestWithHandler:^(NSData *responseData,
                                                   NSHTTPURLResponse *urlResponse, NSError *error)
                       {
-                          NSLog(@"Twitter HTTP response: %i",
-                                [urlResponse statusCode]);
+                          NSLog(@"Twitter HTTP response: %li",
+                                (long)[urlResponse statusCode]);
                           
                           if(error) {
                               
@@ -1317,38 +1316,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
 }
 
-
-- (void)postPhotosToFacebook:(UIImage *)photo withAlbumID:(NSString *)albumID {
-    
-   
-    
-    FBRequest *imageUploadRequest = [FBRequest requestForUploadPhoto:photo];
-    
-    [[imageUploadRequest parameters] setValue:albumID
-                                       forKey:@"album"];
-    
-    
-    
-    FBRequestConnection *connection = [[FBRequestConnection alloc] init];
-    
-    [connection addRequest:imageUploadRequest
-         completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-             
-             if (!error) {
-                 
-                
-                 
-             } else {
-                 
-                 NSLog(@"Photo uploaded failed :( %@",error.userInfo);
-                 
-                             }
-             
-         }];
-    
-    [connection start];
-    
-}
 
 
 -(void)saveToLibray {

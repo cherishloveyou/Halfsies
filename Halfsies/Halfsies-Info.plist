@@ -34,8 +34,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.2.2</string>
-	<key>FacebookAppID</key>
-	<string>1419028721681092</string>
 	<key>FacebookDisplayName</key>
 	<string>Halfsies</string>
 	<key>LSRequiresIPhoneOS</key>

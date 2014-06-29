@@ -9,7 +9,6 @@
 #import "FinishedHalfsieVC.h"
 #import <Social/Social.h>
 #import<Accounts/Accounts.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 #import "InboxViewController.h"
 #import <Parse/Parse.h>
@@ -476,39 +475,6 @@
     
     
 }
-
-- (void)postPhotosToFacebook:(UIImage *)photo withAlbumID:(NSString *)albumID {
-    
-    FBRequest *imageUploadRequest = [FBRequest requestForUploadPhoto:photo];
-    
-    [[imageUploadRequest parameters] setValue:albumID
-                                       forKey:@"album"];
-    
-    NSLog(@"imageUploadRequest parameters: %@",[imageUploadRequest parameters]);
-    
-    
-    FBRequestConnection *connection = [[FBRequestConnection alloc] init];
-    
-    [connection addRequest:imageUploadRequest
-         completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-             
-             if (!error) {
-                 
-                 NSLog(@"Photo uploaded successfuly! %@",result);
-                 
-                 
-                 
-             } else {
-                 
-                 NSLog(@"Photo uploaded failed :( %@",error.userInfo);
-             }
-             
-         }];
-    
-    [connection start];
-    
-}
-
 
 
 -(IBAction)backButton {

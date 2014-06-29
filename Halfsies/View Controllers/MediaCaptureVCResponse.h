@@ -41,7 +41,6 @@
 @property (nonatomic, retain) NSString *justFinishedSigningUp;
 @property (nonatomic, retain) NSArray *usersToInviteToHalfsies;
 @property (nonatomic, retain) NSString *textMessageInviteText;
-@property (nonatomic, retain) ACAccount *facebookAccount;
 @property (nonatomic, strong) UIAlertView *uploadPhotoAlertView;
 @property (nonatomic, strong) UIAlertView *reportAlertView;
 @property (nonatomic, strong) NSString *photoUploadAlertViewMessage;

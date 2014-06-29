@@ -36,7 +36,6 @@
 		C331E102194BB5B300A88D7A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C331E101194BB5B300A88D7A /* Crashlytics.framework */; };
 		C3448070186FD9E800B9DB48 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344806F186FD9E800B9DB48 /* Parse.framework */; };
 		C3448078186FDC7300B9DB48 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */; };
-		C38699AD18DA9228008D77EB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38699AC18DA9228008D77EB /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,7 +92,6 @@
 		C344806F186FD9E800B9DB48 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		C378735B186B4CC5009F7FFB /* Halfsies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfsies.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C38699AC18DA9228008D77EB /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +101,6 @@
 			files = (
 				ADEA5B8E195DF20600CE20B2 /* SystemConfiguration.framework in Frameworks */,
 				ADEA5B8C195DF1EF00CE20B2 /* MobileCoreServices.framework in Frameworks */,
-				C38699AD18DA9228008D77EB /* FacebookSDK.framework in Frameworks */,
 				C3448078186FDC7300B9DB48 /* libz.1.1.3.dylib in Frameworks */,
 				C331E102194BB5B300A88D7A /* Crashlytics.framework in Frameworks */,
 				C3448070186FD9E800B9DB48 /* Parse.framework in Frameworks */,
@@ -231,7 +228,6 @@
 				ADEA5B8B195DF1EF00CE20B2 /* MobileCoreServices.framework */,
 				ADEA5B89195DF1DB00CE20B2 /* Security.framework */,
 				C331E101194BB5B300A88D7A /* Crashlytics.framework */,
-				C38699AC18DA9228008D77EB /* FacebookSDK.framework */,
 				C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */,
 				C344806F186FD9E800B9DB48 /* Parse.framework */,
 			);

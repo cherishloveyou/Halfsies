@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)userLoggedIn;
-- (void)userLoggedOut;
-- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
+
 
 @end
