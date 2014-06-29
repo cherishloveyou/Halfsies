@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "AddFriendsViewController.h"
-#import <FacebookSDK/FacebookSDK.h>
 #import "MediaCaptureVCResponse.h"
 #import "InboxViewController.h"
 #import <Crashlytics/Crashlytics.h>
@@ -63,7 +62,6 @@
     
     // Handle the user leaving the app while the Facebook login dialog is being shown
     // For example: when the user presses the iOS "home" button while the login dialog is active
-    [FBAppCall handleDidBecomeActive];
     
 }
 
