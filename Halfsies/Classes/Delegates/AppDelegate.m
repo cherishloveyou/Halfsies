@@ -11,7 +11,6 @@
 #import "AddFriendsViewController.h"
 #import "MediaCaptureVCResponse.h"
 #import "InboxViewController.h"
-#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -24,9 +23,6 @@
     [Parse setApplicationId:@"DbuUgYKaPqMHJ63Nut29Xw4rp95nHw0VCSP7MDAK" clientKey:@"8k0eCg6XO63K43cZE4KkawU3eOSVaXVPEn1t8hzx"];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-    //Crashlytics Code
-    [Crashlytics startWithAPIKey:@"cc10af8049451966554e6df4d160875030930f4c"];
     
     
     //This is the first block of code from the Parse photo app tutorial located here: https://parse.com/tutorials/saving-images
