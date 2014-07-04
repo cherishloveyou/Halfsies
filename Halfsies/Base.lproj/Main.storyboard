@@ -7,7 +7,7 @@
         <!--Add Friends View Controller - Invite Friends-->
         <scene sceneID="Ykw-Y2-BSq">
             <objects>
-                <viewController id="qf8-xT-E9w" customClass="AddFriendsViewController" sceneMemberID="viewController">
+                <viewController id="qf8-xT-E9w" customClass="HALAddFriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NLk-aF-ENw"/>
                         <viewControllerLayoutGuide type="bottom" id="UY2-8y-jTX"/>
@@ -81,7 +81,7 @@
         <!--Send To Friends View Controller - Send To Friends-->
         <scene sceneID="eHa-x2-bea">
             <objects>
-                <viewController id="3lv-Fv-Phd" customClass="SendToFriendsViewController" sceneMemberID="viewController">
+                <viewController id="3lv-Fv-Phd" customClass="HALSendToFriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u9T-Wk-4kj"/>
                         <viewControllerLayoutGuide type="bottom" id="ux0-1K-L6e"/>
@@ -155,7 +155,7 @@
         <!--Final Find Friends View Controller-->
         <scene sceneID="2MA-nh-gR8">
             <objects>
-                <viewController id="m2q-mf-7QD" customClass="FinalFindFriendsViewController" sceneMemberID="viewController">
+                <viewController id="m2q-mf-7QD" customClass="HALFinalFindFriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8PJ-13-i61"/>
                         <viewControllerLayoutGuide type="bottom" id="Jq0-PR-RD4"/>
@@ -218,7 +218,7 @@
         <!--Find Friends View Controller-->
         <scene sceneID="Cip-du-AqB">
             <objects>
-                <viewController storyboardIdentifier="FindFriendsViewController" id="pDB-YT-3Zl" customClass="FindFriendsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FindFriendsViewController" id="pDB-YT-3Zl" customClass="HALFindFriendsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FQ8-zK-7DY"/>
                         <viewControllerLayoutGuide type="bottom" id="bjb-fI-dqF"/>
@@ -289,7 +289,7 @@
         <!--Search View Controller-->
         <scene sceneID="Jq9-ho-LyZ">
             <objects>
-                <viewController id="jIJ-V5-gF0" customClass="SearchViewController" sceneMemberID="viewController">
+                <viewController id="jIJ-V5-gF0" customClass="HALSearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dst-lO-86h"/>
                         <viewControllerLayoutGuide type="bottom" id="cD3-Pv-7JN"/>
@@ -371,7 +371,7 @@
         <!--Inbox View Controller - Inbox-->
         <scene sceneID="1UM-DI-7fI">
             <objects>
-                <viewController storyboardIdentifier="InboxViewController" id="pWR-b5-OLO" customClass="InboxViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InboxViewController" id="pWR-b5-OLO" customClass="HALInboxViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9np-qR-dR4"/>
                         <viewControllerLayoutGuide type="bottom" id="qxZ-Tr-Hbx"/>
@@ -493,7 +493,7 @@
         <!--Window View Controller-->
         <scene sceneID="7le-wz-1ll">
             <objects>
-                <viewController id="hf4-Qs-slm" customClass="SMSWindowViewController" sceneMemberID="viewController">
+                <viewController id="hf4-Qs-slm" customClass="HALSMSWindowViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f7Z-rh-ode"/>
                         <viewControllerLayoutGuide type="bottom" id="cpn-l1-ZaO"/>
@@ -515,7 +515,7 @@
         <!--Finished HalfsieVC-->
         <scene sceneID="17S-R2-2CW">
             <objects>
-                <viewController id="PU1-Jt-ywD" customClass="FinishedHalfsieVC" sceneMemberID="viewController">
+                <viewController id="PU1-Jt-ywD" customClass="HALFinishedHalfsieVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oIZ-fl-hOj"/>
                         <viewControllerLayoutGuide type="bottom" id="kpP-db-3JD"/>
@@ -572,7 +572,7 @@
         <!--Media CaptureVC Response-->
         <scene sceneID="KTR-Jb-aiU">
             <objects>
-                <viewController id="X8T-TG-qhH" customClass="MediaCaptureVCResponse" sceneMemberID="viewController">
+                <viewController id="X8T-TG-qhH" customClass="HALMediaCaptureVCResponse" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tui-6s-zdl"/>
                         <viewControllerLayoutGuide type="bottom" id="gCB-ta-1ii"/>
@@ -774,7 +774,7 @@
         <!--Login View Controller-->
         <scene sceneID="m07-cv-dpH">
             <objects>
-                <viewController id="PRE-uJ-AVw" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController id="PRE-uJ-AVw" customClass="HALLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oBM-z4-YCq"/>
                         <viewControllerLayoutGuide type="bottom" id="dyA-9U-da2"/>
@@ -857,7 +857,7 @@
         <!--Signup View Controller - Sign Up-->
         <scene sceneID="Vga-cG-HeG">
             <objects>
-                <viewController id="Fly-kt-OBc" customClass="SignupViewController" sceneMemberID="viewController">
+                <viewController id="Fly-kt-OBc" customClass="HALSignupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O7Q-U7-sco"/>
                         <viewControllerLayoutGuide type="bottom" id="EEC-aF-lmv"/>
@@ -956,7 +956,7 @@
         <!--Media CaptureVC-->
         <scene sceneID="aF0-Js-hn1">
             <objects>
-                <viewController storyboardIdentifier="MediaCaptureVC" id="zCW-vV-pmc" customClass="MediaCaptureVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MediaCaptureVC" id="zCW-vV-pmc" customClass="HALMediaCaptureVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jYr-Yn-a4i"/>
                         <viewControllerLayoutGuide type="bottom" id="vhl-kH-1Wo"/>
@@ -1109,7 +1109,7 @@
         <!--Launch View Controller-->
         <scene sceneID="cuG-3y-oiy">
             <objects>
-                <viewController id="TJy-vZ-Jp8" customClass="LaunchViewController" sceneMemberID="viewController">
+                <viewController id="TJy-vZ-Jp8" customClass="HALLaunchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sag-t5-VzB"/>
                         <viewControllerLayoutGuide type="bottom" id="3TE-zs-2ld"/>

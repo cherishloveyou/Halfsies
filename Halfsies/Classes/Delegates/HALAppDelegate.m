@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Mitchell Porter. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "HALAppDelegate.h"
 #import <Parse/Parse.h>
-#import "AddFriendsViewController.h"
-#import "MediaCaptureVCResponse.h"
-#import "InboxViewController.h"
+#import "HALAddFriendsViewController.h"
+#import "HALMediaCaptureVCResponse.h"
+#import "HALInboxViewController.h"
 
-@implementation AppDelegate
+@implementation HALAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

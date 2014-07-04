@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import "FinishedHalfsieVC.h"
+#import "HALFinishedHalfsieVC.h"
 #import <Social/Social.h>
 #import<Accounts/Accounts.h>
-#import "AppDelegate.h"
-#import "InboxViewController.h"
+#import "HALAppDelegate.h"
+#import "HALInboxViewController.h"
 #import <Parse/Parse.h>
 
-@interface FinishedHalfsieVC () <UIActionSheetDelegate, UIAlertViewDelegate>
+@interface HALFinishedHalfsieVC () <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSString *senderName;
 @property (strong, nonatomic) PFUser *currentUser;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation FinishedHalfsieVC
+@implementation HALFinishedHalfsieVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -480,7 +480,7 @@
 -(IBAction)backButton {
     
     
-    InboxViewController *ivc;
+    HALInboxViewController *ivc;
     
     
     [self.navigationController pushViewController:ivc animated:YES];

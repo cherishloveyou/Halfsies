@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import "SendToFriendsViewController.h"
+#import "HALSendToFriendsViewController.h"
 #import <Parse/Parse.h>
 #include <stdlib.h>
-#include "MediaCaptureVC.h"
+#include "HALMediaCaptureVC.h"
 
-@interface SendToFriendsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface HALSendToFriendsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *finalParseStrings;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation SendToFriendsViewController
+@implementation HALSendToFriendsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

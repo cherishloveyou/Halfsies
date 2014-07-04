@@ -12,7 +12,7 @@
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABPerson.h>
 #import <Parse/Parse.h>
-#import "MediaCaptureVC.h"
+#import "HALMediaCaptureVC.h"
 #import "MBProgressHUD.h"
 #import "SMSWindowViewController.h"
 

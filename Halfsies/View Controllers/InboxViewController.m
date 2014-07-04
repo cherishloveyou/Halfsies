@@ -8,10 +8,10 @@
 
 #import "InboxViewController.h"
 #import <Parse/Parse.h>
-#import "MediaCaptureVCResponse.h"
-#import "FinishedHalfsieVC.h"
-#import "MediaCaptureVC.h"
-#import "FindFriendsViewController.h"
+#import "HALMediaCaptureVCResponse.h"
+#import "HALFinishedHalfsieVC.h"
+#import "HALMediaCaptureVC.h"
+#import "HALFindFriendsViewController.h"
 
 @interface InboxViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -388,7 +388,7 @@
     if ([segue.identifier isEqualToString:@"segueToMediaCaptureVCResponse"]) {
         
         
-        MediaCaptureVCResponse *topHalf = segue.destinationViewController;
+        HALMediaCaptureVCResponse *topHalf = segue.destinationViewController;
         
         
         topHalf.message = _selectedMessage;
@@ -400,7 +400,7 @@
         
 
         
-        FinishedHalfsieVC *finished = segue.destinationViewController;
+        HALFinishedHalfsieVC *finished = segue.destinationViewController;
         
         finished.messagePassedFromInbox = _selectedMessage;
         

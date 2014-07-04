@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import "MediaCaptureVCResponse.h"
+#import "HALMediaCaptureVCResponse.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Social/Social.h>
 #import<Accounts/Accounts.h>
-#import "AppDelegate.h"
+#import "HALAppDelegate.h"
 
-@interface MediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface HALMediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (strong, nonatomic) NSData *imageData;
 @property (strong, nonatomic) NSString *photo;
@@ -40,7 +40,7 @@ static inline CGSize swapWidthAndHeight(CGSize size)
 }
 
 
-@implementation MediaCaptureVCResponse
+@implementation HALMediaCaptureVCResponse
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -927,7 +927,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         if ([segue.identifier isEqualToString:@"mediaCaptureToSendToFriendsSegue"]) {
         
         
-        SendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
+        HALSendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
             
         sendFriendsVC.halfsiesPhotoToSend = _image;
         

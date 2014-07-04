@@ -14,20 +14,20 @@
 		ADEA5B88195DF16D00CE20B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADEA5B87195DF16D00CE20B2 /* Images.xcassets */; };
 		ADEA5B8C195DF1EF00CE20B2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEA5B8B195DF1EF00CE20B2 /* MobileCoreServices.framework */; };
 		ADEA5B8E195DF20600CE20B2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEA5B8D195DF20600CE20B2 /* SystemConfiguration.framework */; };
-		C32028851964D32100EE7553 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028641964D32100EE7553 /* AppDelegate.m */; };
-		C32028861964D32100EE7553 /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028671964D32100EE7553 /* AddFriendsViewController.m */; };
-		C32028871964D32100EE7553 /* FinalFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028691964D32100EE7553 /* FinalFindFriendsViewController.m */; };
-		C32028881964D32100EE7553 /* FindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320286B1964D32100EE7553 /* FindFriendsViewController.m */; };
-		C32028891964D32100EE7553 /* FinishedHalfsieVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C320286D1964D32100EE7553 /* FinishedHalfsieVC.m */; };
-		C320288A1964D32100EE7553 /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320286F1964D32100EE7553 /* InboxViewController.m */; };
-		C320288B1964D32100EE7553 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028711964D32100EE7553 /* LaunchViewController.m */; };
-		C320288C1964D32100EE7553 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028731964D32100EE7553 /* LoginViewController.m */; };
-		C320288D1964D32100EE7553 /* MediaCaptureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028751964D32100EE7553 /* MediaCaptureVC.m */; };
-		C320288E1964D32100EE7553 /* MediaCaptureVCResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028771964D32100EE7553 /* MediaCaptureVCResponse.m */; };
-		C320288F1964D32100EE7553 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028791964D32100EE7553 /* SearchViewController.m */; };
-		C32028901964D32100EE7553 /* SendToFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320287B1964D32100EE7553 /* SendToFriendsViewController.m */; };
-		C32028911964D32100EE7553 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320287D1964D32100EE7553 /* SignupViewController.m */; };
-		C32028921964D32100EE7553 /* SMSWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320287F1964D32100EE7553 /* SMSWindowViewController.m */; };
+		C32028851964D32100EE7553 /* HALAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028641964D32100EE7553 /* HALAppDelegate.m */; };
+		C32028861964D32100EE7553 /* HALAddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028671964D32100EE7553 /* HALAddFriendsViewController.m */; };
+		C32028871964D32100EE7553 /* HALFinalFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028691964D32100EE7553 /* HALFinalFindFriendsViewController.m */; };
+		C32028881964D32100EE7553 /* HALFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320286B1964D32100EE7553 /* HALFindFriendsViewController.m */; };
+		C32028891964D32100EE7553 /* HALFinishedHalfsieVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C320286D1964D32100EE7553 /* HALFinishedHalfsieVC.m */; };
+		C320288A1964D32100EE7553 /* HALInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320286F1964D32100EE7553 /* HALInboxViewController.m */; };
+		C320288B1964D32100EE7553 /* HALLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028711964D32100EE7553 /* HALLaunchViewController.m */; };
+		C320288C1964D32100EE7553 /* HALLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028731964D32100EE7553 /* HALLoginViewController.m */; };
+		C320288D1964D32100EE7553 /* HALMediaCaptureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028751964D32100EE7553 /* HALMediaCaptureVC.m */; };
+		C320288E1964D32100EE7553 /* HALMediaCaptureVCResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028771964D32100EE7553 /* HALMediaCaptureVCResponse.m */; };
+		C320288F1964D32100EE7553 /* HALSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028791964D32100EE7553 /* HALSearchViewController.m */; };
+		C32028901964D32100EE7553 /* HALSendToFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320287B1964D32100EE7553 /* HALSendToFriendsViewController.m */; };
+		C32028911964D32100EE7553 /* HALSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320287D1964D32100EE7553 /* HALSignupViewController.m */; };
+		C32028921964D32100EE7553 /* HALSMSWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C320287F1964D32100EE7553 /* HALSMSWindowViewController.m */; };
 		C32028C01964D43100EE7553 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028B71964D43100EE7553 /* NSObject+Properties.m */; };
 		C32028C11964D43100EE7553 /* PFACL+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028B91964D43100EE7553 /* PFACL+NSCoding.m */; };
 		C32028C21964D43100EE7553 /* PFFile+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028BB1964D43100EE7553 /* PFFile+NSCoding.m */; };
@@ -49,34 +49,34 @@
 		ADEA5B89195DF1DB00CE20B2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ADEA5B8B195DF1EF00CE20B2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		ADEA5B8D195DF20600CE20B2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		C32028631964D32100EE7553 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C32028641964D32100EE7553 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C32028661964D32100EE7553 /* AddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsViewController.h; sourceTree = "<group>"; };
-		C32028671964D32100EE7553 /* AddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsViewController.m; sourceTree = "<group>"; };
-		C32028681964D32100EE7553 /* FinalFindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalFindFriendsViewController.h; sourceTree = "<group>"; };
-		C32028691964D32100EE7553 /* FinalFindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalFindFriendsViewController.m; sourceTree = "<group>"; };
-		C320286A1964D32100EE7553 /* FindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindFriendsViewController.h; sourceTree = "<group>"; };
-		C320286B1964D32100EE7553 /* FindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFriendsViewController.m; sourceTree = "<group>"; };
-		C320286C1964D32100EE7553 /* FinishedHalfsieVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinishedHalfsieVC.h; sourceTree = "<group>"; };
-		C320286D1964D32100EE7553 /* FinishedHalfsieVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinishedHalfsieVC.m; sourceTree = "<group>"; };
-		C320286E1964D32100EE7553 /* InboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxViewController.h; sourceTree = "<group>"; };
-		C320286F1964D32100EE7553 /* InboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxViewController.m; sourceTree = "<group>"; };
-		C32028701964D32100EE7553 /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
-		C32028711964D32100EE7553 /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
-		C32028721964D32100EE7553 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		C32028731964D32100EE7553 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		C32028741964D32100EE7553 /* MediaCaptureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCaptureVC.h; sourceTree = "<group>"; };
-		C32028751964D32100EE7553 /* MediaCaptureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaCaptureVC.m; sourceTree = "<group>"; };
-		C32028761964D32100EE7553 /* MediaCaptureVCResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCaptureVCResponse.h; sourceTree = "<group>"; };
-		C32028771964D32100EE7553 /* MediaCaptureVCResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaCaptureVCResponse.m; sourceTree = "<group>"; };
-		C32028781964D32100EE7553 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		C32028791964D32100EE7553 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		C320287A1964D32100EE7553 /* SendToFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendToFriendsViewController.h; sourceTree = "<group>"; };
-		C320287B1964D32100EE7553 /* SendToFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendToFriendsViewController.m; sourceTree = "<group>"; };
-		C320287C1964D32100EE7553 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
-		C320287D1964D32100EE7553 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
-		C320287E1964D32100EE7553 /* SMSWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSWindowViewController.h; sourceTree = "<group>"; };
-		C320287F1964D32100EE7553 /* SMSWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSWindowViewController.m; sourceTree = "<group>"; };
+		C32028631964D32100EE7553 /* HALAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALAppDelegate.h; sourceTree = "<group>"; };
+		C32028641964D32100EE7553 /* HALAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALAppDelegate.m; sourceTree = "<group>"; };
+		C32028661964D32100EE7553 /* HALAddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALAddFriendsViewController.h; sourceTree = "<group>"; };
+		C32028671964D32100EE7553 /* HALAddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALAddFriendsViewController.m; sourceTree = "<group>"; };
+		C32028681964D32100EE7553 /* HALFinalFindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALFinalFindFriendsViewController.h; sourceTree = "<group>"; };
+		C32028691964D32100EE7553 /* HALFinalFindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALFinalFindFriendsViewController.m; sourceTree = "<group>"; };
+		C320286A1964D32100EE7553 /* HALFindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALFindFriendsViewController.h; sourceTree = "<group>"; };
+		C320286B1964D32100EE7553 /* HALFindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALFindFriendsViewController.m; sourceTree = "<group>"; };
+		C320286C1964D32100EE7553 /* HALFinishedHalfsieVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALFinishedHalfsieVC.h; sourceTree = "<group>"; };
+		C320286D1964D32100EE7553 /* HALFinishedHalfsieVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALFinishedHalfsieVC.m; sourceTree = "<group>"; };
+		C320286E1964D32100EE7553 /* HALInboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALInboxViewController.h; sourceTree = "<group>"; };
+		C320286F1964D32100EE7553 /* HALInboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALInboxViewController.m; sourceTree = "<group>"; };
+		C32028701964D32100EE7553 /* HALLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALLaunchViewController.h; sourceTree = "<group>"; };
+		C32028711964D32100EE7553 /* HALLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALLaunchViewController.m; sourceTree = "<group>"; };
+		C32028721964D32100EE7553 /* HALLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALLoginViewController.h; sourceTree = "<group>"; };
+		C32028731964D32100EE7553 /* HALLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALLoginViewController.m; sourceTree = "<group>"; };
+		C32028741964D32100EE7553 /* HALMediaCaptureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALMediaCaptureVC.h; sourceTree = "<group>"; };
+		C32028751964D32100EE7553 /* HALMediaCaptureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALMediaCaptureVC.m; sourceTree = "<group>"; };
+		C32028761964D32100EE7553 /* HALMediaCaptureVCResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALMediaCaptureVCResponse.h; sourceTree = "<group>"; };
+		C32028771964D32100EE7553 /* HALMediaCaptureVCResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALMediaCaptureVCResponse.m; sourceTree = "<group>"; };
+		C32028781964D32100EE7553 /* HALSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALSearchViewController.h; sourceTree = "<group>"; };
+		C32028791964D32100EE7553 /* HALSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALSearchViewController.m; sourceTree = "<group>"; };
+		C320287A1964D32100EE7553 /* HALSendToFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALSendToFriendsViewController.h; sourceTree = "<group>"; };
+		C320287B1964D32100EE7553 /* HALSendToFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALSendToFriendsViewController.m; sourceTree = "<group>"; };
+		C320287C1964D32100EE7553 /* HALSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALSignupViewController.h; sourceTree = "<group>"; };
+		C320287D1964D32100EE7553 /* HALSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALSignupViewController.m; sourceTree = "<group>"; };
+		C320287E1964D32100EE7553 /* HALSMSWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALSMSWindowViewController.h; sourceTree = "<group>"; };
+		C320287F1964D32100EE7553 /* HALSMSWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALSMSWindowViewController.m; sourceTree = "<group>"; };
 		C32028B61964D43100EE7553 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Properties.h"; sourceTree = "<group>"; };
 		C32028B71964D43100EE7553 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
 		C32028B81964D43100EE7553 /* PFACL+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFACL+NSCoding.h"; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 		C32028621964D32100EE7553 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				C32028631964D32100EE7553 /* AppDelegate.h */,
-				C32028641964D32100EE7553 /* AppDelegate.m */,
+				C32028631964D32100EE7553 /* HALAppDelegate.h */,
+				C32028641964D32100EE7553 /* HALAppDelegate.m */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -160,32 +160,32 @@
 		C32028651964D32100EE7553 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C32028661964D32100EE7553 /* AddFriendsViewController.h */,
-				C32028671964D32100EE7553 /* AddFriendsViewController.m */,
-				C32028681964D32100EE7553 /* FinalFindFriendsViewController.h */,
-				C32028691964D32100EE7553 /* FinalFindFriendsViewController.m */,
-				C320286A1964D32100EE7553 /* FindFriendsViewController.h */,
-				C320286B1964D32100EE7553 /* FindFriendsViewController.m */,
-				C320286C1964D32100EE7553 /* FinishedHalfsieVC.h */,
-				C320286D1964D32100EE7553 /* FinishedHalfsieVC.m */,
-				C320286E1964D32100EE7553 /* InboxViewController.h */,
-				C320286F1964D32100EE7553 /* InboxViewController.m */,
-				C32028701964D32100EE7553 /* LaunchViewController.h */,
-				C32028711964D32100EE7553 /* LaunchViewController.m */,
-				C32028721964D32100EE7553 /* LoginViewController.h */,
-				C32028731964D32100EE7553 /* LoginViewController.m */,
-				C32028741964D32100EE7553 /* MediaCaptureVC.h */,
-				C32028751964D32100EE7553 /* MediaCaptureVC.m */,
-				C32028761964D32100EE7553 /* MediaCaptureVCResponse.h */,
-				C32028771964D32100EE7553 /* MediaCaptureVCResponse.m */,
-				C32028781964D32100EE7553 /* SearchViewController.h */,
-				C32028791964D32100EE7553 /* SearchViewController.m */,
-				C320287A1964D32100EE7553 /* SendToFriendsViewController.h */,
-				C320287B1964D32100EE7553 /* SendToFriendsViewController.m */,
-				C320287C1964D32100EE7553 /* SignupViewController.h */,
-				C320287D1964D32100EE7553 /* SignupViewController.m */,
-				C320287E1964D32100EE7553 /* SMSWindowViewController.h */,
-				C320287F1964D32100EE7553 /* SMSWindowViewController.m */,
+				C32028661964D32100EE7553 /* HALAddFriendsViewController.h */,
+				C32028671964D32100EE7553 /* HALAddFriendsViewController.m */,
+				C32028681964D32100EE7553 /* HALFinalFindFriendsViewController.h */,
+				C32028691964D32100EE7553 /* HALFinalFindFriendsViewController.m */,
+				C320286A1964D32100EE7553 /* HALFindFriendsViewController.h */,
+				C320286B1964D32100EE7553 /* HALFindFriendsViewController.m */,
+				C320286C1964D32100EE7553 /* HALFinishedHalfsieVC.h */,
+				C320286D1964D32100EE7553 /* HALFinishedHalfsieVC.m */,
+				C320286E1964D32100EE7553 /* HALInboxViewController.h */,
+				C320286F1964D32100EE7553 /* HALInboxViewController.m */,
+				C32028701964D32100EE7553 /* HALLaunchViewController.h */,
+				C32028711964D32100EE7553 /* HALLaunchViewController.m */,
+				C32028721964D32100EE7553 /* HALLoginViewController.h */,
+				C32028731964D32100EE7553 /* HALLoginViewController.m */,
+				C32028741964D32100EE7553 /* HALMediaCaptureVC.h */,
+				C32028751964D32100EE7553 /* HALMediaCaptureVC.m */,
+				C32028761964D32100EE7553 /* HALMediaCaptureVCResponse.h */,
+				C32028771964D32100EE7553 /* HALMediaCaptureVCResponse.m */,
+				C32028781964D32100EE7553 /* HALSearchViewController.h */,
+				C32028791964D32100EE7553 /* HALSearchViewController.m */,
+				C320287A1964D32100EE7553 /* HALSendToFriendsViewController.h */,
+				C320287B1964D32100EE7553 /* HALSendToFriendsViewController.m */,
+				C320287C1964D32100EE7553 /* HALSignupViewController.h */,
+				C320287D1964D32100EE7553 /* HALSignupViewController.m */,
+				C320287E1964D32100EE7553 /* HALSMSWindowViewController.h */,
+				C320287F1964D32100EE7553 /* HALSMSWindowViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -328,26 +328,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32028861964D32100EE7553 /* AddFriendsViewController.m in Sources */,
-				C320288D1964D32100EE7553 /* MediaCaptureVC.m in Sources */,
-				C32028911964D32100EE7553 /* SignupViewController.m in Sources */,
-				C32028851964D32100EE7553 /* AppDelegate.m in Sources */,
-				C32028881964D32100EE7553 /* FindFriendsViewController.m in Sources */,
-				C320288F1964D32100EE7553 /* SearchViewController.m in Sources */,
-				C32028871964D32100EE7553 /* FinalFindFriendsViewController.m in Sources */,
+				C32028861964D32100EE7553 /* HALAddFriendsViewController.m in Sources */,
+				C320288D1964D32100EE7553 /* HALMediaCaptureVC.m in Sources */,
+				C32028911964D32100EE7553 /* HALSignupViewController.m in Sources */,
+				C32028851964D32100EE7553 /* HALAppDelegate.m in Sources */,
+				C32028881964D32100EE7553 /* HALFindFriendsViewController.m in Sources */,
+				C320288F1964D32100EE7553 /* HALSearchViewController.m in Sources */,
+				C32028871964D32100EE7553 /* HALFinalFindFriendsViewController.m in Sources */,
 				C32028C11964D43100EE7553 /* PFACL+NSCoding.m in Sources */,
-				C320288A1964D32100EE7553 /* InboxViewController.m in Sources */,
-				C32028921964D32100EE7553 /* SMSWindowViewController.m in Sources */,
+				C320288A1964D32100EE7553 /* HALInboxViewController.m in Sources */,
+				C32028921964D32100EE7553 /* HALSMSWindowViewController.m in Sources */,
 				AD7F4C28195DED16001B07E3 /* main.m in Sources */,
-				C320288E1964D32100EE7553 /* MediaCaptureVCResponse.m in Sources */,
-				C320288C1964D32100EE7553 /* LoginViewController.m in Sources */,
+				C320288E1964D32100EE7553 /* HALMediaCaptureVCResponse.m in Sources */,
+				C320288C1964D32100EE7553 /* HALLoginViewController.m in Sources */,
 				C32028C01964D43100EE7553 /* NSObject+Properties.m in Sources */,
-				C32028891964D32100EE7553 /* FinishedHalfsieVC.m in Sources */,
+				C32028891964D32100EE7553 /* HALFinishedHalfsieVC.m in Sources */,
 				C32028C41964D43100EE7553 /* UIImage+so1.m in Sources */,
 				C32028C31964D43100EE7553 /* PFObject+NSCoding.m in Sources */,
 				AD7F4C29195DED16001B07E3 /* MBProgressHUD.m in Sources */,
-				C32028901964D32100EE7553 /* SendToFriendsViewController.m in Sources */,
-				C320288B1964D32100EE7553 /* LaunchViewController.m in Sources */,
+				C32028901964D32100EE7553 /* HALSendToFriendsViewController.m in Sources */,
+				C320288B1964D32100EE7553 /* HALLaunchViewController.m in Sources */,
 				C32028C21964D43100EE7553 /* PFFile+NSCoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
