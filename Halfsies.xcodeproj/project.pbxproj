@@ -141,6 +141,7 @@
 		C32028561964D32100EE7553 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C3D7B3891968D61800F3BE3C /* Models */,
 				C32028B51964D43100EE7553 /* Categories */,
 				C32028621964D32100EE7553 /* Delegates */,
 				C32028651964D32100EE7553 /* View Controllers */,
@@ -244,6 +245,13 @@
 				C344806F186FD9E800B9DB48 /* Parse.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3D7B3891968D61800F3BE3C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
