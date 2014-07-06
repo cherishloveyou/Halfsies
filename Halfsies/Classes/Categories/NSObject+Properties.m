@@ -5,7 +5,7 @@
 //  Created by Martin Rybak on 3/7/14.
 //  Adapted from https://github.com/greenisus/NSObject-NSCoding
 //
-
+//
 #import "NSObject+Properties.h"
 #import <objc/runtime.h>
 
