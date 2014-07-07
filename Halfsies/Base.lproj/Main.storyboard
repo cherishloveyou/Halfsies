@@ -809,7 +809,7 @@
                                             <constraint firstAttribute="width" constant="268" id="Ra5-ig-fFN"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -902,7 +902,7 @@
                                             <constraint firstAttribute="width" constant="268" id="pu5-e1-tBM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -1234,9 +1234,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="aI1-Zn-Bbo"/>
         <segue reference="20G-jq-rhA"/>
-        <segue reference="O3d-QF-OYA"/>
+        <segue reference="dLD-hY-enm"/>
+        <segue reference="aI1-Zn-Bbo"/>
         <segue reference="e8s-3Q-I0v"/>
         <segue reference="iVv-Pa-lv8"/>
         <segue reference="EGM-eB-W1A"/>
