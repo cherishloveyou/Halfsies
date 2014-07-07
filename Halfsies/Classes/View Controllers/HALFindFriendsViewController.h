@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *friends;
 @property (strong, nonatomic) NSArray *parseUsers;
 
--(void)handleBack;
--(void)finishedAddingFriends;
+- (void)handleBack;
+- (void)finishedAddingFriends;
 
 @end

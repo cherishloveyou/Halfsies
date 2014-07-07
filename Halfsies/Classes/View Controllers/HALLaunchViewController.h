@@ -14,9 +14,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *launchBackground;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backBarButton;
 
--(IBAction)login;
--(IBAction)signup;
--(IBAction)termsOfService;
+- (IBAction)login;
+- (IBAction)signup;
+- (IBAction)termsOfService;
 
 @end
 
