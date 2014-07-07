@@ -13,7 +13,6 @@
 #import <AddressBook/ABPerson.h>
 #import <Parse/Parse.h>
 #import "HALMediaCaptureVC.h"
-#import "MBProgressHUD.h"
 #import "HALSMSWindowViewController.h"
 
 @interface HALAddFriendsViewController () <UITableViewDelegate, UITableViewDataSource>

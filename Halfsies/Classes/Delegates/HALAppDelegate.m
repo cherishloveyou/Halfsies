@@ -8,32 +8,21 @@
 
 #import "HALAppDelegate.h"
 #import <Parse/Parse.h>
-#import "HALAddFriendsViewController.h"
-#import "HALMediaCaptureVCResponse.h"
-#import "HALInboxViewController.h"
 
 @implementation HALAppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     // This is the code for Parse.
-    
     [Parse setApplicationId:@"DbuUgYKaPqMHJ63Nut29Xw4rp95nHw0VCSP7MDAK" clientKey:@"8k0eCg6XO63K43cZE4KkawU3eOSVaXVPEn1t8hzx"];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
     //This is the first block of code from the Parse photo app tutorial located here: https://parse.com/tutorials/saving-images
-    
-   
- 
+
     return YES;
-    
-    }
-    
-							
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -54,7 +43,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    
     
     // Handle the user leaving the app while the Facebook login dialog is being shown
     // For example: when the user presses the iOS "home" button while the login dialog is active

@@ -10,100 +10,43 @@
 
 @interface HALLaunchViewController ()
 
+@property (strong, nonatomic) IBOutlet UIImageView *launchBackground;
+
+/** Segue to the TOS screen */
+- (IBAction)termsOfService;
+
 @end
 
 @implementation HALLaunchViewController
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
 
     self.launchBackground.image = [UIImage imageNamed:@"launchBackground"];
     
-    
-    if([UIScreen mainScreen].bounds.size.height == 480) {
-        
-        
-
-        
-        
+    if ([UIScreen mainScreen].bounds.size.height == 480) {
+        // is something supposed to go here?
     } else {
         
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-    
-   
-    
 }
 
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:NO];
-    [self.navigationController setNavigationBarHidden:YES];   //it hides
-    
-}
-
-
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:NO];
-    [self.navigationController setNavigationBarHidden:NO];    // it shows
-
-}
-
-
-
-
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:NO];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
--(IBAction)login {
-    
-    
-
-    [self performSegueWithIdentifier:@"launchToLoginSegue" sender:self];
-    
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:NO];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
--(IBAction)signup {
-    
-
-[self performSegueWithIdentifier:@"launchToSignupSegue" sender:self];
-    
-
-}
-
-- (IBAction)termsOfService {
-    
+- (IBAction)termsOfService
+{
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.halfsies.co/terms"]];
-    
 }
-
-
 
 @end

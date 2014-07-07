@@ -800,6 +800,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="PRE-uJ-AVw" id="6ZF-kl-ESI"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kQZ-he-ndX">
                                         <rect key="frame" x="26" y="163" width="268" height="30"/>
@@ -810,6 +813,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="PRE-uJ-AVw" id="ehI-t1-a0n"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -843,8 +849,6 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="loginBackgroundImageView" destination="Wy9-sY-Dw2" id="fGw-SM-fna"/>
-                        <outlet property="navBar" destination="pdK-tI-NxH" id="Cxk-Vy-BKy"/>
-                        <outlet property="navItem" destination="son-Dc-7Jn" id="8ww-9h-yfh"/>
                         <outlet property="passwordEntry" destination="kQZ-he-ndX" id="xB6-5a-IAu"/>
                         <outlet property="usernameEntry" destination="S7P-te-hTv" id="OZ7-QJ-oAC"/>
                         <segue destination="zCW-vV-pmc" kind="push" identifier="loginToMediaCaptureVC" id="dLD-hY-enm"/>
@@ -1123,35 +1127,30 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgK-fW-zc4">
-                                <rect key="frame" x="12" y="379" width="297" height="34"/>
+                                <rect key="frame" x="12" y="389" width="297" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="1cM-zJ-wda"/>
-                                    <constraint firstAttribute="width" constant="297" id="WVI-4n-n1n"/>
-                                </constraints>
                                 <state key="normal" image="log-in-button-test-1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="login" destination="TJy-vZ-Jp8" eventType="touchUpInside" id="Jwc-3M-MGY"/>
+                                    <segue destination="PRE-uJ-AVw" kind="push" id="0vC-Zp-mKk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="center" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US4-L7-VDM">
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US4-L7-VDM">
                                 <rect key="frame" x="12" y="353" width="297" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="UUu-ax-8df"/>
-                                    <constraint firstAttribute="width" constant="297" id="ZsL-JT-FlT"/>
+                                    <constraint firstAttribute="height" constant="34" id="ce7-VC-nEY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <state key="normal" image="Image-5">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signup" destination="TJy-vZ-Jp8" eventType="touchUpInside" id="aLp-BP-er7"/>
+                                    <segue destination="Fly-kt-OBc" kind="push" id="3LX-bm-a5e"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs4-4v-ePs">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs4-4v-ePs">
                                 <rect key="frame" x="12" y="518" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -1165,27 +1164,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UgK-fW-zc4" firstAttribute="top" secondItem="US4-L7-VDM" secondAttribute="bottom" constant="9" id="DAi-pH-Rf1"/>
-                            <constraint firstItem="UgK-fW-zc4" firstAttribute="top" secondItem="US4-L7-VDM" secondAttribute="bottom" constant="9" id="F3r-6T-BQa"/>
-                            <constraint firstAttribute="trailing" secondItem="UgK-fW-zc4" secondAttribute="trailing" constant="11" id="Lyw-q5-A8L"/>
-                            <constraint firstItem="UgK-fW-zc4" firstAttribute="leading" secondItem="JLY-i8-5Pv" secondAttribute="leading" constant="12" id="WHw-bi-Z7D"/>
-                            <constraint firstItem="dtA-Qr-cll" firstAttribute="top" secondItem="JLY-i8-5Pv" secondAttribute="top" id="XRF-Xw-OhT"/>
-                            <constraint firstItem="US4-L7-VDM" firstAttribute="leading" secondItem="JLY-i8-5Pv" secondAttribute="leading" constant="12" id="Xz7-ni-oUv"/>
-                            <constraint firstItem="3TE-zs-2ld" firstAttribute="top" secondItem="dtA-Qr-cll" secondAttribute="bottom" id="d7M-6O-EYG"/>
-                            <constraint firstAttribute="trailing" secondItem="US4-L7-VDM" secondAttribute="trailing" constant="11" id="dnn-tT-Z3f"/>
-                            <constraint firstItem="3TE-zs-2ld" firstAttribute="top" secondItem="Bs4-4v-ePs" secondAttribute="bottom" constant="20" id="f7P-dr-lGJ"/>
-                            <constraint firstItem="dtA-Qr-cll" firstAttribute="leading" secondItem="JLY-i8-5Pv" secondAttribute="leading" id="tcD-cD-J2P"/>
-                            <constraint firstAttribute="trailing" secondItem="dtA-Qr-cll" secondAttribute="trailing" id="xNN-EY-Vbb"/>
-                            <constraint firstItem="3TE-zs-2ld" firstAttribute="top" secondItem="UgK-fW-zc4" secondAttribute="bottom" constant="67" id="xxb-dX-vtk"/>
-                            <constraint firstAttribute="centerX" secondItem="Bs4-4v-ePs" secondAttribute="centerX" id="zEf-lB-Hu6"/>
+                            <constraint firstItem="dtA-Qr-cll" firstAttribute="leading" secondItem="JLY-i8-5Pv" secondAttribute="leading" id="3gg-ap-xNW"/>
+                            <constraint firstItem="UgK-fW-zc4" firstAttribute="top" secondItem="US4-L7-VDM" secondAttribute="bottom" constant="2" id="Dbp-VY-uds"/>
+                            <constraint firstAttribute="trailing" secondItem="dtA-Qr-cll" secondAttribute="trailing" id="FwU-AT-ltn"/>
+                            <constraint firstItem="3TE-zs-2ld" firstAttribute="top" secondItem="UgK-fW-zc4" secondAttribute="bottom" constant="57" id="GqJ-Yg-cqs"/>
+                            <constraint firstAttribute="bottom" secondItem="dtA-Qr-cll" secondAttribute="bottom" id="M1E-5S-Cdu"/>
+                            <constraint firstItem="US4-L7-VDM" firstAttribute="top" secondItem="Sag-t5-VzB" secondAttribute="bottom" constant="333" id="PQN-mS-oob"/>
+                            <constraint firstItem="UgK-fW-zc4" firstAttribute="trailing" secondItem="US4-L7-VDM" secondAttribute="trailing" id="Qyc-u2-u39"/>
+                            <constraint firstItem="Bs4-4v-ePs" firstAttribute="leading" secondItem="UgK-fW-zc4" secondAttribute="leading" id="R1A-bT-Xcq"/>
+                            <constraint firstItem="UgK-fW-zc4" firstAttribute="leading" secondItem="US4-L7-VDM" secondAttribute="leading" id="VOT-N6-XT3"/>
+                            <constraint firstItem="dtA-Qr-cll" firstAttribute="centerX" secondItem="UgK-fW-zc4" secondAttribute="centerX" id="X8w-wa-P1a"/>
+                            <constraint firstAttribute="bottom" secondItem="Bs4-4v-ePs" secondAttribute="bottom" constant="-68" id="XXp-TS-1nA"/>
+                            <constraint firstAttribute="trailing" secondItem="Bs4-4v-ePs" secondAttribute="trailing" constant="28" id="YmO-T9-aNX"/>
+                            <constraint firstItem="Bs4-4v-ePs" firstAttribute="top" secondItem="3TE-zs-2ld" secondAttribute="bottom" constant="38" id="Zv7-32-rjt"/>
+                            <constraint firstItem="US4-L7-VDM" firstAttribute="leading" secondItem="JLY-i8-5Pv" secondAttribute="leading" constant="12" id="jbr-OS-Hi1"/>
+                            <constraint firstItem="dtA-Qr-cll" firstAttribute="top" secondItem="JLY-i8-5Pv" secondAttribute="top" id="jrR-8w-Yty"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GrB-bh-DRD"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="launchBackground" destination="dtA-Qr-cll" id="kRT-vZ-wQa"/>
-                        <segue destination="Fly-kt-OBc" kind="push" identifier="launchToSignupSegue" id="J9t-NT-fO3"/>
-                        <segue destination="PRE-uJ-AVw" kind="push" identifier="launchToLoginSegue" id="HqF-d7-wCe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gmm-H9-RPf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1234,9 +1233,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="20G-jq-rhA"/>
+        <segue reference="pNK-Fq-yVN"/>
         <segue reference="dLD-hY-enm"/>
-        <segue reference="aI1-Zn-Bbo"/>
+        <segue reference="20G-jq-rhA"/>
         <segue reference="e8s-3Q-I0v"/>
         <segue reference="iVv-Pa-lv8"/>
         <segue reference="EGM-eB-W1A"/>
