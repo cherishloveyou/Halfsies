@@ -14,12 +14,11 @@
 
 @interface HALMediaCaptureVC : UIViewController
 
--(IBAction)stillImageCapture;
--(IBAction)toggleFlash;
--(IBAction)xButton;
--(IBAction)toggleCamera;
-
--(IBAction)sendButton;
+- (IBAction)stillImageCapture;
+- (IBAction)toggleFlash;
+- (IBAction)xButton;
+- (IBAction)toggleCamera;
+- (IBAction)sendButton;
 
 @property (nonatomic, strong) AVAudioPlayer *myAudioPlayer;
 

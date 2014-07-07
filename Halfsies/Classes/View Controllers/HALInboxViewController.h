@@ -22,12 +22,11 @@
 @property (strong, nonatomic) IBOutlet UIButton *inviteFriendsButton;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 
--(IBAction)logOut;
--(IBAction)openMediaCaptureVC;
--(IBAction)hideSettings;
--(IBAction)findFriends;
--(IBAction)inviteFriends;
-
+- (IBAction)logOut;
+- (IBAction)openMediaCaptureVC;
+- (IBAction)hideSettings;
+- (IBAction)findFriends;
+- (IBAction)inviteFriends;
 
 @end
 

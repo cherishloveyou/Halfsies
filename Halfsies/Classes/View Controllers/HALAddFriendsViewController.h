@@ -20,6 +20,6 @@
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @property (strong, nonatomic) MBProgressHUD *refreshHUD;
 
--(IBAction)finishedAddingFriends;
+- (IBAction)finishedAddingFriends;
 
 @end
