@@ -232,9 +232,7 @@
         // destination controller
         HALSMSWindowViewController *smsVC = segue.destinationViewController;
         smsVC.usersToInviteToHalfsies = _friendsToInvite;
-        
-        NSString *stringForProperty = @"YES";
-        
+                
         // Create the custom text message that will be loaded in the next view controller
         NSString *inviteText = [[NSString alloc]initWithFormat:@"Hey, come join this cool new app called Halfsies, and we can go halfsies on creating photos together! My username is %@ and you can download the iPhone app here in the App Store: https://itunes.apple.com/app/id869085222", _currentUser.username];
         

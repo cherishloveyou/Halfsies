@@ -25,21 +25,25 @@
     [super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:NO];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
 #pragma mark - IBAction Implementations
-- (IBAction)cancelButton {
+- (IBAction)cancelButton
+{
     [self performSegueWithIdentifier:@"finalFriendsToMediaCapture" sender:self];
 }
 
-- (IBAction)inviteFriends {
+- (IBAction)inviteFriends
+{
     [self performSegueWithIdentifier:@"finalFriendsToFindFriends" sender:self];
 }
 
-- (IBAction)addFriends {
+- (IBAction)addFriends
+{
     [self.navigationController setNavigationBarHidden:NO];
     [self performSegueWithIdentifier:@"finalFriendsToSearch" sender:self];
 }

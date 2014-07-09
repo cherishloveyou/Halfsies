@@ -10,18 +10,13 @@
 #import <Parse/Parse.h>
 #import "MBProgressHUD.h"
 
+
 @interface HALFindFriendsViewController : UIViewController <MBProgressHUDDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
-@property (nonatomic, strong) PFUser *currentUser;
-@property (nonatomic, retain) UITableView *addFriendsTableView;
-@property (nonatomic, strong) UITableViewCell *cell;
-@property (nonatomic, strong) UIButton *addFriendButton;
+#pragma mark - Properties
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
-@property (strong, nonatomic) MBProgressHUD *HUD;
-@property (strong, nonatomic) MBProgressHUD *refreshHUD;
-@property (strong, nonatomic) NSMutableArray *friends;
-@property (strong, nonatomic) NSArray *parseUsers;
 
+#pragma mark - Instance Methods
 - (void)handleBack;
 - (void)finishedAddingFriends;
 
