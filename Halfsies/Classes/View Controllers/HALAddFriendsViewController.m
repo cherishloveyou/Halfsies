@@ -39,8 +39,6 @@
     [self navigationSetup];
 }
 
-
-
 - (void)viewDidAppear:(BOOL)animated
 {
     

@@ -10,37 +10,27 @@
 
 @interface HALFinalFindFriendsViewController ()
 
+#pragma mark - Instance Methods
+- (IBAction)cancelButton;
+- (IBAction)inviteFriends;
+- (IBAction)addFriends;
+
 @end
 
 @implementation HALFinalFindFriendsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View Methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 }
 
-
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
-
+#pragma mark - IBAction Implementations
 - (IBAction)cancelButton {
     [self performSegueWithIdentifier:@"finalFriendsToMediaCapture" sender:self];
 }

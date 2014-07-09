@@ -10,8 +10,4 @@
 
 @interface HALFinalFindFriendsViewController : UIViewController
 
-- (IBAction)cancelButton;
-- (IBAction)inviteFriends;
-- (IBAction)addFriends;
-
 @end
