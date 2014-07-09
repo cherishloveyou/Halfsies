@@ -7,14 +7,12 @@
 //
 
 #import "HALAddFriendsViewController.h"
-#import <AddressBook/AddressBook.h>
-#import <AddressBookUI/AddressBookUI.h>
-#import <AddressBook/ABAddressBook.h>
-#import <AddressBook/ABPerson.h>
+#import "HALAddressBook.h"
 #import <Parse/Parse.h>
 #import "HALMediaCaptureVC.h"
 #import "MBProgressHUD.h"
 #import "HALSMSWindowViewController.h"
+#import "HALContact.h"
 
 @interface HALAddFriendsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -23,6 +21,8 @@
 @property (strong, nonatomic) NSMutableArray *potentiaFriendsPhoneNumberArray;
 @property (strong, nonatomic) NSMutableArray *usersToInviteToHalfsies;
 @property (strong, nonatomic) NSString *numberValues;
+@property HALAddressBook *addressBook;
+@property HALContact *currentContact;
 
 @end
 
@@ -99,113 +99,65 @@
     
     self.numberValues = [[NSString alloc]init];
     
-    //Asks for access to Address Book.
-    ABAddressBookRef m_addressbook =  ABAddressBookCreateWithOptions(NULL, NULL);
     
-    ABAddressBookCopyArrayOfAllPeople(m_addressbook);
     
-    NSLog(@"%@", m_addressbook);
     
-    __block BOOL accessGranted = NO;
-    if (ABAddressBookRequestAccessWithCompletion != NULL) {
-        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            @autoreleasepool {
-                // Write your code here...
-                // Fetch data from SQLite DB
-            }
-        });
-        
-        ABAddressBookRequestAccessWithCompletion(m_addressbook, ^(bool granted, CFErrorRef error)
-                                                 
-                                                 {
-                                                     accessGranted = granted;
-                                                     
-                                                     dispatch_semaphore_signal(sema);
-                                                 });
-        
-        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    }
     
-    if (accessGranted == 0) {
-        
-       
+    // Instantiate our address book instance
+    self.addressBook = [[HALAddressBook alloc]init];
+    
+    // Instantiate our contact instance
+    self.currentContact = [[HALContact alloc]init];
+    
+    //Ask for access to Address Book.
+    BOOL result = [self.addressBook requestAccess];
+    
+    if (!result) {
         [self performSegueWithIdentifier:@"addFriendsToMediaCaptureSegue" sender:self];
     }
-    else if (accessGranted == 1) {
-                // Setup and show HUD here
+    
+    if (result) {
         
+
+        
+     // Setup and show HUD here
         self.HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         self.HUD.mode = MBProgressHUDAnimationFade;
         self.HUD.labelText = @"Finding Friends";
         
-        NSArray *allContacts = (__bridge_transfer NSArray
-                                *)ABAddressBookCopyArrayOfAllPeople(m_addressbook);
-        //Loop through all contacts.
         
-        int z = allContacts.count;
+
         
-        for (int i = 0; i < z; i++) {
-            //Place current contact in ABRecordRef
+        // Loop through all address book contacts
+        for (int index = 0; index < self.addressBook.allContacts.count; index++) {
             
-            ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
+           // Create contactRef from current contact
+            self.currentContact.contactRef = (__bridge ABRecordRef)(self.addressBook.allContacts[index]);
             
-            //Create string from current contact's first name property.
-            
-            NSString *firstName = (__bridge_transfer NSString
-                                   *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
-            
-            //Create phone number from contact's phone number property.
-            
-            ABMultiValueRef *phoneNumber = ABRecordCopyValue(contactPerson, kABPersonPhoneProperty);
-            NSMutableArray *numbers = [[NSMutableArray alloc] init];
-            
-            NSString *number = [[NSString alloc] init];
-            
-            //Loop through all of contact's phone numbers.
-            if (phoneNumber) {
-                CFIndex numberOfPhoneNumbers = ABMultiValueGetCount(phoneNumber);
+          // Loop through all of the current contact's phone numbers
+            int index2;
+            for (index2 = 0; index2 < self.currentContact.phoneNumbers.count; index2++) {
+            if (self.currentContact.firstName) {
                 
-                for (CFIndex i = 0; i < numberOfPhoneNumbers; i++) {
-                    number = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phoneNumber, i);
-                    CFStringRef label = ABMultiValueCopyLabelAtIndex(phoneNumber, i);
-                    if (label) {
-                        
-                        //Add current number to array.
-                        if(firstName.length > 0) {
-                            
-                            [numbers addObject:number];
-                            
-                        }
-                    }
-                    CFRelease(label);
-                }
-                CFRelease(phoneNumber);
+                NSLog(@"firstname is %@", self.currentContact.firstName);
+                // Add current phone number to array
+                [self.potentiaFriendsPhoneNumberArray addObject:self.currentContact.phoneNumbers[index2]];
+                
+                // Add current contact's first name to array
+                NSLog(@"before333");
+                [self.potentiaFriendsNotInParseFirstNamesArray addObject:self.currentContact.firstName];
+                NSLog(@"after333");
+
             }
-            
-            int numbersIndex;
-            
-            //Loop through all of the contact's numbers.
-            
-            for(numbersIndex = 0; numbersIndex < numbers.count; numbersIndex++) {
-                
-                //Set string global to current number.
-                
-                self.numberValues = numbers[numbersIndex];
-                
-                
-                //Add current first name to both arrays. We want them to match for later.
-                
-                [self.potentiaFriendsNotInParseFirstNamesArray addObject:firstName];
-                
-                //Add current phone number to array.
-                
-                [self.potentiaFriendsPhoneNumberArray addObject:self.numberValues];
-                
-            }
+
+        }
+        
         }
         
            }
+    
+    
+    
     
     //Set table view's datasource and delegate.
     

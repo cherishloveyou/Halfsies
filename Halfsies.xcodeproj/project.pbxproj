@@ -35,7 +35,8 @@
 		C32028C41964D43100EE7553 /* UIImage+so1.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028BF1964D43100EE7553 /* UIImage+so1.m */; };
 		C3448070186FD9E800B9DB48 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344806F186FD9E800B9DB48 /* Parse.framework */; };
 		C3448078186FDC7300B9DB48 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */; };
-		C391BAD6196B457600E699A7 /* FullImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C391BAD5196B457600E699A7 /* FullImage.m */; };
+		C3C5DFC9196C5C4F00D0F0F8 /* HALAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */; };
+		C3C5DFCC196C69A600D0F0F8 /* HALContact.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C5DFCB196C69A600D0F0F8 /* HALContact.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,8 +92,10 @@
 		C344806F186FD9E800B9DB48 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		C378735B186B4CC5009F7FFB /* Halfsies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfsies.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C391BAD4196B457600E699A7 /* FullImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullImage.h; sourceTree = "<group>"; };
-		C391BAD5196B457600E699A7 /* FullImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullImage.m; sourceTree = "<group>"; };
+		C3C5DFC7196C5C4F00D0F0F8 /* HALAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALAddressBook.h; sourceTree = "<group>"; };
+		C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALAddressBook.m; sourceTree = "<group>"; };
+		C3C5DFCA196C69A600D0F0F8 /* HALContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALContact.h; sourceTree = "<group>"; };
+		C3C5DFCB196C69A600D0F0F8 /* HALContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALContact.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +147,7 @@
 		C32028561964D32100EE7553 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C391BAD3196B455700E699A7 /* Models */,
+				C3C5DFC6196C5C4F00D0F0F8 /* Models */,
 				C32028B51964D43100EE7553 /* Categories */,
 				C32028621964D32100EE7553 /* Delegates */,
 				C32028651964D32100EE7553 /* View Controllers */,
@@ -250,11 +253,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C391BAD3196B455700E699A7 /* Models */ = {
+		C3C5DFC6196C5C4F00D0F0F8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C391BAD4196B457600E699A7 /* FullImage.h */,
-				C391BAD5196B457600E699A7 /* FullImage.m */,
+				C3C5DFC7196C5C4F00D0F0F8 /* HALAddressBook.h */,
+				C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */,
+				C3C5DFCA196C69A600D0F0F8 /* HALContact.h */,
+				C3C5DFCB196C69A600D0F0F8 /* HALContact.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -341,11 +346,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C5DFC9196C5C4F00D0F0F8 /* HALAddressBook.m in Sources */,
+				C3C5DFCC196C69A600D0F0F8 /* HALContact.m in Sources */,
 				C32028861964D32100EE7553 /* HALAddFriendsViewController.m in Sources */,
 				C320288D1964D32100EE7553 /* HALMediaCaptureVC.m in Sources */,
 				C32028911964D32100EE7553 /* HALSignupViewController.m in Sources */,
 				C32028851964D32100EE7553 /* HALAppDelegate.m in Sources */,
-				C391BAD6196B457600E699A7 /* FullImage.m in Sources */,
 				C32028881964D32100EE7553 /* HALFindFriendsViewController.m in Sources */,
 				C320288F1964D32100EE7553 /* HALSearchViewController.m in Sources */,
 				C32028871964D32100EE7553 /* HALFinalFindFriendsViewController.m in Sources */,
