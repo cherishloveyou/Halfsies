@@ -24,6 +24,8 @@
 @property HALAddressBook *addressBook;
 @property HALContact *currentContact;
 
+@property NSMutableArray *friends;
+
 @end
 
 @implementation HALAddFriendsViewController
@@ -100,64 +102,82 @@
     self.numberValues = [[NSString alloc]init];
     
     
+    // Create an instance of HALAddressBook
+    HALAddressBook *addressBook = [[HALAddressBook alloc]init];
     
-    
-    
-    // Instantiate our address book instance
-    self.addressBook = [[HALAddressBook alloc]init];
-    
-    // Instantiate our contact instance
-    self.currentContact = [[HALContact alloc]init];
-    
-    //Ask for access to Address Book.
-    BOOL result = [self.addressBook requestAccess];
+    // Ask for access to the user's address book
+    BOOL result = [addressBook isAccessGranted];
     
     if (!result) {
         [self performSegueWithIdentifier:@"addFriendsToMediaCaptureSegue" sender:self];
     }
     
-    if (result) {
+    // Access has been granted
+    // Create array of all address book contacts
+    NSArray *contacts = [addressBook contacts];
+    
+    
+    // Initialize our friends array
+    self.friends = [[NSMutableArray alloc]init];
+    
+    
+    // Loop through all of the contacts.
+    // Create an instance of HALContact
+    // Set the instance's contactRef, firstName and phoneNumbers properties
+    
+    
+    for (id currentContact in contacts) {
+        // Create an instance of HALContact,
+        // set its contactRef property,
+        // set its firstName property,
+        HALContact *contact = [[HALContact alloc]init];
+        contact.contactRef = (__bridge ABRecordRef)(currentContact);
+        contact.firstName = (__bridge_transfer NSString
+                             *)ABRecordCopyValue(contact.contactRef, kABPersonFirstNameProperty);
         
-
+        // If firstName is nil, continue
+        if (!contact.firstName) continue;
         
-     // Setup and show HUD here
-        self.HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        self.HUD.mode = MBProgressHUDAnimationFade;
-        self.HUD.labelText = @"Finding Friends";
+       // Grab all of the phone number values for this contact
+       NSArray *phoneNumberValues =  (__bridge NSArray *)(ABRecordCopyValue(contact.contactRef, kABPersonPhoneProperty));
+        
+        // Place a copy of all phone numbers into contact's
+        // phoneNumber property
+        contact.phoneNumbers = (__bridge NSArray *)(ABMultiValueCopyArrayOfAllValues((__bridge ABMultiValueRef)(phoneNumberValues)));
         
         
-
+        // Check if the contact has multiple phone numbers
+        BOOL result = [contact hasMultiplePhoneNumbers];
         
-        // Loop through all address book contacts
-        for (int index = 0; index < self.addressBook.allContacts.count; index++) {
+        // If contact only has one phone number, then add the
+        // number from the phoneNumbers property into the
+        // contact's mainPhoneNumber property
+        if (!result) {
+            contact.mainPhoneNumber = contact.phoneNumbers[0];
+            // Add contact to friends array
+            [self.friends addObject:contact];
+            continue;
+        }
+            // Loop through the contacts phone numbers
+            // and for every phone number, create a copy of the contact
+            // and place the current phone number at index in
+            // the copy's mainPhoneNumber property.
+        
+            //So if "Steve" has 2 phone numbers, he'll be added to our
+            // friends array twice, once for each phone number.
             
-           // Create contactRef from current contact
-            self.currentContact.contactRef = (__bridge ABRecordRef)(self.addressBook.allContacts[index]);
-            
-          // Loop through all of the current contact's phone numbers
-            int index2;
-            for (index2 = 0; index2 < self.currentContact.phoneNumbers.count; index2++) {
-            if (self.currentContact.firstName) {
+            for (int index = 0; index < contact.phoneNumbers.count; index++) {
+                HALContact *copyOfContact = [[HALContact alloc]init];
+                copyOfContact.mainPhoneNumber = contact.phoneNumbers[index];
+                copyOfContact.firstName = contact.firstName;
                 
-                NSLog(@"firstname is %@", self.currentContact.firstName);
-                // Add current phone number to array
-                [self.potentiaFriendsPhoneNumberArray addObject:self.currentContact.phoneNumbers[index2]];
-                
-                // Add current contact's first name to array
-                NSLog(@"before333");
-                [self.potentiaFriendsNotInParseFirstNamesArray addObject:self.currentContact.firstName];
-                NSLog(@"after333");
-
+                // Add copyOfContact to the friends array
+                [self.friends addObject:copyOfContact];
             }
+      
+    }
+    
 
-        }
-        
-        }
-        
-           }
-    
-    
-    
     
     //Set table view's datasource and delegate.
     
@@ -189,7 +209,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.potentiaFriendsNotInParseFirstNamesArray count];
+    return [self.friends count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -208,12 +228,11 @@
 
     //Create string from first name in array.
     
-    NSString *firstNameForTableView2 = [self.potentiaFriendsNotInParseFirstNamesArray objectAtIndex:indexPath.row];
+    NSString *firstNameForTableView2 = [[self.friends objectAtIndex:indexPath.row]firstName];
     
     //Create string from phone number in array.
     
-    NSString *userNameForTableView2 = [self.potentiaFriendsPhoneNumberArray objectAtIndex:indexPath.row];
-    
+    NSString *userNameForTableView2 = [[self.friends objectAtIndex:indexPath.row]mainPhoneNumber];
     //Create cell button
     
     UIImage *addFriendButtonImage = [UIImage imageNamed:@"invitefriend1"];

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <AddressBook/ABAddressBook.h>
@@ -14,11 +13,11 @@
 
 @interface HALAddressBook : NSObject
 
-// Properties
-@property (nonatomic) NSArray *allContacts;
+#pragma mark - Properties
+@property NSArray *contacts;
 
-// Instance methods
-// Returns YES if access is granted 
-- (BOOL)requestAccess;
+#pragma mark - Instance Methods
+
+- (BOOL)isAccessGranted;
 
 @end

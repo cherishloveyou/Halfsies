@@ -8,27 +8,13 @@
 
 #import "HALAddressBook.h"
 
-@interface HALAddressBook ()
-
-// Redeclare the readonly properties
-@property ABAddressBookRef m_addressbook;
-@property (readwrite) ABMultiValueRef contactPhoneNumber;
-
-@end
-
 @implementation HALAddressBook
 
-#pragma mark - Request Access
-
-- (BOOL)requestAccess
+- (BOOL)isAccessGranted
 {
-    //Asks for access to Address Book.
-    self.m_addressbook =  ABAddressBookCreateWithOptions(NULL, NULL);
-    
-    ABAddressBookCopyArrayOfAllPeople(self.m_addressbook);
-    
-    NSLog(@"%@", self.m_addressbook);
-    
+
+    ABAddressBookRef m_addressbook =  ABAddressBookCreateWithOptions(NULL, NULL);
+
     __block BOOL accessGranted = NO;
     if (ABAddressBookRequestAccessWithCompletion != NULL) {
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -39,36 +25,29 @@
             }
         });
         
-        ABAddressBookRequestAccessWithCompletion(self.m_addressbook, ^(bool granted, CFErrorRef error)
-            
-                                                 {
-                                                     accessGranted = granted;
+        
+        ABAddressBookRequestAccessWithCompletion(m_addressbook, ^(bool granted, CFErrorRef error)
+        {
+          accessGranted = granted;
                                                      
-                                                     dispatch_semaphore_signal(sema);
-                                                 });
+          dispatch_semaphore_signal(sema);
+                        });
         
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     }
     
     if (accessGranted) {
         // Access has been granted
+       self.contacts = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(m_addressbook));
+
         return YES;
-    }
+        
+    } else {
     // Access has not been granted
     return NO;
-}
-
-#pragma mark Accessor Methods
-
-- (NSArray *)allContacts
-{
-    if (_allContacts.count == 0) {
-        
-        NSLog(@"allContacts imp");
-        _allContacts = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(self.m_addressbook);
     }
-    
-  return _allContacts;
 }
+
+
 
 @end

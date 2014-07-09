@@ -6,15 +6,17 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "HALAddressBook.h"
 
 @interface HALContact : NSObject
 
-// Properties
-@property  (readonly) NSString *firstName;
-@property (readonly) NSMutableArray *phoneNumbers;
+#pragma mark - Properties
+@property NSArray *phoneNumbers;
+@property NSString *mainPhoneNumber;
+@property NSString *firstName;
 @property ABRecordRef contactRef;
-@property (readonly) ABMultiValueRef contactPhoneNumber;
+
+#pragma mark - Instance Variables
+- (BOOL)hasMultiplePhoneNumbers;
 
 @end
