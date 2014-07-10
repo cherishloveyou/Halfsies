@@ -8,6 +8,7 @@
 
 #import "HALAppDelegate.h"
 #import <Parse/Parse.h>
+#import <Crashlytics/Crashlytics.h>
 #import "HALAddFriendsViewController.h"
 #import "HALMediaCaptureVCResponse.h"
 #import "HALInboxViewController.h"
@@ -19,13 +20,11 @@
 {
     
     // This is the code for Parse.
-    
     [Parse setApplicationId:@"DbuUgYKaPqMHJ63Nut29Xw4rp95nHw0VCSP7MDAK" clientKey:@"8k0eCg6XO63K43cZE4KkawU3eOSVaXVPEn1t8hzx"];
-    
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
-    //This is the first block of code from the Parse photo app tutorial located here: https://parse.com/tutorials/saving-images
+    // Crashlytics code
+    [Crashlytics startWithAPIKey:@"cc10af8049451966554e6df4d160875030930f4c"];
     
    
  
