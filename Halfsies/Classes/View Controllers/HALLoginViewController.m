@@ -9,7 +9,7 @@
 #import "HALLoginViewController.h"
 #import <Parse/Parse.h>
 
-@interface HALLoginViewController () <UITextFieldDelegate>
+@interface HALLoginViewController () <UITextFieldDelegate, UIAlertViewDelegate>
 
 @end
 

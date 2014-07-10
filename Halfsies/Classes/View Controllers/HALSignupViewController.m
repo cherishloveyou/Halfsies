@@ -1,7 +1,7 @@
 #import "HALSignupViewController.h"
 #import <Parse/Parse.h>
 
-@interface HALSignupViewController () <UITextFieldDelegate>
+@interface HALSignupViewController () <UITextFieldDelegate, UIAlertViewDelegate>
 
 
 @end

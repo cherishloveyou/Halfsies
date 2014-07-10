@@ -11,13 +11,5 @@
 #import "MBProgressHUD.h"
 
 
-@interface HALFindFriendsViewController : UIViewController <MBProgressHUDDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
-
-#pragma mark - Properties
-@property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
-
-#pragma mark - Instance Methods
-- (void)handleBack;
-- (void)finishedAddingFriends;
-
+@interface HALFindFriendsViewController : UIViewController 
 @end

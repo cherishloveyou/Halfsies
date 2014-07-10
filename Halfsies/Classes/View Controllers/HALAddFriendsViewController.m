@@ -23,7 +23,10 @@
 @property NSMutableArray *friends;
 @property (nonatomic, strong) PFUser *currentUser;
 
-#pragma mark - Instance Methods
+#pragma mark - IBoutlets
+@property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
+
+#pragma mark - IBActions
 - (IBAction)finishedAddingFriends;
 
 @end
@@ -34,6 +37,7 @@
 {
     [super viewDidLoad];
     self.currentUser = [PFUser currentUser];
+    NSLog(@"wutm8");
     
     // Call navigation setup method
     [self navigationSetup];

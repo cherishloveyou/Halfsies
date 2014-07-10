@@ -2,7 +2,7 @@
 
 #import "HALSearchViewController.h"
 
-@interface HALSearchViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface HALSearchViewController () <UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
 @end
 

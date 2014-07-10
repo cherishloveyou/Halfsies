@@ -14,7 +14,8 @@
 #import "MBProgressHUD.h"
 #import "HALSMSWindowViewController.h"
 
-@interface HALFindFriendsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HALFindFriendsViewController () <UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+
 
 #pragma mark - Properties
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,6 +24,13 @@
 @property (strong, nonatomic) MBProgressHUD *HUD;
 @property (strong, nonatomic) MBProgressHUD *refreshHUD;
 @property (strong, nonatomic) NSMutableArray *friends;
+
+#pragma mark - IBoutlets
+@property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
+
+#pragma mark - Instance Methods
+- (void)handleBack;
+- (void)finishedAddingFriends;
 
 @end
 

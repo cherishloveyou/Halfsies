@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HALSignupViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
+@interface HALSignupViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *emailEntry;
 @property (weak, nonatomic) IBOutlet UITextField *usernameEntry;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HALLoginViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
+@interface HALLoginViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameEntry;
 @property (weak, nonatomic) IBOutlet UITextField *passwordEntry;

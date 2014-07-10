@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface HALSearchViewController : UIViewController <UISearchBarDelegate>
+@interface HALSearchViewController : UIViewController
 
 @property NSArray *parseUsers;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;

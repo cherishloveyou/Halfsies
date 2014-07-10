@@ -11,6 +11,5 @@
 
 @interface HALAddFriendsViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
 
 @end

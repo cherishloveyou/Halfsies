@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "HALMediaCaptureVC.h"
 
-@interface HALSendToFriendsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface HALSendToFriendsViewController () <UITableViewDataSource, UITableViewDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *finalParseStrings;
