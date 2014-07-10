@@ -15,10 +15,8 @@
 
 @implementation HALAppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     // This is the code for Parse.
     [Parse setApplicationId:@"DbuUgYKaPqMHJ63Nut29Xw4rp95nHw0VCSP7MDAK" clientKey:@"8k0eCg6XO63K43cZE4KkawU3eOSVaXVPEn1t8hzx"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -26,13 +24,9 @@
     // Crashlytics code
     [Crashlytics startWithAPIKey:@"cc10af8049451966554e6df4d160875030930f4c"];
     
-   
- 
     return YES;
+}
     
-    }
-    
-							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

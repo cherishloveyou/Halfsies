@@ -14,7 +14,6 @@
 #import "HALFindFriendsViewController.h"
 #import "HALAddressBook.h"
 
-
 @interface HALInboxViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *messages;
@@ -62,73 +61,29 @@
     NSData *data2 = [standardDefaults objectForKey:@"parseMessages2"];
     NSArray *retrievedArray2 = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
     
-   
-
-        
-        self.messages = retrievedArray1;
-        self.messages2and3 = retrievedArray2;
+    self.messages = retrievedArray1;
+    self.messages2and3 = retrievedArray2;
 
     [self parseQueries];
 
-    
-    
 }
 
-
-
--(void) viewDidAppear {
-    
-    
-}
-
-- (void)didReceiveMemoryWarning
+#pragma mark - TableView Methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    
-    
-    
-    
     return 2;
-    
-    
-    
 }
-    
 
-
-
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    
-    
-    
-    
-    
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if(section == 0)
-        
-        
-        return [self.messages count];
+    return [self.messages count];
     
     if(section == 1)
-        
-        
-        return [self.messages2and3 count];
+    return [self.messages2and3 count];
     
-    
-        else return 0;
-    
-    
+    else return 0;
 }
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
@@ -142,213 +97,117 @@
 }
 
 
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
+    // Set the cell identifier
     static NSString *cellIdentifier = @"SettingsCell";
-
+    
     UITableViewCell  *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    
-    
+    // Code for the first section in table view
     if (indexPath.section == 0) {
         
-    
     PFObject *message = [self.messages objectAtIndex:indexPath.row];
     
-    
+    // Create the button images
     UIImage *selectMessageButtonImage = [UIImage imageNamed:@"right-arrow"];
-    
-    
     UIImage *selectMessageButtonImageHighlighted = [UIImage imageNamed:@"right-arrow"];
     
-    
-    
+    // Create and setup the open message button
     UIButton *openMessageButton = [[UIButton alloc]init];
-    
     openMessageButton.frame = CGRectMake(237, -10, 64, 64);
-    
     [openMessageButton setImage:selectMessageButtonImage forState:UIControlStateNormal];
     [openMessageButton setImage:selectMessageButtonImageHighlighted forState:UIControlStateHighlighted];
     [openMessageButton setImage:selectMessageButtonImageHighlighted forState:UIControlStateSelected];
     
     [openMessageButton addTarget:self action:@selector(handleTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
     openMessageButton.tag = indexPath.row;
-        
     
-        
-    
-    
+    // Set the cell's properties
     [cell.textLabel setText:[message objectForKey:@"senderName"]];
-    
-        NSString *fileType = [message objectForKey:@"fileType"];
-        
-            
-        
-        if([fileType isEqualToString:@"image"]) {
-            
-            
-            
-            
-        } else {
-            
-        }
-
-    
-        
     [cell.detailTextLabel setText:@""];
-    
     [cell.contentView addSubview:openMessageButton];
     
-    
     } else {
+    
+    // Code for the second section in table view
+    PFObject *message2 = [self.messages2and3 objectAtIndex:indexPath.row];
+    
+    // Create the button images
+    UIImage *selectMessageButtonImage2 = [UIImage imageNamed:@"right-arrow"];
+    UIImage *selectMessageButtonImageHighlighted2 = [UIImage imageNamed:@"right-arrow"];
+    
+    // Create and setup the open message button
+    UIButton *openMessageButton2 = [[UIButton alloc]init];
+    openMessageButton2.frame = CGRectMake(237, -10, 64, 64);
+    [openMessageButton2 setImage:selectMessageButtonImage2 forState:UIControlStateNormal];
+    [openMessageButton2 setImage:selectMessageButtonImageHighlighted2 forState:UIControlStateHighlighted];
+    [openMessageButton2 setImage:selectMessageButtonImageHighlighted2 forState:UIControlStateSelected];
         
+    [openMessageButton2 addTarget:self action:@selector(handleTouchUpInside2:) forControlEvents:UIControlEventTouchUpInside];
         
-        
-        
-        PFObject *message2 = [self.messages2and3 objectAtIndex:indexPath.row];
-        
-        
-        UIImage *selectMessageButtonImage2 = [UIImage imageNamed:@"right-arrow"];
-        
-        
-        UIImage *selectMessageButtonImageHighlighted2 = [UIImage imageNamed:@"right-arrow"];
-        
-        
-        
-        UIButton *openMessageButton2 = [[UIButton alloc]init];
-        
-        openMessageButton2.frame = CGRectMake(237, -10, 64, 64);
-        
-        [openMessageButton2 setImage:selectMessageButtonImage2 forState:UIControlStateNormal];
-        [openMessageButton2 setImage:selectMessageButtonImageHighlighted2 forState:UIControlStateHighlighted];
-        [openMessageButton2 setImage:selectMessageButtonImageHighlighted2 forState:UIControlStateSelected];
-        
-        [openMessageButton2 addTarget:self action:@selector(handleTouchUpInside2:) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        
-        openMessageButton2.tag = indexPath.row;
-        
-        
-        
-        
-        [cell.textLabel setText:[message2 objectForKey:@"senderName"]];
-        
-            NSString *fileType = [message2 objectForKey:@"fileType"];
-        
-            if([fileType isEqualToString:@"image"]) {
-            
-            
-            
-            
-        } else {
-            
-        }
+    openMessageButton2.tag = indexPath.row;
+    
+    // set the cell's properties
+    [cell.textLabel setText:[message2 objectForKey:@"senderName"]];
+    [cell.detailTextLabel setText:@""];
+    [cell.contentView addSubview:openMessageButton2];
 
-        
-        [cell.detailTextLabel setText:@""];
-        
-        [cell.contentView addSubview:openMessageButton2];
-        
     }
-    
-    
-    
-    
-    return cell;
-    
-    
-    
-    
+        return cell;
+  
 }
-    
 
-
-- (void)handleTouchUpInside:(UIButton *)sender {
+#pragma mark - Touch Event Methods
+- (void)handleTouchUpInside:(UIButton *)sender
+{
     sender.selected = !sender.selected;
     
-    
-    
     UIButton *cellButton = (UIButton *)sender;
-    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellButton.tag inSection:1];
-    
-    
-    
-
-    
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
-
-    
     cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-
-    
     self.selectedMessage = [self.messages objectAtIndex:indexPath.row];
     
-
-    
     [self performSegueWithIdentifier:@"segueToMediaCaptureVCResponse" sender:self];
-    
-
-    
 }
-    
 
-    
-- (void)handleTouchUpInside2:(UIButton *)sender {
-        sender.selected = !sender.selected;
-        
-        
+- (void)handleTouchUpInside2:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+  
         UIButton *cellButton = (UIButton *)sender;
-        
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellButton.tag inSection:1];
-    
-
-    
-    
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
         self.selectedMessage = [self.messages2and3 objectAtIndex:indexPath.row];
        
         [self performSegueWithIdentifier:@"segueToFinishedHalfsieVC" sender:self];
-        
-    
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self {
-    
-    // This is our actual implmenetation body code which starts with an if statement. This says "If our segue identifier is equal to signupYoVerificationSegue then do this...
+#pragma mark - Segue Methods
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self
+{
     
     if ([segue.identifier isEqualToString:@"segueToMediaCaptureVCResponse"]) {
   
         HALMediaCaptureVCResponse *topHalf = segue.destinationViewController;
-
         topHalf.message = _selectedMessage;
-    
         
     } else if ([segue.identifier isEqualToString:@"segueToFinishedHalfsieVC"]) {
    
         HALFinishedHalfsieVC *finished = segue.destinationViewController;
-        
         finished.messagePassedFromInbox = _selectedMessage;
-        
         
     } else if ([segue.identifier isEqualToString:@"inboxToMediaCaptureVC"]) {
  
         
     }
-  
 }
+
 -(void)parseQueries {
     
     
