@@ -37,7 +37,6 @@
 {
     [super viewDidLoad];
     self.currentUser = [PFUser currentUser];
-    NSLog(@"wutm8");
     
     // Call navigation setup method
     [self navigationSetup];

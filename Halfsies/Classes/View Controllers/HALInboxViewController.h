@@ -15,18 +15,6 @@
 
 @interface HALInboxViewController : UIViewController
 
-@property (nonatomic, strong) UITableViewCell *cell;
-@property (nonatomic, strong) PFObject *selectedMessage;
-@property (strong, nonatomic) IBOutlet UIImageView *settingsBackground;
-@property (strong, nonatomic) IBOutlet UIButton *findFriendsButton;
-@property (strong, nonatomic) IBOutlet UIButton *inviteFriendsButton;
-@property (strong, nonatomic) IBOutlet UIButton *backButton;
-
-- (IBAction)logOut;
-- (IBAction)openMediaCaptureVC;
-- (IBAction)hideSettings;
-- (IBAction)findFriends;
-- (IBAction)inviteFriends;
 
 @end
 

@@ -12,102 +12,52 @@
 #import "HALFinishedHalfsieVC.h"
 #import "HALMediaCaptureVC.h"
 #import "HALFindFriendsViewController.h"
+#import "HALAddressBook.h"
+
 
 @interface HALInboxViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *messages;
 @property (nonatomic, strong) NSArray *messages2and3;
+
+#pragma mark - Properties
+@property (nonatomic, strong) UITableViewCell *cell;
+@property (nonatomic, strong) PFObject *selectedMessage;
+
+#pragma mark - IBOutlets
+@property (strong, nonatomic) IBOutlet UIImageView *settingsBackground;
+@property (strong, nonatomic) IBOutlet UIButton *findFriendsButton;
+@property (strong, nonatomic) IBOutlet UIButton *inviteFriendsButton;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+#pragma mark - IBActions
+- (IBAction)hideSettings;
+- (IBAction)findFriends;
+- (IBAction)inviteFriends;
 
 @end
 
 @implementation HALInboxViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View Methods
 - (void)viewDidLoad
 
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    
-    
-    [self.navigationController setNavigationBarHidden:NO];
-    
-
-
-
-    // Hide the back bar button item.
-    
-    
-    [self.navigationItem setHidesBackButton:YES];
-    
-   
-
-    
+    // Setup navigation
+    [self navigationSetup];
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
-  
 
-    
-    
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO];
-    
-    
-    
-    CGRect frame = CGRectMake(0, 0, 70, 30);
-    
-    UIButton *logOutButton = [[UIButton alloc]initWithFrame:frame];
-    
-    UIImage *logOutButtonImage = [UIImage imageNamed:@"findfriends2"];
-    
-    [logOutButton setBackgroundImage:logOutButtonImage forState:UIControlStateNormal];
-    
-    [logOutButton addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc]initWithCustomView:logOutButton];
-    
-    self.navigationItem.leftBarButtonItem = leftBarButton;
-    
-    
-    
-    CGRect cameraButtonFrame = CGRectMake(0, 0, 46.5, 33);
-    
-    UIImage *cameraButtonImage = [UIImage imageNamed:@"camera3pink"];
-    
-    
-    
-    UIButton *cameraButton = [[UIButton alloc]initWithFrame:cameraButtonFrame];
-    
-    [cameraButton setBackgroundImage:cameraButtonImage forState:UIControlStateNormal];
-    
-    [cameraButton addTarget:self action:@selector(openMediaCaptureVC) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem * cameraButtonBarItem = [[UIBarButtonItem alloc]initWithCustomView:cameraButton];
-    
-    self.navigationItem.rightBarButtonItem = cameraButtonBarItem;
-        NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-    
-    
+    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"parseMessages1"];
     NSArray *retrievedArray1 = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    
-    
-    
-    
     
     NSData *data2 = [standardDefaults objectForKey:@"parseMessages2"];
     NSArray *retrievedArray2 = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
@@ -117,12 +67,7 @@
         
         self.messages = retrievedArray1;
         self.messages2and3 = retrievedArray2;
-        
-        
-        
-    
-    
-    
+
     [self parseQueries];
 
     
@@ -377,67 +322,39 @@
         [self performSegueWithIdentifier:@"segueToFinishedHalfsieVC" sender:self];
         
     
-    }
+}
 
-    
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self {
     
     // This is our actual implmenetation body code which starts with an if statement. This says "If our segue identifier is equal to signupYoVerificationSegue then do this...
     
     if ([segue.identifier isEqualToString:@"segueToMediaCaptureVCResponse"]) {
-        
-        
+  
         HALMediaCaptureVCResponse *topHalf = segue.destinationViewController;
-        
-        
+
         topHalf.message = _selectedMessage;
-        
-        
+    
         
     } else if ([segue.identifier isEqualToString:@"segueToFinishedHalfsieVC"]) {
-        
-        
-
-        
+   
         HALFinishedHalfsieVC *finished = segue.destinationViewController;
         
         finished.messagePassedFromInbox = _selectedMessage;
         
         
     } else if ([segue.identifier isEqualToString:@"inboxToMediaCaptureVC"]) {
-        
-        
-
-        
-        
-        
-        
+ 
         
     }
-    
-    
-    
-    
+  
 }
-
-
-
-
-
-
 -(void)parseQueries {
     
     
     self.messages = [[NSArray alloc]init];
     
     self.messages2and3 = [[NSArray alloc]init];
-    
-    
-    
-    
-    
-    
     
     PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
     
@@ -561,127 +478,112 @@
     
 }
 
--(IBAction)logOut {
-    
-    
+- (void)launchFindFriendsView
+{
+    // Unhide elements
     [self.settingsBackground setHidden:NO];
     [self.findFriendsButton setHidden:NO];
     [self.inviteFriendsButton setHidden:NO];
     [self.backButton setHidden:NO];
     
     [self.navigationController setNavigationBarHidden:YES];
-    
-    
- }
+}
 
--(IBAction)openMediaCaptureVC {
-    
-    
-    
+#pragma mark - IBActions
+-(IBAction)openMediaCaptureVC
+{
     [self performSegueWithIdentifier:@"inboxToMediaCaptureVC" sender:self];
-   }
+}
 
-- (IBAction)hideSettings {
-    
-    
+- (IBAction)hideSettings
+{
+    // Hide elements
     [self.settingsBackground setHidden:YES];
     [self.findFriendsButton setHidden:YES];
     [self.inviteFriendsButton setHidden:YES];
     [self.backButton setHidden:YES];
     
     [self.navigationController setNavigationBarHidden:NO];
-
-    
 }
 
 
-- (IBAction)findFriends {
-    
+- (IBAction)findFriends
+{
     [self.navigationController setNavigationBarHidden:NO];
     
+    // Hide elements
     [self.settingsBackground setHidden:YES];
     [self.findFriendsButton setHidden:YES];
     [self.inviteFriendsButton setHidden:YES];
     [self.backButton setHidden:YES];
 
-    
+    // Segue
     [self performSegueWithIdentifier:@"segueFromInboxToSearch" sender:self];
-    
-    
 }
 
-- (IBAction)inviteFriends {
+- (IBAction)inviteFriends
+{
+    // Create an instance of HALAddressBook
+    // and ask if address book access is granted
+    HALAddressBook *addressBook = [[HALAddressBook alloc]init];
+    BOOL result = [addressBook isAccessGranted];
     
-    
-    //Asks for access to Address Book.
-    
-    ABAddressBookRef m_addressbook =  ABAddressBookCreateWithOptions(NULL, NULL);
-    
-    
-    
-    ABAddressBookCopyArrayOfAllPeople(m_addressbook);
-    
-    
-    
-    NSLog(@"%@", m_addressbook);
-    
-    __block BOOL accessGranted = NO;
-    if (ABAddressBookRequestAccessWithCompletion != NULL) {
-        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            @autoreleasepool {
-                // Write your code here...
-                // Fetch data from SQLite DB
-            }
-        });
-        
-        ABAddressBookRequestAccessWithCompletion(m_addressbook, ^(bool granted, CFErrorRef error)
-                                                 
-                                                 {
-                                                     
-                                                     accessGranted = granted;
-                                                     
-                                                     
-                                                     dispatch_semaphore_signal(sema);
-                                                     
-                                                 });
-        
-        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-        
-        
-        
-        
-    }
-    
-    
-    if(accessGranted == 0) {
-        
-        
+    // Access has not been granted
+    if(!result) {
+
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Can't Access Contacts" message:@"Your current settings don't allow Halfsies to access your contacts. Please go to Settings > Privacy > Contacts and tap the button next to Halfsies." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
         [alertView show];
         
-    }
+    } else {
     
-    
-
-    if(accessGranted == 1) {
-    
+    // Access has been granted
     [self.navigationController setNavigationBarHidden:NO];
     
+    // Hide elements
     [self.settingsBackground setHidden:YES];
     [self.findFriendsButton setHidden:YES];
     [self.inviteFriendsButton setHidden:YES];
     [self.backButton setHidden:YES];
     
-    
+    // Segue
     [self performSegueWithIdentifier:@"segueFromInboxToFindFriends" sender:self];
-    
-
     }
-    
 }
 
-
+#pragma mark - Navigation Methods
+- (void)navigationSetup
+{
+    // Setup navigation bar
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationItem setHidesBackButton:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+    
+    
+    // Create the find friends button
+    CGRect frame = CGRectMake(0, 0, 70, 30);
+    UIButton *findFriendsButton = [[UIButton alloc]initWithFrame:frame];
+    UIImage *findFriendsButtonImage = [UIImage imageNamed:@"findfriends2"];
+    
+    [findFriendsButton setBackgroundImage:findFriendsButtonImage forState:UIControlStateNormal];
+    [findFriendsButton addTarget:self action:@selector(launchFindFriendsView) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Add find friends button to navigation bar
+    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc]initWithCustomView:findFriendsButton];
+    self.navigationItem.leftBarButtonItem = leftBarButton;
+    
+    
+    // Create the camera button
+    CGRect cameraButtonFrame = CGRectMake(0, 0, 46.5, 33);
+    UIImage *cameraButtonImage = [UIImage imageNamed:@"camera3pink"];
+    UIButton *cameraButton = [[UIButton alloc]initWithFrame:cameraButtonFrame];
+    
+    [cameraButton setBackgroundImage:cameraButtonImage forState:UIControlStateNormal];
+    [cameraButton addTarget:self action:@selector(openMediaCaptureVC) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Add camera button to navigation bar
+    UIBarButtonItem * cameraButtonBarItem = [[UIBarButtonItem alloc]initWithCustomView:cameraButton];
+    self.navigationItem.rightBarButtonItem = cameraButtonBarItem;
+}
 
 @end
