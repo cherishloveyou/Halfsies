@@ -424,6 +424,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="pWR-b5-OLO" id="3OW-Yu-WbH"/>
+                                    <outlet property="delegate" destination="pWR-b5-OLO" id="6nD-42-ygv"/>
+                                </connections>
                             </tableView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingsBackground" translatesAutoresizingMaskIntoConstraints="NO" id="YHN-Rb-tc0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>

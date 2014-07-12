@@ -36,6 +36,8 @@
 		C3431E6D196F2313004822F7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3431E6C196F2313004822F7 /* Crashlytics.framework */; };
 		C3448070186FD9E800B9DB48 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344806F186FD9E800B9DB48 /* Parse.framework */; };
 		C3448078186FDC7300B9DB48 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */; };
+		C3BE3B841970756B008705FD /* HALUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BE3B831970756B008705FD /* HALUserDefaults.m */; };
+		C3BE3B871970786A008705FD /* HALParseConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BE3B861970786A008705FD /* HALParseConnection.m */; };
 		C3C5DFC9196C5C4F00D0F0F8 /* HALAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */; };
 		C3C5DFCC196C69A600D0F0F8 /* HALContact.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C5DFCB196C69A600D0F0F8 /* HALContact.m */; };
 /* End PBXBuildFile section */
@@ -94,6 +96,10 @@
 		C344806F186FD9E800B9DB48 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		C378735B186B4CC5009F7FFB /* Halfsies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfsies.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3BE3B821970756B008705FD /* HALUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALUserDefaults.h; sourceTree = "<group>"; };
+		C3BE3B831970756B008705FD /* HALUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALUserDefaults.m; sourceTree = "<group>"; };
+		C3BE3B851970786A008705FD /* HALParseConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALParseConnection.h; sourceTree = "<group>"; };
+		C3BE3B861970786A008705FD /* HALParseConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALParseConnection.m; sourceTree = "<group>"; };
 		C3C5DFC7196C5C4F00D0F0F8 /* HALAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALAddressBook.h; sourceTree = "<group>"; };
 		C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALAddressBook.m; sourceTree = "<group>"; };
 		C3C5DFCA196C69A600D0F0F8 /* HALContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALContact.h; sourceTree = "<group>"; };
@@ -264,6 +270,10 @@
 				C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */,
 				C3C5DFCA196C69A600D0F0F8 /* HALContact.h */,
 				C3C5DFCB196C69A600D0F0F8 /* HALContact.m */,
+				C3BE3B821970756B008705FD /* HALUserDefaults.h */,
+				C3BE3B831970756B008705FD /* HALUserDefaults.m */,
+				C3BE3B851970786A008705FD /* HALParseConnection.h */,
+				C3BE3B861970786A008705FD /* HALParseConnection.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -350,9 +360,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3BE3B841970756B008705FD /* HALUserDefaults.m in Sources */,
 				C3C5DFC9196C5C4F00D0F0F8 /* HALAddressBook.m in Sources */,
 				C3C5DFCC196C69A600D0F0F8 /* HALContact.m in Sources */,
 				C32028861964D32100EE7553 /* HALAddFriendsViewController.m in Sources */,
+				C3BE3B871970786A008705FD /* HALParseConnection.m in Sources */,
 				C320288D1964D32100EE7553 /* HALMediaCaptureVC.m in Sources */,
 				C32028911964D32100EE7553 /* HALSignupViewController.m in Sources */,
 				C32028851964D32100EE7553 /* HALAppDelegate.m in Sources */,

@@ -98,7 +98,7 @@
         // number from the phoneNumbers property into the
         // contact's mainPhoneNumber property
         if (!result) {
-            contact.mainPhoneNumber = contact.phoneNumbers[0];
+            contact.mainPhoneNumber = [contact.phoneNumbers firstObject];
             // Add contact to friends array
             [self.friends addObject:contact];
             continue;

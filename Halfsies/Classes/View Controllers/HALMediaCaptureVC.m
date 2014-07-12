@@ -383,12 +383,7 @@ int myCfunction(int a)
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    
-    
     self.image = [self imageFromSampleBuffer:sampleBuffer];
-    
-    
-    
 }
 
 

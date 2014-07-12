@@ -409,16 +409,8 @@ static inline CGSize swapWidthAndHeight(CGSize size)
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    
-    
     self.image = [self imageFromSampleBuffer:sampleBuffer];
-    
-    
-    
-    
-    self.image = [self rotate:UIImageOrientationRight];
-    
-    }
+}
 
 
 
@@ -1106,6 +1098,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(void)uploadPhoto {
     
+    NSLog(@"self.image.size right before upload: %@", NSStringFromCGSize(self.image.size));
     
     NSString *fileType;
     NSString *halfOrFull;
@@ -1130,6 +1123,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         
+        NSLog(@"PFFile has been created: %@", imageFile);
         
         [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
@@ -1145,7 +1139,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 
                 
                 [self.afterPhotoView setHidden:YES];
-
+                
                 
                 
                 
@@ -1178,11 +1172,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                         
                         //Everything was successful.
                         
+                        NSLog(@"Everything was successful.");
                         
                         
                         
                         if(succeeded == 1) {
                             
+                            NSLog(@"Succeeded value right before 2nd save: %d", succeeded);
                             
                             
                             NSString *currentUsersObjectId = [[NSString alloc]init];
@@ -1209,11 +1205,21 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                     
                                 } else {
                                     
-                                
+                                    
+                                    
+                                    //Everything was successful.
+                                    
+                                    NSLog(@"Everything was successful.");
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     if(succeeded == 1) {
                                         
                                         
-                                        
+                                        //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
                                         
                                         
                                         NSString *originalSender2 = [[NSString alloc]init];
@@ -1222,20 +1228,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                         
                                         self.photoUploadAlertViewMessage = [[NSString alloc]initWithFormat:@"You just finished going halfsies with %@!", originalSender2];
                                         
+                                        //PFFile *imageFile = [self.message objectForKey:@"file"];
                                         
                                         self.finishedImageFile = imageFile;
-
+                                        
                                         self.finishedImageFileURL = [[NSURL alloc]initWithString:self.finishedImageFile.url];
                                         
                                         self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:nil message:self.photoUploadAlertViewMessage delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
                                         
                                         [self.uploadPhotoAlertView show];
                                         
-
+                                        //[self.sharePhotoView setHidden:NO];
+                                        
                                         
                                     }
                                     
                                     
+                                    //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
                                     
                                     
                                 }
@@ -1271,7 +1280,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }];
         
     }
-    
     
     
 }

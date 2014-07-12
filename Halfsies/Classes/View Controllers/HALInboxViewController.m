@@ -13,11 +13,13 @@
 #import "HALMediaCaptureVC.h"
 #import "HALFindFriendsViewController.h"
 #import "HALAddressBook.h"
+#import "HALParseConnection.h"
+#import "HALUserDefaults.h"
 
 @interface HALInboxViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSArray *messages;
-@property (nonatomic, strong) NSArray *messages2and3;
+@property (nonatomic, strong) NSArray *halfImageMessages;
+@property (nonatomic, strong) NSArray *fullImageMessages;
 
 #pragma mark - Properties
 @property (nonatomic, strong) UITableViewCell *cell;
@@ -54,17 +56,42 @@
 
     [super viewWillAppear:animated];
     
-    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *data = [standardDefaults objectForKey:@"parseMessages1"];
-    NSArray *retrievedArray1 = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.halfImageMessages = [[NSArray alloc]init];
+    self.fullImageMessages = [[NSArray alloc]init];
     
-    NSData *data2 = [standardDefaults objectForKey:@"parseMessages2"];
-    NSArray *retrievedArray2 = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
+    HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
     
-    self.messages = retrievedArray1;
-    self.messages2and3 = retrievedArray2;
+    self.halfImageMessages = [userDefaults retreiveHalfImageMessages];
+    self.fullImageMessages = [userDefaults retreiveFullImageMessages];
+    
+    [self.tableView reloadData];
+
 
     [self parseQueries];
+
+    [self.tableView reloadData];
+}
+
+- (void)parseQueryFinished
+{
+    NSLog(@"notification1");
+    HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
+    self.halfImageMessages = [userDefaults retreiveHalfImageMessages];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"queryHasFinished"
+                                                  object:nil];
+    [self.tableView reloadData];
+}
+
+- (void)parseQuery2and3Finished
+{
+    NSLog(@"notification2");
+    HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
+    self.fullImageMessages = [userDefaults retreiveFullImageMessages];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"query2and3HasFinished"
+                                                  object:nil];
+    [self.tableView reloadData];
 
 }
 
@@ -77,10 +104,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0)
-    return [self.messages count];
+    return [self.halfImageMessages count];
     
     if(section == 1)
-    return [self.messages2and3 count];
+    return [self.fullImageMessages count];
     
     else return 0;
 }
@@ -107,7 +134,7 @@
     // Code for the first section in table view
     if (indexPath.section == 0) {
         
-    PFObject *message = [self.messages objectAtIndex:indexPath.row];
+    PFObject *message = [self.halfImageMessages objectAtIndex:indexPath.row];
     
     // Create the button images
     UIImage *selectMessageButtonImage = [UIImage imageNamed:@"right-arrow"];
@@ -132,7 +159,7 @@
     } else {
     
     // Code for the second section in table view
-    PFObject *message2 = [self.messages2and3 objectAtIndex:indexPath.row];
+    PFObject *message2 = [self.fullImageMessages objectAtIndex:indexPath.row];
     
     // Create the button images
     UIImage *selectMessageButtonImage2 = [UIImage imageNamed:@"right-arrow"];
@@ -169,7 +196,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
     cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    self.selectedMessage = [self.messages objectAtIndex:indexPath.row];
+    self.selectedMessage = [self.halfImageMessages objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier:@"segueToMediaCaptureVCResponse" sender:self];
 }
@@ -183,7 +210,7 @@
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        self.selectedMessage = [self.messages2and3 objectAtIndex:indexPath.row];
+        self.selectedMessage = [self.fullImageMessages objectAtIndex:indexPath.row];
        
         [self performSegueWithIdentifier:@"segueToFinishedHalfsieVC" sender:self];
 }
@@ -208,132 +235,29 @@
     }
 }
 
+- (void)userDefaults
+{
+    
+}
+
 -(void)parseQueries {
     
     
-    self.messages = [[NSArray alloc]init];
-    
-    self.messages2and3 = [[NSArray alloc]init];
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
+    HALParseConnection *parseConnection = [[HALParseConnection alloc]init];
     
     
-    [query whereKey:@"recipientIds" equalTo:[[PFUser currentUser]objectId]];
-    [query whereKey:@"halfOrFull" equalTo:@"half"];
-    [query whereKey:@"didRespond" notEqualTo:[[PFUser currentUser]objectId]];
-    [query orderByDescending:@"createdAt"];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSLog(@"5");
-        
-        
-        if(error) {
-            
-            
-            
-        } else {
-            
-            
-            //We found messages
-            
-            self.messages = objects;
-            
-        
-            
-            PFQuery *query2 = [PFQuery queryWithClassName:@"Messages"];
-            
-            [query2 whereKey:@"senderId" equalTo:[[PFUser currentUser]objectId]];
-            [query2 whereKey:@"halfOrFull" equalTo:@"full"];
-            
-            
-            
-            PFQuery *query3 = [PFQuery queryWithClassName:@"Messages"];
-            
-            [query3 whereKey:@"recipientIds" equalTo:[[PFUser currentUser]objectId]];
-            [query3 whereKey:@"halfOrFull" equalTo:@"full"];
-            
-            
-            
-            
-            PFQuery *query2and3 = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:query2,query3,nil]];
-            [query2and3 orderByDescending:@"createdAt"];
-            
-            [query2and3 findObjectsInBackgroundWithBlock:^(NSArray *objects2and3, NSError *error) {
-                
-                if(error) {
-                    
-                    
-                    
-                } else {
-                    
-                    
-                    
-                    self.messages2and3 = objects2and3;
-                    
-                            [self.tableView reloadData];
-                            
-                    
-                            
-                    
-                            
-                            
-                            //Create an instance of NSUserDefaults
-                            
-                            NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-                            
-                    
-                            
-                            if (self.messages.count != 0) {
-                                
-                                
-                                
-                                [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self.messages] forKey:@"parseMessages1"];
-                                
-                                
-                                
-                            }
-                    
-                            
-                            
-                            if (self.messages2and3.count != 0) {
-                                
-                                
-                                
-                                [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self.messages2and3] forKey:@"parseMessages2"];
-                                
-                            }
-                            
-                            
-                            //Save the changes you just made to the user defaults.
-                            
-                            [standardDefaults synchronize];
-                            
-                            
-                            
-                            
-                            
-                            
-                            NSData *data = [standardDefaults objectForKey:@"parseMessages1"];
-                            NSArray *retrievedArray1 = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                    
-                            NSData *data2 = [standardDefaults objectForKey:@"parseMessages2"];
-                            NSArray *retrievedArray2 = [NSKeyedUnarchiver unarchiveObjectWithData:data2];
-                    
-                    
-                }
-            }];
-
+    [parseConnection performQuery];
+    [parseConnection performQuery2and3];
     
-
-        }
-        
-        
-    }];
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    
-    self.cell = [[UITableViewCell alloc]init];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(parseQueryFinished)
+                                                 name:@"queryHasFinished"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(parseQuery2and3Finished)
+                                                 name:@"query2and3HasFinished"
+                                               object:nil];
     
 }
 
