@@ -15,7 +15,7 @@
 
 @implementation HALParseConnection
 
-
+#pragma mark - Query Methods
 - (void)performQuery
 {
     // Setup and execute the query
@@ -70,5 +70,42 @@
         }
     }];
 }
+
+#pragma mark - Signup Methods
+- (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email
+{
+    // Create new parse user
+    PFUser *newUser = [PFUser user];
+    newUser.username = username;
+    newUser.password = password;
+    newUser.email = email;
+    
+    // Signup new parse user
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+    if (error) {
+            
+        NSLog(@"There was an error when trying to signup the new user: %@", error);
+        
+        // Post notification for unsuccessful signup
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"unsuccessfulUserSignup"
+                                                            object:self
+                                                          userInfo:nil];
+        
+        } else {
+            
+            // Persist user's username
+            HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
+            
+            [userDefaults storeUsername:username];
+            
+            // Post notification for signup completion
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"successfulUserSignup"
+                                                                object:self
+                                                              userInfo:nil];
+        }
+    }];
+}
+
 
 @end

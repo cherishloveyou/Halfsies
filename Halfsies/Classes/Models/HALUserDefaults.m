@@ -47,4 +47,12 @@
     [standardDefaults synchronize];
 }
 
+- (void)storeUsername:(NSString *)username
+{
+    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [standardDefaults setObject:username forKey:@"username"];
+    [standardDefaults synchronize];
+}
+
 @end

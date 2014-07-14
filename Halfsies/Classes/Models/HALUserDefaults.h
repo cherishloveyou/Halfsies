@@ -15,5 +15,6 @@
 - (NSArray *)retrieveFullImageMessages;
 - (void)storeHalfImageMessages:(id)halfImageMessages;
 - (void)storeFullImageMessages:(id)fullImageMessages;
+- (void)storeUsername:(NSString *)username;
 
 @end
