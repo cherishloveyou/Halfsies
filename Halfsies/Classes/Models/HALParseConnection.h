@@ -15,5 +15,6 @@
 - (void)performQuery;
 - (void)performQuery2and3;
 - (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email;
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "HALLoginViewController.h"
 #import <Parse/Parse.h>
+#import "HALParseConnection.h"
 
 @interface HALLoginViewController () <UITextFieldDelegate, UIAlertViewDelegate>
 
@@ -99,14 +100,21 @@
 
 - (void)invalidLoginAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Entry" message:@"Username and Password must both be at least 4 characters long." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Entry" message:@"Username and Password must both be at least 4 characters long." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     [alert show];
 }
 
 - (void)loginFailedAlert
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed." message:@"Invalid Username and/or Password." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed." message:@"Invalid Username and/or Password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alert show];
+}
+
+- (void)genericLoginAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed." message:@"Something went wrong when trying to login. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     [alert show];
 }
@@ -114,33 +122,52 @@
 #pragma mark - IBAction Methods
 - (IBAction)didTapLoginButton:(id)sender
 {
-    NSString *user = [self.usernameEntry text];
-    NSString *pass = [self.passwordEntry text];
+    NSString *username = [self.usernameEntry text];
+    NSString *password = [self.passwordEntry text];
     
-    if ([user length] < 4 || [pass length] < 4) {
+    if ([username length] < 4 || [password length] < 4) {
         
         [self invalidLoginAlert];
         
     } else {
         
-        [PFUser logInWithUsernameInBackground:user password:pass block:^(PFUser *user, NSError *error) {
-            if (user) {
-                NSLog(@"Successful login");
-                
-                //[self performSegueWithIdentifier:@"loginToMainAppSegue" sender:self];
-                [self performSegueWithIdentifier:@"loginToMediaCaptureVC" sender:self];
-                
-            } else {
-                NSLog(@"%@",error);
-                [self loginFailedAlert];
-            }
-        }];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(successfulLoginSegue)
+                                                     name:@"successfulUserLogin"
+                                                   object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(genericLoginAlert)
+                                                     name:@"unsuccessfulUserLogin"
+                                                   object:nil];
+
+        
+        HALParseConnection *connection = [[HALParseConnection alloc]init];
+        [connection loginUserWithUsername:username password:password];
+        
+        
     }
 }
 
 - (IBAction)handleBack:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Segue Methods
+- (void)successfulLoginSegue
+{
+    [self performSegueWithIdentifier:@"loginToMediaCaptureVC" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"successfulUserLogin"
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"unsuccessfulUserLogin"
+                                                  object:nil];
 }
 
 @end

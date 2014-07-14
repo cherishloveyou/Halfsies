@@ -107,5 +107,32 @@
     }];
 }
 
+#pragma mark - Login Methods
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password
+{
+    
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+        
+        if (error) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"unsuccessfulUserLogin"
+                                                                object:self
+                                                              userInfo:nil];
+        }
+        
+        if (user) {
+            
+            // Persist username
+            HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
+            [userDefaults storeUsername:user.username];
+            
+            // Post notification for signup completion
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"successfulUserLogin"
+                                                                object:self
+                                                              userInfo:nil];
+        }
+    }];
+
+}
 
 @end
