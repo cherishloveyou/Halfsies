@@ -10,100 +10,52 @@
 
 @interface HALLaunchViewController ()
 
+#pragma mark - Properties
+@property (strong, nonatomic) IBOutlet UIImageView *launchBackground;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backBarButton;
+
+#pragma mark - IBActions
+- (IBAction)login;
+- (IBAction)signup;
+- (IBAction)termsOfService;
+
 @end
 
 @implementation HALLaunchViewController
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-
-    self.launchBackground.image = [UIImage imageNamed:@"launchBackground"];
-    
-    
-    if([UIScreen mainScreen].bounds.size.height == 480) {
-        
-        
-
-        
-        
-    } else {
-        
-        
-        
-        
-    }
-    
-    
-    
-    
-    
-    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-    
-   
-    
 }
 
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:NO];
-    [self.navigationController setNavigationBarHidden:YES];   //it hides
-    
-}
-
-
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:NO];
-    [self.navigationController setNavigationBarHidden:NO];    // it shows
-
-}
-
-
-
-
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    
+    self.launchBackground.image = [UIImage imageNamed:@"launchBackground"];
+    [self.navigationController setNavigationBarHidden:YES];   //it hides
 }
 
--(IBAction)login {
-    
-    
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];    // it shows
+}
 
+#pragma mark - IBAction Methods
+- (IBAction)login
+{
     [self performSegueWithIdentifier:@"launchToLoginSegue" sender:self];
-    
 }
 
--(IBAction)signup {
-    
-
-[self performSegueWithIdentifier:@"launchToSignupSegue" sender:self];
-    
-
+- (IBAction)signup
+{
+    [self performSegueWithIdentifier:@"launchToSignupSegue" sender:self];
 }
 
-- (IBAction)termsOfService {
-    
+- (IBAction)termsOfService
+{
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.halfsies.co/terms"]];
-    
 }
-
-
 
 @end

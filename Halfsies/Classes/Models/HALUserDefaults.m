@@ -10,14 +10,12 @@
 
 @interface HALUserDefaults ()
 
-@property (readwrite) NSArray *retreivedData;
-
 @end
 
 @implementation HALUserDefaults
 
 
-- (NSArray *)retreiveHalfImageMessages
+- (NSArray *)retrieveHalfImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"halfImageMessages"];
@@ -26,7 +24,7 @@
     return retrievedArray;
 }
 
--(NSArray *)retreiveFullImageMessages
+- (NSArray *)retrieveFullImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"fullImageMessages"];
@@ -38,20 +36,14 @@
 - (void)storeHalfImageMessages:(id)halfImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-    
-
     [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:halfImageMessages] forKey:@"halfImageMessages"];
-        
     [standardDefaults synchronize];
-
 }
 
 - (void)storeFullImageMessages:(id)fullImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
-
     [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:fullImageMessages] forKey:@"fullImageMessages"];
-    
     [standardDefaults synchronize];
 }
 

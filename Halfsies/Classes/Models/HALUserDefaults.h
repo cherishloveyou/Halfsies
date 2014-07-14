@@ -10,8 +10,9 @@
 
 @interface HALUserDefaults : NSObject
 
-- (NSArray *)retreiveHalfImageMessages;
-- (NSArray *)retreiveFullImageMessages;
+#pragma mark - Instance Methods
+- (NSArray *)retrieveHalfImageMessages;
+- (NSArray *)retrieveFullImageMessages;
 - (void)storeHalfImageMessages:(id)halfImageMessages;
 - (void)storeFullImageMessages:(id)fullImageMessages;
 

@@ -18,12 +18,11 @@
 
 @interface HALInboxViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSArray *halfImageMessages;
-@property (nonatomic, strong) NSArray *fullImageMessages;
-
 #pragma mark - Properties
 @property (nonatomic, strong) UITableViewCell *cell;
 @property (nonatomic, strong) PFObject *selectedMessage;
+@property (nonatomic, strong) NSArray *halfImageMessages;
+@property (nonatomic, strong) NSArray *fullImageMessages;
 
 #pragma mark - IBOutlets
 @property (strong, nonatomic) IBOutlet UIImageView *settingsBackground;
@@ -51,32 +50,55 @@
     [self navigationSetup];
 }
 
-
--(void)viewWillAppear:(BOOL)animated {
-
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
+    [self retreiveStoredMessages];
+    
+    [self parseQueries];
+}
+
+#pragma mark - Stored Data Methods
+- (void)retreiveStoredMessages
+{
     self.halfImageMessages = [[NSArray alloc]init];
     self.fullImageMessages = [[NSArray alloc]init];
-    
     HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
     
-    self.halfImageMessages = [userDefaults retreiveHalfImageMessages];
-    self.fullImageMessages = [userDefaults retreiveFullImageMessages];
+    // Retreive any stored messages
+    self.halfImageMessages = [userDefaults retrieveHalfImageMessages];
+    self.fullImageMessages = [userDefaults retrieveFullImageMessages];
     
+    // Reload table view
     [self.tableView reloadData];
+}
 
 
-    [self parseQueries];
-
-    [self.tableView reloadData];
+#pragma mark - Parse Query Methods
+- (void)parseQueries
+{
+    // Execute Parse queries
+    HALParseConnection *parseConnection = [[HALParseConnection alloc]init];
+    [parseConnection performQuery];
+    [parseConnection performQuery2and3];
+    
+    // Register for notifications that are posted in HALParseConnection class
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(parseQueryFinished)
+                                                 name:@"queryHasFinished"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(parseQuery2and3Finished)
+                                                 name:@"query2and3HasFinished"
+                                               object:nil];
 }
 
 - (void)parseQueryFinished
 {
-    NSLog(@"notification1");
+    // Retreive newly updated halfImageMessages and remove observer
     HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
-    self.halfImageMessages = [userDefaults retreiveHalfImageMessages];
+    self.halfImageMessages = [userDefaults retrieveHalfImageMessages];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"queryHasFinished"
                                                   object:nil];
@@ -85,14 +107,13 @@
 
 - (void)parseQuery2and3Finished
 {
-    NSLog(@"notification2");
+    // Retreive newly updated fullImageMessages and remove observer
     HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
-    self.fullImageMessages = [userDefaults retreiveFullImageMessages];
+    self.fullImageMessages = [userDefaults retrieveFullImageMessages];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"query2and3HasFinished"
                                                   object:nil];
     [self.tableView reloadData];
-
 }
 
 #pragma mark - TableView Methods
@@ -112,20 +133,18 @@
     else return 0;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
     if(section == 0)
         return @"Halfsies You Need To Finish";
     if(section == 1)
         return @"Halfsies You Recently Finished";
     
     else return @"nil";
-    
 }
 
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // Set the cell identifier
     static NSString *cellIdentifier = @"SettingsCell";
     
@@ -235,32 +254,6 @@
     }
 }
 
-- (void)userDefaults
-{
-    
-}
-
--(void)parseQueries {
-    
-    
-    HALParseConnection *parseConnection = [[HALParseConnection alloc]init];
-    
-    
-    
-    [parseConnection performQuery];
-    [parseConnection performQuery2and3];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(parseQueryFinished)
-                                                 name:@"queryHasFinished"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(parseQuery2and3Finished)
-                                                 name:@"query2and3HasFinished"
-                                               object:nil];
-    
-}
-
 - (void)launchFindFriendsView
 {
     // Unhide elements
@@ -273,7 +266,7 @@
 }
 
 #pragma mark - IBActions
--(IBAction)openMediaCaptureVC
+- (IBAction)openMediaCaptureVC
 {
     [self performSegueWithIdentifier:@"inboxToMediaCaptureVC" sender:self];
 }

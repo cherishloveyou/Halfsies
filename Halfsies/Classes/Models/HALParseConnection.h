@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
-#import "HALUserDefaults.h"
 
 @interface HALParseConnection : NSObject
 
+#pragma mark - Instance Methods
 - (void)performQuery;
 - (void)performQuery2and3;
 

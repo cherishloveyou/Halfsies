@@ -19,6 +19,13 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIImageView *imageView2;
 @property (strong, nonatomic) NSString *senderName;
+@property NSString *fileType;
+@property NSString *halfOrFull;
+@property PFFile *imageFile;
+@property NSString *originalSenderId;
+
+
+
 
 - (UIImage*)rotate:(UIImageOrientation)orient;
 
@@ -42,14 +49,6 @@ static inline CGSize swapWidthAndHeight(CGSize size)
 
 @implementation HALMediaCaptureVCResponse
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -1096,235 +1095,152 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
--(void)uploadPhoto {
-    
-    NSLog(@"self.image.size right before upload: %@", NSStringFromCGSize(self.image.size));
-    
-    NSString *fileType;
-    NSString *halfOrFull;
-    
-    
+- (void)uploadPhoto
+{
     if(self.image != nil) {
         
-        fileType = @"image";
-        halfOrFull = @"full";
+        [self block1];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(block2)
+                                                     name:@"block1finished"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(block3)
+                                                     name:@"block2finished"
+                                                   object:nil];
         
-        NSData *imageData = UIImageJPEGRepresentation(self.image, 0.7);
-        
-        PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
-        
-        
-        NSString *originalSender = [[NSString alloc]init];
-        
-        originalSender = [self.message objectForKey:@"senderId"];
-        
-        
-        
-        
-        
-        
-        NSLog(@"PFFile has been created: %@", imageFile);
-        
-        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            
-            if(error) {
-                
-                NSLog(@"There has been an error: %@ %@", error, [error userInfo]);
-                
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                
-                [alertView show];
-                
-            } else {
-                
-                
-                [self.afterPhotoView setHidden:YES];
-                
-                
-                
-                
-                
-                PFObject *returnMessage = [PFObject objectWithClassName:@"Messages"];
-                [returnMessage setObject:imageFile forKey:@"file"];
-                [returnMessage setObject:fileType forKey:@"fileType"];
-                [returnMessage addObject:originalSender forKey:@"recipientIds"];
-                [returnMessage setObject:[[PFUser currentUser]objectId] forKey:@"senderId"];
-                [returnMessage setObject:[[PFUser currentUser]username]forKey:@"senderName"];
-                [returnMessage setObject:halfOrFull forKey:@"halfOrFull"];
-                
-                NSString *originalSender = [[NSString alloc]init];
-                
-                originalSender = [self.message objectForKey:@"senderName"];
-                
-                [returnMessage setObject:originalSender forKey:@"originalSender"];
-                
-                [returnMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    
-                    if(error) {
-                        
-                        NSLog(@"There was an error: %@ %@", error, [error userInfo]);
-                        
-                        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        
-                        [alertView show];
-                        
-                    } else {
-                        
-                        //Everything was successful.
-                        
-                        NSLog(@"Everything was successful.");
-                        
-                        
-                        
-                        if(succeeded == 1) {
-                            
-                            NSLog(@"Succeeded value right before 2nd save: %d", succeeded);
-                            
-                            
-                            NSString *currentUsersObjectId = [[NSString alloc]init];
-                            
-                            
-                            PFUser *user = [PFUser currentUser];
-                            
-                            currentUsersObjectId = user.objectId;
-                            
-                            [self.message addObject:currentUsersObjectId forKey:@"didRespond"];
-                            
-                            [self.message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                
-                                
-                                if(error) {
-                                    
-                                    NSLog(@"There was an error: %@ %@", error, [error userInfo]);
-                                    
-                                    self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                    
-                                    [self.uploadPhotoAlertView show];
-                                    
-                                    
-                                    
-                                } else {
-                                    
-                                    
-                                    
-                                    //Everything was successful.
-                                    
-                                    NSLog(@"Everything was successful.");
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    if(succeeded == 1) {
-                                        
-                                        
-                                        //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
-                                        
-                                        
-                                        NSString *originalSender2 = [[NSString alloc]init];
-                                        
-                                        originalSender2 = [self.message objectForKey:@"senderName"];
-                                        
-                                        self.photoUploadAlertViewMessage = [[NSString alloc]initWithFormat:@"You just finished going halfsies with %@!", originalSender2];
-                                        
-                                        //PFFile *imageFile = [self.message objectForKey:@"file"];
-                                        
-                                        self.finishedImageFile = imageFile;
-                                        
-                                        self.finishedImageFileURL = [[NSURL alloc]initWithString:self.finishedImageFile.url];
-                                        
-                                        self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:nil message:self.photoUploadAlertViewMessage delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
-                                        
-                                        [self.uploadPhotoAlertView show];
-                                        
-                                        //[self.sharePhotoView setHidden:NO];
-                                        
-                                        
-                                    }
-                                    
-                                    
-                                    //[self performSegueWithIdentifier:@"segueToInbox" sender:self];
-                                    
-                                    
-                                }
-                                
-                                
-                                
-                                
-                            }];
-                            
-                            
-                            
-                            
-                            
-                            
-                        }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    }
-                    
-                    
-                    
-                }];
-            }
-            
-            
-            
-        }];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(block4)
+                                                     name:@"block3finished"
+                                                   object:nil];
     }
     
+        
+}
+
+- (void)block1
+{
+    self.fileType = @"image";
+    self.halfOrFull = @"full";
+    
+    NSData *imageData = UIImageJPEGRepresentation(self.image, 0.7);
+    self.imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
+    
+    self.originalSenderId = [self.message objectForKey:@"senderId"];
+    
+    [self.imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if(error) {
+            NSLog(@"There has been an error: %@ %@", error, [error userInfo]);
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+        } else {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"block1finished"
+                                                                object:self
+                                                              userInfo:nil];
+            
+            
+        }
+        
+        
+    }];
+
+}
+
+- (void)block2
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"block1finished"
+                                                  object:nil];
+    
+    PFObject *returnMessage = [PFObject objectWithClassName:@"Messages"];
+    [returnMessage setObject:self.imageFile forKey:@"file"];
+    [returnMessage setObject:self.fileType forKey:@"fileType"];
+    [returnMessage addObject:self.originalSenderId forKey:@"recipientIds"];
+    [returnMessage setObject:[[PFUser currentUser]objectId] forKey:@"senderId"];
+    [returnMessage setObject:[[PFUser currentUser]username]forKey:@"senderName"];
+    [returnMessage setObject:self.halfOrFull forKey:@"halfOrFull"];
+    
+    NSString *originalSenderName = [self.message objectForKey:@"senderName"];
+    
+    [returnMessage setObject:originalSenderName forKey:@"originalSender"];
+    
+    [returnMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if(error) {
+            
+            NSLog(@"There was an error: %@ %@", error, [error userInfo]);
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+            
+        } else {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"block2finished"
+                                                                object:self
+                                                              userInfo:nil];
+        }
+   
+    }];
     
 }
 
+- (void)block3
+{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"block2finished"
+                                                  object:nil];
+    
+    NSString *currentUsersObjectId = [[NSString alloc]init];
+    
+    
+    PFUser *user = [PFUser currentUser];
+    
+    
+    currentUsersObjectId = user.objectId;
+    
+    [self.message addObject:currentUsersObjectId forKey:@"didRespond"];
+    
+    [self.message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if(error) {
+            NSLog(@"There was an error: %@ %@", error, [error userInfo]);
+            self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [self.uploadPhotoAlertView show];
+   
+        } else {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"block3finished"
+                                                                object:self
+                                                              userInfo:nil];
+        }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    
-    
-    if(alertView == self.uploadPhotoAlertView && buttonIndex == 0) {
-        
-        
-        
-        NSLog(@"Sweet! button was pressed.");
-        
-        //Create the new action sheet for sharing.
-        
-        self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
-        
-        //Display the new sharing action sheet.
-        
-        [self.uploadPhotoShareSheet showInView:self.view];
-
-        [self.sharePhotoView setHidden:NO];
-
-        
-    }
-    
-    
-    if(alertView == self.reportAlertView && buttonIndex == 1) {
-        
-        
-        
-        NSLog(@"User pressed the OK button.");
-        
-        [self performSegueWithIdentifier:@"segueToInbox" sender:self];
-        
-        
-    }
-    
-    
+    }];
     
 }
 
+- (void)block4
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"block3finished"
+                                                  object:nil];
+    
+    NSString *originalSender2 = [self.message objectForKey:@"senderName"];
+    
+    self.photoUploadAlertViewMessage = [[NSString alloc]initWithFormat:@"You just finished going halfsies with %@!", originalSender2];
+    
+    //PFFile *imageFile = [self.message objectForKey:@"file"];
+    
+    self.finishedImageFile = self.imageFile;
+    
+    self.finishedImageFileURL = [[NSURL alloc]initWithString:self.finishedImageFile.url];
+    
+    self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:nil message:self.photoUploadAlertViewMessage delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
+    
+    [self.uploadPhotoAlertView show];
 
+}
 
 -(void)saveToLibray {
     
