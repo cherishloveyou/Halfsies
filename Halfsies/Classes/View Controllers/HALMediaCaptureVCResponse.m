@@ -1308,6 +1308,44 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    
+    
+    if(alertView == self.uploadPhotoAlertView && buttonIndex == 0) {
+        
+        
+        
+        NSLog(@"Sweet! button was pressed.");
+        
+        //Create the new action sheet for sharing.
+        
+        self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
+        
+        //Display the new sharing action sheet.
+        
+        [self.uploadPhotoShareSheet showInView:self.view];
+        
+        [self.sharePhotoView setHidden:NO];
+        
+        
+    }
+    
+    
+    if(alertView == self.reportAlertView && buttonIndex == 1) {
+        
+        
+        
+        NSLog(@"User pressed the OK button.");
+        
+        [self performSegueWithIdentifier:@"segueToInbox" sender:self];
+        
+        
+    }
+    
+    
+    
+}
 
 
 
