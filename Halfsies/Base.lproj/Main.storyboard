@@ -816,7 +816,7 @@
                                             <constraint firstAttribute="width" constant="268" id="Ra5-ig-fFN"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="PRE-uJ-AVw" id="OWT-D8-KJR"/>
                                         </connections>
