@@ -1137,7 +1137,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSData *imageData = UIImageJPEGRepresentation(self.image, 0.7);
     self.imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
     
-    self.originalSenderId = @"blahblah";
+    self.originalSenderId = [self.message objectForKey:@"senderId"];
     
     [self.imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
@@ -1173,7 +1173,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [returnMessage setObject:[[PFUser currentUser]username]forKey:@"senderName"];
     [returnMessage setObject:self.halfOrFull forKey:@"halfOrFull"];
     
-    NSString *originalSenderName = @"blahblahblah";
+    NSString *originalSenderName = [self.message objectForKey:@"senderName"];
     
     [returnMessage setObject:originalSenderName forKey:@"originalSender"];
     
