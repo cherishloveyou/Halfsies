@@ -11,11 +11,4 @@
 
 @interface HALSearchViewController : UIViewController
 
-@property NSArray *parseUsers;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-- (IBAction)doneAddingFriends;
-- (IBAction)handleBack;
-
 @end
