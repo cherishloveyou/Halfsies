@@ -16,7 +16,7 @@
 @implementation HALParseConnection
 
 #pragma mark - Query Methods
-+ (void)performQuery
++ (void)performHalfImageQuery
 {
     // Setup and execute the query
     
@@ -41,7 +41,7 @@
     }];
 }
 
-+ (void)performQuery2and3
++ (void)performFullImageQuery
 {
     // Setup and execute the query
     PFQuery *query2 = [PFQuery queryWithClassName:@"Messages"];

@@ -12,8 +12,8 @@
 @interface HALParseConnection : NSObject
 
 #pragma mark - Instance Methods
-+ (void)performQuery;
-+ (void)performQuery2and3;
++ (void)performHalfImageQuery;
++ (void)performFullImageQuery;
 + (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email;
 + (void)loginUserWithUsername:(NSString *)username password:(NSString *)password;
 

@@ -78,8 +78,8 @@
 - (void)parseQueries
 {
     // Execute Parse queries
-    [HALParseConnection performQuery];
-    [HALParseConnection performQuery2and3];
+    [HALParseConnection performHalfImageQuery];
+    [HALParseConnection performFullImageQuery];
     
     // Register for notifications that are posted in HALParseConnection class
     [[NSNotificationCenter defaultCenter] addObserver:self
