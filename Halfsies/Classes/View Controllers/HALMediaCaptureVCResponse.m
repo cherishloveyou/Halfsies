@@ -56,6 +56,7 @@
 @property (nonatomic, strong) PFFile *finishedImageFile;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *image9;
+@property (strong, nonatomic) IBOutlet UIButton *sendToFriend;
 
 - (IBAction)stillImageCapture;
 - (IBAction)toggleFlash;
@@ -91,35 +92,38 @@ float finalXValueForCrop;
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    
-    
-    
+ 
+   // Perform setup methods
+    [self setViewFrames];
+    [self topHalfImageViewSetup];
+    [self subviewsSetup];
+    [self navigationSetup];
+    [self videoSessionSetup];
+}
+
+#pragma mark View Setup
+- (void)setViewFrames
+{
     self.topHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2);
     
     
     self.takingPhotoView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
     self.afterPhotoView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-
+    
     
     self.topAndBottomHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
     // I had to change the y parameter for bottomHalfView to 0 otherwise the screenshot was not capturing the full image contained in self.bottomHalfView.frame. It must just be because that view is the only view not hidden when the screenshot is captured?
     
     self.bottomHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
+    
 
-    
-    NSLog(@"topHalfView frame: %@", NSStringFromCGRect(self.topHalfView.frame));
-    NSLog(@"takingPhotoView frame: %@", NSStringFromCGRect(self.takingPhotoView.frame));
-    NSLog(@"afterPhotoView frame: %@", NSStringFromCGRect(self.afterPhotoView.frame));
-    NSLog(@"topAndBottomHalfView frame: %@", NSStringFromCGRect(self.topAndBottomHalfView.frame));
-    
-    
-    
+}
+
+- (void)topHalfImageViewSetup
+{
     PFFile *imageFile = [self.message objectForKey:@"file"];
     
     self.senderName = [self.message objectForKey:@"senderName"];
@@ -142,12 +146,25 @@ float finalXValueForCrop;
     self.imageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2);
     
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self.imageView setClipsToBounds:YES]; 
+}
 
-    [self.imageView setClipsToBounds:YES];
+- (void)subviewsSetup
+{
     
     [self.view addSubview:self.imageView];
     [self.view sendSubviewToBack:self.imageView];
-    
+}
+
+#pragma mark - Navigation Setup
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+- (void)navigationSetup
+{
     [self.navigationController setNavigationBarHidden:YES];
     
     
@@ -159,7 +176,12 @@ float finalXValueForCrop;
         // iOS 6
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
-   
+
+}
+
+#pragma mark - Video Session Setup
+- (void)videoSessionSetup
+{
     self.session =[[AVCaptureSession alloc]init];
     
     
@@ -183,7 +205,7 @@ float finalXValueForCrop;
     
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:self.session];
     
-  
+    
     
     
     self.rootLayer = [[self view]layer];
@@ -213,16 +235,8 @@ float finalXValueForCrop;
     [self.videoOutput setSampleBufferDelegate:self queue:queue];
     
     [self.session startRunning];
-    
+
 }
-
-
--(BOOL)prefersStatusBarHidden {
-    
-    return YES;
-    
-}
-
 
 
 
@@ -944,6 +958,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(IBAction)sendButton {
     
+    // Disable the sendToFriend button
+    [self.sendToFriend setUserInteractionEnabled:NO];
+    [self.sendToFriend setEnabled:NO];
     
     [self uploadPhoto];
     
@@ -960,16 +977,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         HALSendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
             
         sendFriendsVC.halfsiesPhotoToSend = _image;
-        
-        
-        
+       
     }
-    
-    
-    
-    
-    
-    
     
 }
 
@@ -1124,15 +1133,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     return copy;
 }
-
-
-
-
-
-
-
-
-
 
 - (void)uploadPhoto
 {

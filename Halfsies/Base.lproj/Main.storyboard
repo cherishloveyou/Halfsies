@@ -765,6 +765,7 @@
                     <navigationItem key="navigationItem" id="okL-jS-Fo4"/>
                     <connections>
                         <outlet property="afterPhotoView" destination="Bsi-r2-Rc0" id="qKB-cA-h5R"/>
+                        <outlet property="sendToFriend" destination="z3q-r3-mOx" id="1TQ-B7-yMD"/>
                         <outlet property="sharePhotoView" destination="wWb-Yn-KIL" id="gwB-fJ-rEm"/>
                         <outlet property="takingPhotoView" destination="IZP-e4-akC" id="3Ss-Mq-YQ4"/>
                         <outlet property="toggleFlashButton" destination="OKa-j2-4xx" id="djq-xT-Q1m"/>
