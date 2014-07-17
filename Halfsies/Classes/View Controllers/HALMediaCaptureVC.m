@@ -139,7 +139,6 @@ int myCfunction(int a)
   
     
     self.inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    NSLog(@"The current device position is: %ld", self.inputDevice.position);
     
     
 

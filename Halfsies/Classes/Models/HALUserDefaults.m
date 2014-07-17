@@ -15,7 +15,7 @@
 @implementation HALUserDefaults
 
 
-- (NSArray *)retrieveHalfImageMessages
++ (NSArray *)retrieveHalfImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"halfImageMessages"];
@@ -24,7 +24,7 @@
     return retrievedArray;
 }
 
-- (NSArray *)retrieveFullImageMessages
++ (NSArray *)retrieveFullImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"fullImageMessages"];
@@ -33,26 +33,26 @@
     return retreivedArray;
 }
 
-- (void)storeHalfImageMessages:(id)halfImageMessages
++ (void)storeHalfImageMessages:(id)halfImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:halfImageMessages] forKey:@"halfImageMessages"];
-    [standardDefaults synchronize];
+    //[standardDefaults synchronize];
 }
 
-- (void)storeFullImageMessages:(id)fullImageMessages
++ (void)storeFullImageMessages:(id)fullImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:fullImageMessages] forKey:@"fullImageMessages"];
-    [standardDefaults synchronize];
+    //[standardDefaults synchronize];
 }
 
-- (void)storeUsername:(NSString *)username
++ (void)storeUsername:(NSString *)username
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     
     [standardDefaults setObject:username forKey:@"username"];
-    [standardDefaults synchronize];
+    //[standardDefaults synchronize];
 }
 
 @end

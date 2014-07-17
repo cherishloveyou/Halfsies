@@ -141,9 +141,7 @@
                                                      name:@"unsuccessfulUserLogin"
                                                    object:nil];
 
-        
-        HALParseConnection *connection = [[HALParseConnection alloc]init];
-        [connection loginUserWithUsername:username password:password];
+        [HALParseConnection loginUserWithUsername:username password:password];
         
         
     }

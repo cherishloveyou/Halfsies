@@ -11,10 +11,10 @@
 @interface HALUserDefaults : NSObject
 
 #pragma mark - Instance Methods
-- (NSArray *)retrieveHalfImageMessages;
-- (NSArray *)retrieveFullImageMessages;
-- (void)storeHalfImageMessages:(id)halfImageMessages;
-- (void)storeFullImageMessages:(id)fullImageMessages;
-- (void)storeUsername:(NSString *)username;
++ (NSArray *)retrieveHalfImageMessages;
++ (NSArray *)retrieveFullImageMessages;
++ (void)storeHalfImageMessages:(id)halfImageMessages;
++ (void)storeFullImageMessages:(id)fullImageMessages;
++ (void)storeUsername:(NSString *)username;
 
 @end

@@ -64,11 +64,10 @@
 {
     self.halfImageMessages = [[NSArray alloc]init];
     self.fullImageMessages = [[NSArray alloc]init];
-    HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
     
     // Retreive any stored messages
-    self.halfImageMessages = [userDefaults retrieveHalfImageMessages];
-    self.fullImageMessages = [userDefaults retrieveFullImageMessages];
+    self.halfImageMessages = [HALUserDefaults retrieveHalfImageMessages];
+    self.fullImageMessages = [HALUserDefaults retrieveFullImageMessages];
     
     // Reload table view
     [self.tableView reloadData];
@@ -79,9 +78,8 @@
 - (void)parseQueries
 {
     // Execute Parse queries
-    HALParseConnection *parseConnection = [[HALParseConnection alloc]init];
-    [parseConnection performQuery];
-    [parseConnection performQuery2and3];
+    [HALParseConnection performQuery];
+    [HALParseConnection performQuery2and3];
     
     // Register for notifications that are posted in HALParseConnection class
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -97,8 +95,7 @@
 - (void)parseQueryFinished
 {
     // Retreive newly updated halfImageMessages and remove observer
-    HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
-    self.halfImageMessages = [userDefaults retrieveHalfImageMessages];
+    self.halfImageMessages = [HALUserDefaults retrieveHalfImageMessages];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"queryHasFinished"
                                                   object:nil];
@@ -108,8 +105,7 @@
 - (void)parseQuery2and3Finished
 {
     // Retreive newly updated fullImageMessages and remove observer
-    HALUserDefaults *userDefaults = [[HALUserDefaults alloc]init];
-    self.fullImageMessages = [userDefaults retrieveFullImageMessages];
+    self.fullImageMessages = [HALUserDefaults retrieveFullImageMessages];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"query2and3HasFinished"
                                                   object:nil];

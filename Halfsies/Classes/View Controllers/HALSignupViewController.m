@@ -165,8 +165,7 @@
                                                      name:@"unsuccessfulUserSignup"
                                                    object:nil];
         // Call signup user method
-        HALParseConnection *connection = [[HALParseConnection alloc]init];
-        [connection signupNewUserWithUsername:self.userSubmittedUsername password:self.userSubmittedPassword email:self.userSubmittedEmail];
+        [HALParseConnection signupNewUserWithUsername:self.userSubmittedUsername password:self.userSubmittedPassword email:self.userSubmittedEmail];
     }
 }
 
