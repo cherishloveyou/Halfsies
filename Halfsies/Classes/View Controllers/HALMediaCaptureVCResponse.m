@@ -105,54 +105,43 @@ float finalXValueForCrop;
 #pragma mark View Setup
 - (void)setViewFrames
 {
+    // Set the view frames
     self.topHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2);
-    
     
     self.takingPhotoView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
     self.afterPhotoView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-    
     
     self.topAndBottomHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
     // I had to change the y parameter for bottomHalfView to 0 otherwise the screenshot was not capturing the full image contained in self.bottomHalfView.frame. It must just be because that view is the only view not hidden when the screenshot is captured?
     
     self.bottomHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
-    
-
 }
 
 - (void)topHalfImageViewSetup
 {
+    // Fetch image file from parse database
     PFFile *imageFile = [self.message objectForKey:@"file"];
-    
     self.senderName = [self.message objectForKey:@"senderName"];
-    
-    
     self.imageFileURL = [[NSURL alloc]initWithString:imageFile.url];
-    
     imageFile = nil;
     
+    // Create half image from data
     self.imageData = [NSData dataWithContentsOfURL:self.imageFileURL];
-    
     self.imageFileURL = nil;
-    
     self.image9 = [UIImage imageWithData:self.imageData];
     
     
-    
+    // Setup half image's view
     self.imageView = [[UIImageView alloc]initWithImage:self.image9];
-    
     self.imageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2);
-    
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    
     [self.imageView setClipsToBounds:YES]; 
 }
 
 - (void)subviewsSetup
 {
-    
     [self.view addSubview:self.imageView];
     [self.view sendSubviewToBack:self.imageView];
 }
@@ -166,76 +155,42 @@ float finalXValueForCrop;
 - (void)navigationSetup
 {
     [self.navigationController setNavigationBarHidden:YES];
-    
-    
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        // iOS 7
-        [self prefersStatusBarHidden];
-        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
-    } else {
-        // iOS 6
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-    }
-
 }
 
 #pragma mark - Video Session Setup
 - (void)videoSessionSetup
 {
+    // Create session
     self.session =[[AVCaptureSession alloc]init];
-    
-    
     [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
     
-    
-    
+    // Create input device
     self.inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    
     NSError *error;
-    
-    
     self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:&error];
-    
-    
     
     if([self.session canAddInput:self.deviceInput])
         [self.session addInput:self.deviceInput];
     
-    
+    // Setup the session's layers
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:self.session];
-    
-    
-    
-    
     self.rootLayer = [[self view]layer];
-    
-    
     [self.rootLayer setMasksToBounds:YES];
-    
-    
     [self.previewLayer setFrame:CGRectMake(0, self.rootLayer.bounds.size.height/2, self.rootLayer.bounds.size.width, self.rootLayer.bounds.size.height/2)];
-    
-    
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    
-    
     [self.rootLayer insertSublayer:self.previewLayer atIndex:0];
     
-    
-    
-    
+    // Set the session's video output
     self.videoOutput = [[AVCaptureVideoDataOutput alloc] init];
     self.videoOutput.videoSettings = @{ (NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA) };
     
+    // Finalize session
     [self.session addOutput:self.videoOutput];
-    
     dispatch_queue_t queue = dispatch_queue_create("MyQueue", NULL);
-    
     [self.videoOutput setSampleBufferDelegate:self queue:queue];
     
+    // Start session
     [self.session startRunning];
-
 }
 
 
