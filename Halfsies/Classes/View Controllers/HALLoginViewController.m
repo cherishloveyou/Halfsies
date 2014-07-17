@@ -168,4 +168,10 @@
                                                   object:nil];
 }
 
+#pragma mark - Dealloc Override
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 @end

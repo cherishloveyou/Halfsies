@@ -358,4 +358,10 @@
     self.navigationItem.rightBarButtonItem = cameraButtonBarItem;
 }
 
+#pragma mark - Dealloc Override
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 @end

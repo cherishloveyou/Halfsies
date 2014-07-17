@@ -1384,7 +1384,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
 }
 
-
+#pragma mark - Dealloc Override
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 
 
