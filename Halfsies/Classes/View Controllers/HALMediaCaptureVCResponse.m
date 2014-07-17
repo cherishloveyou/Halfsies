@@ -1,10 +1,4 @@
-//
-//  MediaCaptureVCResponse.m
-//  PhotoTest1
-//
-//  Created by Mitchell Porter on 3/5/14.
-//  Copyright (c) 2014 Mitchell Porter. All rights reserved.
-//
+
 
 #import "HALMediaCaptureVCResponse.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -23,7 +17,6 @@
 @property NSString *halfOrFull;
 @property PFFile *imageFile;
 @property NSString *originalSenderId;
-@property (strong, nonatomic) IBOutlet UIButton *toggleFlashButton;
 @property (nonatomic,retain) AVCaptureSession *session;
 @property (nonatomic, retain) AVCaptureStillImageOutput *stillImageOutput;
 @property (nonatomic, retain) AVCaptureVideoDataOutput *videoOutput;
@@ -37,13 +30,6 @@
 @property (nonatomic, retain) UIActionSheet *uploadPhotoShareSheet;
 @property (nonatomic, retain) NSString *xButtonActionSheetTitle;
 @property (nonatomic, retain) AVCaptureDeviceInput *deviceInput;
-@property (nonatomic, retain) IBOutlet UIView *takingPhotoView;
-@property (nonatomic, retain) IBOutlet UIView *afterPhotoView;
-@property (nonatomic, retain) IBOutlet UIView *smsWindowAfterSignup;
-@property (nonatomic, retain) IBOutlet UIView *sharePhotoView;
-@property (nonatomic, retain) IBOutlet UIImageView *topHalfView;
-@property (nonatomic, retain) IBOutlet UIImageView *topAndBottomHalfView;
-@property (strong, nonatomic) IBOutlet UIImageView *bottomHalfView;
 @property (nonatomic, retain) NSMutableArray *usersToAddToFriendsList;
 @property (nonatomic, retain) NSString *justFinishedSigningUp;
 @property (nonatomic, retain) NSArray *usersToInviteToHalfsies;
@@ -56,8 +42,20 @@
 @property (nonatomic, strong) PFFile *finishedImageFile;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *image9;
+
+#pragma mark - IBoutlets
+@property (nonatomic, retain) IBOutlet UIView *takingPhotoView;
+@property (nonatomic, retain) IBOutlet UIView *afterPhotoView;
+@property (nonatomic, retain) IBOutlet UIView *smsWindowAfterSignup;
+@property (nonatomic, retain) IBOutlet UIView *sharePhotoView;
+@property (nonatomic, retain) IBOutlet UIImageView *topHalfView;
+@property (nonatomic, retain) IBOutlet UIImageView *topAndBottomHalfView;
+@property (strong, nonatomic) IBOutlet UIImageView *bottomHalfView;
+@property (strong, nonatomic) IBOutlet UIButton *toggleFlashButton;
 @property (strong, nonatomic) IBOutlet UIButton *sendToFriend;
 
+
+#pragma mark - IBActions
 - (IBAction)stillImageCapture;
 - (IBAction)toggleFlash;
 - (IBAction)xButton;
@@ -66,6 +64,7 @@
 - (IBAction)shareButton;
 - (IBAction)sendButton;
 
+#pragma mark - Instance Methods
 - (UIImage *)rotate:(UIImageOrientation)orient;
 
 @end
@@ -400,7 +399,7 @@ float finalXValueForCrop;
 }
 
 
-#pragma mark - Finalized Photo Methods
+#pragma mark - Crop Photo Methods
 - (void)cropImage
 {
     CGFloat widthToHeightRatio = self.previewLayer.bounds.size.width / self.previewLayer.bounds.size.height;
@@ -454,51 +453,6 @@ float finalXValueForCrop;
 
 }
 
-- (UIImage *) screenshot {
-    
-    
-    UIGraphicsBeginImageContextWithOptions(self.imageView2.bounds.size, NO, [UIScreen mainScreen].scale);
-    
-    [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-- (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
-    UIImage *image = nil;
-    
-    CGSize newImageSize = CGSizeMake(MAX(self.view.bounds.size.width, self.view.bounds.size.width), MAX(568, 568));
-    
-    
-    if (UIGraphicsBeginImageContextWithOptions != NULL) {
-        
-        
-        
-        UIGraphicsBeginImageContextWithOptions(newImageSize, NO, [[UIScreen mainScreen] scale]);
-        
-    } else {
-        
-        
-        
-        
-        UIGraphicsBeginImageContext(newImageSize);
-        
-        
-    }
-    
-    
-    [firstImage drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 568/2)];
-    
-    [secondImage drawInRect:CGRectMake(0, 568/2, self.view.bounds.size.width, 568/2)];
-    
-        image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-    
-}
 
 
 
@@ -813,13 +767,42 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSLog(@"Canceled");
 }
 
+#pragma mark - UIImage Methods
+- (UIImage *) screenshot
+{
+    UIGraphicsBeginImageContextWithOptions(self.imageView2.bounds.size, NO, [UIScreen mainScreen].scale);
+    
+    [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
-
-
-
-
-
-
+- (UIImage *)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage
+{
+    UIImage *image = nil;
+    
+    CGSize newImageSize = CGSizeMake(MAX(self.view.bounds.size.width, self.view.bounds.size.width), MAX(568, 568));
+    
+    if (UIGraphicsBeginImageContextWithOptions != NULL) {
+        
+        UIGraphicsBeginImageContextWithOptions(newImageSize, NO, [[UIScreen mainScreen] scale]);
+        
+    } else {
+        
+        UIGraphicsBeginImageContext(newImageSize);
+    }
+    
+    [firstImage drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 568/2)];
+    
+    [secondImage drawInRect:CGRectMake(0, 568/2, self.view.bounds.size.width, 568/2)];
+    
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 - (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
 {
@@ -862,8 +845,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     return (image);
 }
 
-
-
 - (UIImage *)selfieCorrection:(UIImage *)picture
 {
     UIImage * flippedImage = [UIImage imageWithCGImage:picture.CGImage scale:picture.scale orientation:UIImageOrientationLeftMirrored];
@@ -873,9 +854,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     return picture;
 }
 
-
-
--(UIImage*)rotate:(UIImageOrientation)orient
+- (UIImage *)rotate:(UIImageOrientation)orient
 {
     CGRect             bnds = CGRectZero;
     UIImage*           copy = nil;
@@ -966,6 +945,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     return copy;
 }
+
+
 
 - (void)uploadPhoto
 {
@@ -1145,41 +1126,25 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 #pragma mark - Alert View Methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    
-    
     if(alertView == self.uploadPhotoAlertView && buttonIndex == 0) {
-        
-        
         
         NSLog(@"Sweet! button was pressed.");
         
         //Create the new action sheet for sharing.
-        
         self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
         
         //Display the new sharing action sheet.
-        
         [self.uploadPhotoShareSheet showInView:self.view];
         
         [self.sharePhotoView setHidden:NO];
-        
-        
     }
     
-    
     if(alertView == self.reportAlertView && buttonIndex == 1) {
-        
-        
         
         NSLog(@"User pressed the OK button.");
         
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
-        
-        
     }
-    
-    
-    
 }
 
 #pragma mark - Segue Methods
