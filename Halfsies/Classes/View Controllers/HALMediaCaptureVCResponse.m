@@ -193,38 +193,216 @@ float finalXValueForCrop;
     [self.session startRunning];
 }
 
-
-
--(IBAction)stillImageCapture {
-    
+#pragma mark - IBAction Methods
+- (IBAction)stillImageCapture
+{
+    // Play camera snap sound
     AudioServicesPlaySystemSound(1108);
 
-    
-    
     self.hasUserTakenAPhoto = @"YES";
-    
-    
     [self.session stopRunning];
     
-    
-    
-    
-    
+    // Check for device position
     if(self.inputDevice.position == 2) {
-        
-        
         
         self.image = [self rotate:UIImageOrientationRightMirrored];
 
-        
-        
     } else {
         
-        
         self.image = [self rotate:UIImageOrientationRight];
-        
     }
     
+    // Crop the image
+    [self cropImage];
+
+    
+    if ([self.hasUserTakenAPhoto isEqual:@"YES"] && self.inputDevice.position == 2) {
+        
+        // Hide views
+        [self.takingPhotoView setHidden:YES];
+        [self.topHalfView setHidden:YES];
+        
+        // Setup image2 property
+        self.imageView2 = [[UIImageView alloc]initWithImage:self.image];
+        self.imageView2.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
+        self.imageView2.contentMode = UIViewContentModeScaleAspectFill;
+        [self.imageView2 setClipsToBounds:YES];
+        
+        
+        [self.view addSubview:self.imageView2];
+        
+        // Take screenshot
+        self.image = [self screenshot];
+        
+        [self.imageView2 setHidden:YES];
+        [self.imageView setHidden:NO];
+
+        // Set final image
+        self.image = [self imageByCombiningImage:self.image9 withImage:self.image];
+        
+        [self.afterPhotoView setHidden:NO];
+        
+    } else if ([self.hasUserTakenAPhoto isEqual:@"YES"]) {
+        
+    [self.takingPhotoView setHidden:YES];
+    self.image = [self imageByCombiningImage:self.image9 withImage:self.image];
+    [self.afterPhotoView setHidden:NO];
+
+    }
+}
+
+- (IBAction)toggleCamera
+{
+    AVCaptureDevicePosition desiredPosition;
+    if (isUsingFrontFacingCamera)
+        desiredPosition = AVCaptureDevicePositionBack;
+    else
+        desiredPosition = AVCaptureDevicePositionFront;
+    
+    for (_inputDevice in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if ([self.inputDevice position] == desiredPosition) {
+            [[self.previewLayer session] beginConfiguration];
+            self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:nil];
+            for (AVCaptureInput *oldInput in [[self.previewLayer session] inputs]) {
+                [[self.previewLayer session] removeInput:oldInput];
+            }
+            [[self.previewLayer session] addInput:self.deviceInput];
+            [[self.previewLayer session] commitConfiguration];
+            break;
+        }
+    }
+    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
+    
+    if(desiredPosition == AVCaptureDevicePositionBack) {
+        
+        [self.toggleFlashButton setHidden:NO];
+    }
+    
+    if(desiredPosition == AVCaptureDevicePositionFront) {
+        
+        [self.toggleFlashButton setHidden:YES];
+    }
+}
+
+- (IBAction)backButton
+{
+    [self performSegueWithIdentifier:@"segueToInbox" sender:self];
+}
+
+- (IBAction)shareButton
+{
+    //Create the new action sheet for sharing.
+    
+    self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
+    
+    //Display the new sharing action sheet.
+    
+    [self.uploadPhotoShareSheet showInView:self.view];
+}
+
+- (IBAction)sendButton
+{
+    // Disable the sendToFriend button
+    [self.sendToFriend setUserInteractionEnabled:NO];
+    [self.sendToFriend setEnabled:NO];
+    
+    [self uploadPhoto];
+}
+
+
+- (IBAction)toggleFlash
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        
+        
+        
+        if ([device hasTorch] == YES) {
+            
+            
+            
+            [device lockForConfiguration:nil];
+            
+            
+            if(device.torchMode == 0) {
+                
+                [device setTorchMode:AVCaptureTorchModeOn];
+                
+                
+            } else if (device.torchMode == 1) {
+                
+                [device setTorchMode:AVCaptureTorchModeOff];
+                
+                
+                
+                
+            } else if (device.torchMode == 2) {
+                
+                [device setTorchMode:AVCaptureTorchModeOn];
+                
+                
+                
+            }
+            
+            [device unlockForConfiguration];
+        }
+    }
+    
+}
+
+- (IBAction)xButton
+{
+ 
+    if ([self.hasUserTakenAPhoto isEqual:@"YES"])
+        
+    {
+      
+        NSString *originalSender = [[NSString alloc]init];
+        
+        originalSender = [self.message objectForKey:@"senderName"];
+        
+        NSString *buttonIndex1title = [[NSString alloc]initWithFormat:@"Finish and send to %@!", originalSender];
+        
+        
+        self.xButtonAfterPhotoTaken = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Retake Your Half" otherButtonTitles:buttonIndex1title,nil];
+        
+        [self.xButtonAfterPhotoTaken showInView:self.view];
+        
+    } else {
+      
+        [self.session removeInput:self.deviceInput];
+        
+        [self.session removeOutput:self.stillImageOutput];
+        
+        [self.session stopRunning];
+        
+        
+        
+        self.session = nil;
+        
+        self.inputDevice = nil;
+        
+        self.deviceInput = nil;
+        
+        self.previewLayer = nil;
+        
+        self.stillImageOutput = nil;
+        
+        self.imageData = nil;
+        self.image = nil;
+        self.topHalfView.image = nil;
+        
+        
+        self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Back to Inbox",@"Report User", nil];
+        
+        [self.xButtonBeforePhotoTaken showInView:self.view];
+    }
+}
+
+
+#pragma mark - Finalized Photo Methods
+- (void)cropImage
+{
     CGFloat widthToHeightRatio = self.previewLayer.bounds.size.width / self.previewLayer.bounds.size.height;
     
     CGRect cropRect;
@@ -233,6 +411,7 @@ float finalXValueForCrop;
     if (self.image.size.width < self.image.size.height) {
         cropRect.size.width = self.image.size.width;
         cropRect.size.height = cropRect.size.width / widthToHeightRatio;
+        
     } else {
         cropRect.size.width = self.image.size.height * widthToHeightRatio;
         cropRect.size.height = self.image.size.height;
@@ -243,14 +422,10 @@ float finalXValueForCrop;
         cropRect.origin.x = 0;
         cropRect.origin.y = (self.image.size.height - cropRect.size.height)/2.0;
         
-        
-        
     } else {
         
         cropRect.origin.x = (self.image.size.width - cropRect.size.width)/2.0;
         cropRect.origin.y = 0;
-        
-        
         
         //The below statement creates a float that is almost perfect, but the value is still doubled.
         
@@ -268,100 +443,19 @@ float finalXValueForCrop;
         
     }
     
-    
-    
-    
-    
     CGRect cropRectFinal = CGRectMake(cropRect.origin.x, finalXValueForCrop, cropRect.size.width, 568);
-    
     CGImageRef imageRef = CGImageCreateWithImageInRect([self.image CGImage], cropRectFinal);
     
     UIImage *image2 = [[UIImage alloc]initWithCGImage:imageRef];
-    
-    
     self.image = image2;
     
-    
-    
-    
+    // Release the image
     CGImageRelease(imageRef);
 
-
-    
-    
-    
-    if ([self.hasUserTakenAPhoto isEqual:@"YES"] && self.inputDevice.position == 2) {
-        
-        
-        
-        [self.takingPhotoView setHidden:YES];
-        
-        [self.topHalfView setHidden:YES];
-        
-        //tophalfview and topandbottomhalfview
-        
-        
-        
-        
-        self.imageView2 = [[UIImageView alloc]initWithImage:self.image];
-        
-        self.imageView2.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
-        
-        
-
-        
-        self.imageView2.contentMode = UIViewContentModeScaleAspectFill;
-        
-        [self.imageView2 setClipsToBounds:YES];
-        
-        
-        
-        
-        [self.view addSubview:self.imageView2];
-        
-        
-        
-        self.image = [self screenshot];
-        
-        [self.imageView2 setHidden:YES];
-
-        
-        
-        [self.imageView setHidden:NO];
-
-        
- 
-        self.image = [self imageByCombiningImage:self.image9 withImage:self.image];
-        
-
-
-        
-        [self.afterPhotoView setHidden:NO];
-        
-        
-        
-    } else if ([self.hasUserTakenAPhoto isEqual:@"YES"]) {
-        
-        
-        
-    
-    [self.takingPhotoView setHidden:YES];
-    
-    self.image = [self imageByCombiningImage:self.image9 withImage:self.image];
-        
-    [self.afterPhotoView setHidden:NO];
-
-        
-    }
-    
-        
 }
 
-
-
-
-
 - (UIImage *) screenshot {
+    
     
     UIGraphicsBeginImageContextWithOptions(self.imageView2.bounds.size, NO, [UIScreen mainScreen].scale);
     
@@ -371,9 +465,6 @@ float finalXValueForCrop;
     UIGraphicsEndImageContext();
     return image;
 }
-
-
-
 
 - (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
     UIImage *image = nil;
@@ -421,119 +512,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
-
--(IBAction)toggleFlash {
-    
-    
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    for (AVCaptureDevice *device in devices) {
-        
-        
-        
-        if ([device hasTorch] == YES) {
-            
-            
-            
-            [device lockForConfiguration:nil];
-            
-            
-            if(device.torchMode == 0) {
-                
-                [device setTorchMode:AVCaptureTorchModeOn];
-                
-                
-            } else if (device.torchMode == 1) {
-                
-                [device setTorchMode:AVCaptureTorchModeOff];
-                
-                
-                
-                
-            } else if (device.torchMode == 2) {
-                
-                [device setTorchMode:AVCaptureTorchModeOn];
-
-                
-                
-            }
-            
-            [device unlockForConfiguration];
-        }
-    }
-    
-}
-
-
-
-
--(IBAction)xButton {
-    
-    
-    
-    if ([self.hasUserTakenAPhoto isEqual:@"YES"])
-        
-    {
-        
-        
-        NSString *originalSender = [[NSString alloc]init];
-        
-        originalSender = [self.message objectForKey:@"senderName"];
-        
-        NSString *buttonIndex1title = [[NSString alloc]initWithFormat:@"Finish and send to %@!", originalSender];
-        
-        
-        self.xButtonAfterPhotoTaken = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Retake Your Half" otherButtonTitles:buttonIndex1title,nil];
-        
-        [self.xButtonAfterPhotoTaken showInView:self.view];
-        
-        
-        
-    }
-    
-    else
-        
-    {
-        
-        
-        
-        
-        [self.session removeInput:self.deviceInput];
-        
-        [self.session removeOutput:self.stillImageOutput];
-        
-        [self.session stopRunning];
-        
-        
-        
-        self.session = nil;
-        
-        self.inputDevice = nil;
-        
-        self.deviceInput = nil;
-        
-        self.previewLayer = nil;
-        
-        self.stillImageOutput = nil;
-        
-        self.imageData = nil;
-        self.image = nil;
-        self.topHalfView.image = nil;
-        
-        
-        self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Back to Inbox",@"Report User", nil];
-        
-        [self.xButtonBeforePhotoTaken showInView:self.view];
-        
-        
-    
-        
-        
-        
-    }
-}
-
-
-
+#pragma mark - Action Sheet Methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
@@ -749,9 +728,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
     }
     
-
-        
-        
     
     if((actionSheet == self.shareSheet && buttonIndex == 1) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 1)) {
         
@@ -831,14 +807,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
 }
 
-
-
-
-
-
-
-
-
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
 
 {
@@ -846,96 +814,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 
-
-
-
-
-- (IBAction)toggleCamera
-{
-    
-    AVCaptureDevicePosition desiredPosition;
-    if (isUsingFrontFacingCamera)
-        desiredPosition = AVCaptureDevicePositionBack;
-    else
-        desiredPosition = AVCaptureDevicePositionFront;
-    
-    for (_inputDevice in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-        if ([self.inputDevice position] == desiredPosition) {
-            [[self.previewLayer session] beginConfiguration];
-            self.deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.inputDevice error:nil];
-            for (AVCaptureInput *oldInput in [[self.previewLayer session] inputs]) {
-                [[self.previewLayer session] removeInput:oldInput];
-            }
-            [[self.previewLayer session] addInput:self.deviceInput];
-            [[self.previewLayer session] commitConfiguration];
-            break;
-        }
-    }
-    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
-    
-    if(desiredPosition == AVCaptureDevicePositionBack) {
-        
-        [self.toggleFlashButton setHidden:NO];
-        
-    }
-    
-    if(desiredPosition == AVCaptureDevicePositionFront) {
-        
-        [self.toggleFlashButton setHidden:YES];
-        
-    }
-
-}
-
-
-
-- (IBAction)backButton {
-    
-    [self performSegueWithIdentifier:@"segueToInbox" sender:self];
-    
-}
-
-- (IBAction)shareButton {
-    
-    
-    //Create the new action sheet for sharing.
-    
-    self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
-    
-    //Display the new sharing action sheet.
-    
-    [self.uploadPhotoShareSheet showInView:self.view];
-    
-    
-}
-
-
-
--(IBAction)sendButton {
-    
-    // Disable the sendToFriend button
-    [self.sendToFriend setUserInteractionEnabled:NO];
-    [self.sendToFriend setEnabled:NO];
-    
-    [self uploadPhoto];
-    
-    
-}
-
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self {
-    
-        if ([segue.identifier isEqualToString:@"mediaCaptureToSendToFriendsSegue"]) {
-        
-        
-        HALSendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
-            
-        sendFriendsVC.halfsiesPhotoToSend = _image;
-       
-    }
-    
-}
 
 
 
@@ -1093,7 +971,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     if(self.image != nil) {
         
-        [self block1];
+        // Add observers and execute the first block
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(block2)
                                                      name:@"block1finished"
@@ -1114,13 +992,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                                      name:@"block4finished"
                                                    object:nil];
 
-    }
-    
+        [self block1];
         
+    }
 }
 
-
-
+#pragma mark - Blocks
 - (void)block1
 {
     self.fileType = @"image";
@@ -1142,8 +1019,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [[NSNotificationCenter defaultCenter] postNotificationName:@"block1finished"
                                                                 object:self
                                                               userInfo:nil];
-            
-            
         }
         
         
@@ -1228,17 +1103,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }
 
     }];
-    
 }
 
 - (void)block5
 {
-    
     NSString *originalSender2 = [self.message objectForKey:@"senderName"];
     
     self.photoUploadAlertViewMessage = [[NSString alloc]initWithFormat:@"You just finished going halfsies with %@!", originalSender2];
-    
-    //PFFile *imageFile = [self.message objectForKey:@"file"];
     
     self.finishedImageFile = self.imageFile;
     
@@ -1247,48 +1118,31 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:nil message:self.photoUploadAlertViewMessage delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
     
     [self.uploadPhotoAlertView show];
-
 }
 
--(void)saveToLibray {
-    
-    
+#pragma mark - Save Photo To Library
+- (void)saveToLibray
+{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
     
     // Request to save the image to camera roll
     [library writeImageToSavedPhotosAlbum:[self.image CGImage] orientation:(ALAssetOrientation)[self.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
         
         if (error) {
             
-                       NSLog(@"There was an error: %@", error);
-            
-            
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Could not save photo to your library. Please enable Halfsies in Settings > Privacy > Photos." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            
             [alertView show];
             
-            
         } else {
-            
-            //SAVED
-            
-            NSLog(@"No errors with access and image was saved!");
-            
-            //Once we know that there hasn't been an error in the completion block, we release the core graphics image that we created above to save to the library.
-            
-            CGImageRelease([self.image CGImage]);
-            
-            
+       
+         CGImageRelease([self.image CGImage]);
             
         }
     }];
-
-    
-    
+  
 }
 
-
+#pragma mark - Alert View Methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     
@@ -1328,12 +1182,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
 }
 
+#pragma mark - Segue Methods
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:self
+{
+    if ([segue.identifier isEqualToString:@"mediaCaptureToSendToFriendsSegue"]) {
+    
+        HALSendToFriendsViewController *sendFriendsVC = segue.destinationViewController;
+        sendFriendsVC.halfsiesPhotoToSend = _image;
+    }
+}
+
 #pragma mark - Dealloc Override
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
-
-
 
 @end
