@@ -94,22 +94,17 @@
 
 - (void)parseQueryFinished
 {
-    // Retreive newly updated halfImageMessages and remove observer
+    // Retreive newly updated halfImageMessages
     self.halfImageMessages = [HALUserDefaults retrieveHalfImageMessages];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"queryHasFinished"
-                                                  object:nil];
+    
     [self.tableView reloadData];
 }
 
 - (void)parseQuery2and3Finished
 {
-    // Retreive newly updated fullImageMessages and remove observer
+    // Retreive newly updated fullImageMessages
     self.fullImageMessages = [HALUserDefaults retrieveFullImageMessages];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"query2and3HasFinished"
-                                                  object:nil];
-    [self.tableView reloadData];
+        [self.tableView reloadData];
 }
 
 #pragma mark - TableView Methods

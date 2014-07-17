@@ -158,16 +158,6 @@
     [self performSegueWithIdentifier:@"loginToMediaCaptureVC" sender:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"successfulUserLogin"
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"unsuccessfulUserLogin"
-                                                  object:nil];
-}
-
 #pragma mark - Dealloc Override
 - (void)dealloc
 {

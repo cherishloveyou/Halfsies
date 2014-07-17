@@ -1198,9 +1198,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)block2
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"block1finished"
-                                                  object:nil];
     
     PFObject *returnMessage = [PFObject objectWithClassName:@"Messages"];
     [returnMessage setObject:self.imageFile forKey:@"file"];
@@ -1235,11 +1232,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)block3
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"block2finished"
-                                                  object:nil];
-    
-    
     PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
     [query whereKey:@"objectId" equalTo:self.message.objectId];
     
@@ -1286,9 +1278,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)block5
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"block4finished"
-                                                  object:nil];
     
     NSString *originalSender2 = [self.message objectForKey:@"senderName"];
     

@@ -180,17 +180,7 @@
     [self performSegueWithIdentifier:@"signupToAddFriendsSegue" sender:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Remove self as observer
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"successfulUserSignup"
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"unsuccessfulUserSignup"
-                                                  object:nil];
-}
-
+#pragma mark - Dealloc Override
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
