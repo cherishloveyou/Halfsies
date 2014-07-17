@@ -375,8 +375,6 @@ float finalXValueForCrop;
         
         [self.session stopRunning];
         
-        
-        
         self.session = nil;
         
         self.inputDevice = nil;
@@ -453,18 +451,13 @@ float finalXValueForCrop;
 
 }
 
-
-
-
-
+#pragma mark - Delegate Methods
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
     self.image = [self imageFromSampleBuffer:sampleBuffer];
 }
-
-
 
 #pragma mark - Action Sheet Methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -524,28 +517,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     
-    if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 1)
-        
-    {
-        
-       
-        
+    if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 1) {
         
         [self uploadPhoto];
-        
-        
-      
-        
-        
     }
     
-    
-    if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 2)
-        
-    {
-        
-        
-        
+    if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 2) {
         
         
     }
@@ -556,13 +533,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
     }
     
-
-    
-    
-    
-    if ((actionSheet == self.shareSheet && buttonIndex == 0) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 0))
-        
-    {
+    if ((actionSheet == self.shareSheet && buttonIndex == 0) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 0)) {
         
         
         
@@ -661,14 +632,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                       }];
                      
                      
-                     
-                     
-                     
-                     
-                     
                  }
-                 
-                 
                  
                  
              }
@@ -685,80 +649,36 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if((actionSheet == self.shareSheet && buttonIndex == 1) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 1)) {
         
-        
-       
         [self saveToLibray];
-        
-      
-       
-    }
+}
     
         
     if((actionSheet == self.shareSheet && buttonIndex == 2) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 2)) {
-        
-        
-        
-        
-        
-        
+       
         //Copy imageFileURL to the user's clipboard.
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        
-        
         pasteboard.URL = self.finishedImageFileURL;
-        
-        
-        
-        
-    }
-    
+}
     
     if(actionSheet == self.uploadPhotoShareSheet && buttonIndex == 3) {
-        
-        
         
         //Take the user back to their inbox.
         
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
-        
-
-        
-        
-        
-    }
-    
-    
+}
     
     if(actionSheet == self.xButtonBeforePhotoTaken && buttonIndex == 0) {
         
-        
-        
-        
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
-        
-    }
+}
 
-    
-    
-    
     if(actionSheet == self.xButtonBeforePhotoTaken && buttonIndex == 1) {
-        
-        
-        
         
         self.reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         
-        
         [self.reportAlertView show];
-        
-        
-        
-    }
-    
-    
-    
-    
+}
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
