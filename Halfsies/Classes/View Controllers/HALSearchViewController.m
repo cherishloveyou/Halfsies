@@ -26,7 +26,6 @@
     
     CGRect frame = CGRectMake(0, 0, 70, 30);
     
-    
     UIButton *someButton = [[UIButton alloc] initWithFrame:frame];
     [someButton setBackgroundImage:firstButtonImage forState:UIControlStateNormal];
     [someButton addTarget:self action:@selector(doneAddingFriends)
@@ -200,7 +199,6 @@
 
 - (IBAction) handleBack
 {
-    
     [self.navigationController popViewControllerAnimated:NO];
 }
 

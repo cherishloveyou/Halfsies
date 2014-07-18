@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AVFoundation/AVVideoSettings.h>
 #import "HALSendToFriendsViewController.h"

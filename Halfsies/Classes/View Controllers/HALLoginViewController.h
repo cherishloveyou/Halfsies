@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Mitchell Porter. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
 @interface HALLoginViewController : UIViewController
 
