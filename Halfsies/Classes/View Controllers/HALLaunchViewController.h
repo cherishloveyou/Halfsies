@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Mitchell Porter. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-
 @interface HALLaunchViewController : UIViewController
 
 @end

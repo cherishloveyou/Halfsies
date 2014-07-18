@@ -1,6 +1,7 @@
 
 
 #import "HALSearchViewController.h"
+#import <Parse/Parse.h>
 
 @interface HALSearchViewController () <UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 

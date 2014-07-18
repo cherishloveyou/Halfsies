@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Mitchell Porter. All rights reserved.
 //
 
-
 @interface HALSignupViewController : UIViewController
 
 @end

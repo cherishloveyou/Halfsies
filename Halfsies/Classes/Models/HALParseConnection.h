@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
 @interface HALParseConnection : NSObject

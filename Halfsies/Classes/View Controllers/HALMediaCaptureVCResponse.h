@@ -6,11 +6,7 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
-#import <AVFoundation/AVVideoSettings.h>
-#import "HALSendToFriendsViewController.h"
 #import <Parse/Parse.h>
-#import <AudioToolbox/AudioToolbox.h>
 
 @interface HALMediaCaptureVCResponse : UIViewController
 

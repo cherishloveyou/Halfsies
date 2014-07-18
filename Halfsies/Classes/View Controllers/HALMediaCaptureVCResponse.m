@@ -5,6 +5,10 @@
 #import <Social/Social.h>
 #import<Accounts/Accounts.h>
 #import "HALAppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVVideoSettings.h>
+#import "HALSendToFriendsViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface HALMediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-
 @interface HALSendToFriendsViewController : UIViewController
 
 @property (nonatomic, retain) UIImage *halfsiesPhotoToSend;

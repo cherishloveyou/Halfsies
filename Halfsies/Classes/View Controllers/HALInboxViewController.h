@@ -6,14 +6,7 @@
 //  Copyright (c) 2014 Mitchell Porter. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-#import <AddressBook/AddressBook.h>
-#import <AddressBookUI/AddressBookUI.h>
-#import <AddressBook/ABAddressBook.h>
-#import <AddressBook/ABPerson.h>
-
 @interface HALInboxViewController : UIViewController
-
 
 @end
 

@@ -11,6 +11,9 @@
 #import <MessageUI/MessageUI.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import "HALSendToFriendsViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVVideoSettings.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface HALMediaCaptureVC () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate, MFMessageComposeViewControllerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 
