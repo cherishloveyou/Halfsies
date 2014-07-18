@@ -386,7 +386,6 @@ float finalXValueForCrop;
     }
 }
 
-
 #pragma mark - Crop Photo Methods
 - (void)cropImage
 {
@@ -495,7 +494,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         //NSLog(@"Was subLayer deleted? %@", self.subLayer);
         NSLog(@"Was imageData deleted? %@", self.imageData);
         NSLog(@"Was image deleted? %@", self.image);
-        
     }
     
     
@@ -534,7 +532,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                  
              }
              
-             
              if(granted == NO) {
                  
                  
@@ -552,9 +549,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
              
              if (granted == YES)
              {
-                 
-                 
-                 
                  NSArray *arrayOfAccounts = [account
                                              accountsWithAccountType:accountType];
                  
@@ -847,8 +841,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     return copy;
 }
 
-
-
+#pragma mark - Upload Photo Method
 - (void)uploadPhoto
 {
     if(self.image != nil) {
@@ -901,6 +894,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [[NSNotificationCenter defaultCenter] postNotificationName:@"block1finished"
                                                                 object:self
                                                               userInfo:nil];
+
+            [[NSNotificationCenter defaultCenter]removeObserver:self name:@"block1finished" object:nil];
         }
         
         
@@ -910,7 +905,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)block2
 {
-    
     PFObject *returnMessage = [PFObject objectWithClassName:@"Messages"];
     [returnMessage setObject:self.imageFile forKey:@"file"];
     [returnMessage setObject:self.fileType forKey:@"fileType"];
@@ -932,14 +926,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [alertView show];
             
         } else {
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:@"block2finished"
                                                                 object:self
                                                               userInfo:nil];
+            
+            [[NSNotificationCenter defaultCenter]removeObserver:self name:@"block2finished" object:nil];
+
         }
-   
     }];
-    
 }
 
 - (void)block3
@@ -958,9 +953,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [[NSNotificationCenter defaultCenter] postNotificationName:@"block3finished"
                                                                 object:self
                                                               userInfo:nil];
+            
+            [[NSNotificationCenter defaultCenter]removeObserver:self name:@"block3finished" object:nil];
+
         }
     }];
-
 }
 
 - (void)block4
@@ -975,13 +972,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         if(error) {
             NSLog(@"There was an error: %@ %@", error, [error userInfo]);
             self.uploadPhotoAlertView = [[UIAlertView alloc]initWithTitle:@"An error occurred!" message:@"Please try sending your message again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [self.uploadPhotoAlertView show];
+            //[self.uploadPhotoAlertView show];
    
         } else {
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"block4finished"
                                                                 object:self
                                                               userInfo:nil];
+            
+            [[NSNotificationCenter defaultCenter]removeObserver:self name:@"block4finished" object:nil];
+
         }
 
     }];
@@ -989,6 +989,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)block5
 {
+    NSLog(@"block5 called");
     NSString *originalSender2 = [self.message objectForKey:@"senderName"];
     
     self.photoUploadAlertViewMessage = [[NSString alloc]initWithFormat:@"You just finished going halfsies with %@!", originalSender2];
