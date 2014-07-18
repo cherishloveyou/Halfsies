@@ -127,6 +127,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="3lv-Fv-Phd" id="zzi-ST-mHy"/>
+                                    <outlet property="delegate" destination="3lv-Fv-Phd" id="sUF-JK-JJv"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

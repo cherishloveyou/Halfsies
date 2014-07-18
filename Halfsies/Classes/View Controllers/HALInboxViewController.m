@@ -104,7 +104,8 @@
 {
     // Retreive newly updated fullImageMessages
     self.fullImageMessages = [HALUserDefaults retrieveFullImageMessages];
-        [self.tableView reloadData];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - TableView Methods

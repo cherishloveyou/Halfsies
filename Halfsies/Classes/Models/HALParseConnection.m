@@ -69,6 +69,26 @@
     }];
 }
 
++ (void)performFriendsRelationForCurrentUserQuery
+{
+    PFRelation *friendsRelation = [[PFUser currentUser]objectForKey:@"friendsRelation"];
+    PFQuery *query = [friendsRelation query];
+    [query orderByAscending:@"username"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if(error) {
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"performFriendsRelationForCurrentUserQueryFailed" object:self userInfo:@{@"error" : error}];
+            
+        } else {
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"performFriendsRelationForCurrentUserQuerySucceeded" object:self userInfo:@{@"succeeded" : objects}];
+        }
+        
+    }];
+
+}
+
 #pragma mark - Signup Methods
 + (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email
 {
