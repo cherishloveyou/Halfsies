@@ -105,7 +105,7 @@ float finalXValueForCrop;
     [self videoSessionSetup];
 }
 
-#pragma mark View Setup
+#pragma mark - View Setup
 - (void)setViewFrames
 {
     // Set the view frames
@@ -318,11 +318,7 @@ float finalXValueForCrop;
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice *device in devices) {
         
-        
-        
         if ([device hasTorch] == YES) {
-            
-            
             
             [device lockForConfiguration:nil];
             
@@ -331,19 +327,13 @@ float finalXValueForCrop;
                 
                 [device setTorchMode:AVCaptureTorchModeOn];
                 
-                
             } else if (device.torchMode == 1) {
                 
                 [device setTorchMode:AVCaptureTorchModeOff];
                 
-                
-                
-                
             } else if (device.torchMode == 2) {
                 
                 [device setTorchMode:AVCaptureTorchModeOn];
-                
-                
                 
             }
             
@@ -356,16 +346,13 @@ float finalXValueForCrop;
 - (IBAction)xButton
 {
  
-    if ([self.hasUserTakenAPhoto isEqual:@"YES"])
-        
-    {
+    if ([self.hasUserTakenAPhoto isEqual:@"YES"]) {
       
         NSString *originalSender = [[NSString alloc]init];
         
         originalSender = [self.message objectForKey:@"senderName"];
         
         NSString *buttonIndex1title = [[NSString alloc]initWithFormat:@"Finish and send to %@!", originalSender];
-        
         
         self.xButtonAfterPhotoTaken = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Retake Your Half" otherButtonTitles:buttonIndex1title,nil];
         
@@ -392,7 +379,6 @@ float finalXValueForCrop;
         self.imageData = nil;
         self.image = nil;
         self.topHalfView.image = nil;
-        
         
         self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Back to Inbox",@"Report User", nil];
         
@@ -486,20 +472,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         
         [self.session startRunning];
-
-        
-        
     }
     
-    
-    if (buttonIndex == actionSheet.destructiveButtonIndex)
-    {
-        
-        
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
         
         [self.topHalfView setHidden:NO];
-        
-        
+    
         //The 2 comments above would not work for fixing the "disappearing" top half view after taking one response photo.
         //The only way to fix it was with the statement below, which sets the top and bottom half view's image property to nil.
         
@@ -549,7 +527,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                          options:nil
                                       completion:^(BOOL granted, NSError *error)
          {
-             
              
              if(error) {
                  

@@ -5,88 +5,37 @@
 
 @interface HALSearchViewController () <UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
-
+#pragma mark - Properties
 @property NSArray *parseUsers;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
+#pragma mark - IBActions
 - (IBAction)doneAddingFriends;
 - (IBAction)handleBack;
-
 
 @end
 
 @implementation HALSearchViewController
 
+#pragma mark - View Methods
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     
-    UIImage *firstButtonImage = [UIImage imageNamed:@"donebutton"];
-    
-    
-    CGRect frame = CGRectMake(0, 0, 70, 30);
-    
-    UIButton *someButton = [[UIButton alloc] initWithFrame:frame];
-    [someButton setBackgroundImage:firstButtonImage forState:UIControlStateNormal];
-    [someButton addTarget:self action:@selector(doneAddingFriends)
-         forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:someButton];
-    
-    self.navigationItem.rightBarButtonItem = rightBarButton;
-    
-    CGRect frame2 = CGRectMake(0, 0, 25, 25);
-    
-    UIImage *leftButtonImage = [UIImage imageNamed:@"backarrow2"];
-    
-    UIButton *leftButton = [[UIButton alloc] initWithFrame:frame2];
-    
-    
-    
-    [leftButton setImage:leftButtonImage forState:UIControlStateNormal];
-    [leftButton addTarget:self action:@selector(handleBack) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    
-    
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    [self.navigationItem setHidesBackButton:YES animated:YES];
-    [self.navigationItem setBackBarButtonItem:nil];
-    
-    [self.searchBar setShowsCancelButton:NO];
-    [self.searchBar setAutocorrectionType:UITextAutocorrectionTypeNo];
-    [self.searchBar setPlaceholder:@"Search by username"];
-    
-    [self.searchBar setDelegate:self];
-    
-    [self.tableView setDataSource:self];
-    [self.tableView setDelegate:self];
+    //Setup navigation and search bar
+    [self navigationSetup];
+    [self searchBarSetup];
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [super viewWillAppear:NO];
-}
-
-- (void) didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    ;
-    
     // Setup the parse query here.
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:self.searchBar.text];
     
     self.parseUsers = [query findObjects];
    
-    
     [self.tableView reloadData];
     
     if (self.parseUsers.count == 0)
@@ -97,6 +46,7 @@
     }
 }
 
+#pragma mark - Table View Methods
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.parseUsers count];
@@ -114,11 +64,9 @@
         // Create cell button
         
         UIImage *addUserButtonImage = [UIImage imageNamed:@"addfriend1"];
-        
         UIImage *addUserButtonImageHighlighted = [UIImage imageNamed:@"addfriend10selected"];
         
         UIButton *addUserButton = [[UIButton alloc]init];
-        
         addUserButton.frame = CGRectMake(237, 7, 70, 30);
         
         [addUserButton setImage:addUserButtonImage forState:UIControlStateNormal];
@@ -127,24 +75,52 @@
         
         [addUserButton addTarget:self action:@selector(handleTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         
-        // Set cell button's tag.
-        
         addUserButton.tag = indexPath.row;
-        
-        // Set cell's title.
-        
+    
         [cell.textLabel setText:firstNameForTableView];
-        
-        // Set cell's subtitle
-        
-        
-        // Add button to cell's content view.
-        
         [cell.contentView addSubview:addUserButton];
     }
     return cell;
 }
 
+#pragma mark - Navigation Setup
+- (void)navigationSetup
+{
+    UIImage *firstButtonImage = [UIImage imageNamed:@"donebutton"];
+    CGRect frame = CGRectMake(0, 0, 70, 30);
+    
+    UIButton *someButton = [[UIButton alloc] initWithFrame:frame];
+    [someButton setBackgroundImage:firstButtonImage forState:UIControlStateNormal];
+    [someButton addTarget:self action:@selector(doneAddingFriends)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:someButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    
+    CGRect frame2 = CGRectMake(0, 0, 25, 25);
+    
+    UIImage *leftButtonImage = [UIImage imageNamed:@"backarrow2"];
+    
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:frame2];
+    [leftButton setImage:leftButtonImage forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(handleBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+    [self.navigationItem setBackBarButtonItem:nil];
+}
+
+#pragma mark - Search Bar Setup
+- (void)searchBarSetup
+{
+    [self.searchBar setShowsCancelButton:NO];
+    [self.searchBar setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [self.searchBar setPlaceholder:@"Search by username"];
+}
+
+#pragma mark - Touch Events
 - (void) handleTouchUpInside:(UIButton *)sender
 {
     sender.selected = !sender.selected;
@@ -179,7 +155,7 @@
 
         [PFCloud callFunction:@"editUser" withParameters:@{
                                                            @"userId": user.objectId
-                                                           }];
+                                                        }];
     } else {
 
         // This removes the username from the array.
@@ -198,6 +174,7 @@
     }
 }
 
+#pragma mark - IBAction Methods
 - (IBAction) handleBack
 {
     [self.navigationController popViewControllerAnimated:NO];
