@@ -307,7 +307,6 @@ float finalXValueForCrop;
 {
     // Disable the sendToFriend button
     [self.sendToFriend setUserInteractionEnabled:NO];
-    [self.sendToFriend setEnabled:NO];
     
     [self uploadPhoto];
 }
