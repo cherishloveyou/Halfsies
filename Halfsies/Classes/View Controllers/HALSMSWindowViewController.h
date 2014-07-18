@@ -9,6 +9,7 @@
 
 @interface HALSMSWindowViewController : UIViewController
 
+#pragma mark - Properties
 @property (nonatomic, retain) NSArray *usersToInviteToHalfsies;
 @property (nonatomic, retain) NSString *textMessageInviteText;
 

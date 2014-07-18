@@ -15,38 +15,15 @@
 
 @implementation HALSMSWindowViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View Methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
     [self showSMS];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    
-    
-    
-    
-}
-
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma mark - SMS Methods
 - (void)showSMS {
     
     if(![MFMessageComposeViewController canSendText]) {
@@ -70,6 +47,7 @@
 
 //This is the method implementation that handles someof the MFMessageComposeViewController's functionality.
 
+#pragma mark - Delegate Methods
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
     switch (result) {
@@ -92,8 +70,6 @@
     
     [self dismissViewControllerAnimated:NO completion:nil];
     [self performSegueWithIdentifier:@"smsWindowToMediaCaptureSegue" sender:self];
-
 }
-
 
 @end
