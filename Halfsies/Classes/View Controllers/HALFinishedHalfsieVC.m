@@ -31,7 +31,7 @@
     
     // Final setup of View Controller
     [self setupNavigation];
-    [self registerObserversForNotifications];
+    //[self registerObserversForNotifications];
     [self setupProperties];
     [self setupViews];
 }
@@ -107,27 +107,9 @@
 
 
 #pragma mark - Notification Observers
-- (void)registerObserversForNotifications
-{
-    // Twitter share notifications
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTwitterShareSuccessAlertView) name:@"twitterShareSuccess" object:self];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTwitterShareFailureAlertView) name:@"twitterShareFailure" object:self];
-    
-}
+
 
 #pragma mark - Notification Observer Selectors
-- (void)showTwitterShareSuccessAlertView
-{
-    UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    [twitterShareSuccess show];
-}
-
-- (void)showTwitterShareFailureAlertView
-{
-    UIAlertView *twitterShareFailure = [[UIAlertView alloc]initWithTitle:@"Failure" message:@"Something went wrong when trying to share to Twitter. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [twitterShareFailure show];
-}
 
 #pragma mark - Share Button Methods
 - (IBAction)shareButton
@@ -242,56 +224,41 @@
                       performRequestWithHandler:^(NSData *responseData,
                                                   NSHTTPURLResponse *urlResponse, NSError *error)
                       {
-                          
-                              
                               NSLog(@"Twitter HTTP response: %i",
                                     [urlResponse statusCode]);
-                              
                           
                           if(error) {
                               
-                              [[NSNotificationCenter defaultCenter]postNotificationName:@"twitterShareFailure" object:self];
-                              
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  
+                                  UIAlertView *twitterShareFailure = [[UIAlertView alloc]initWithTitle:@"Failure" message:@"Something went wrong when trying to share to Twitter. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                  
+                                  [twitterShareFailure show];
+                              });
                               
                           } else if (!error) {
                               
-                              [[NSNotificationCenter defaultCenter]postNotificationName:@"twitterShareSuccess" object:self];
-                          }
+                              //[[NSNotificationCenter defaultCenter]postNotificationName:@"twitterShareSuccess" object:self];
                               
-                          
-                          
-                          
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  
+                                  UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success" message:@"Your finished halfsie was successfully shared to Twitter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                  
+                                  [twitterShareSuccess show];
+                              });
+
+                          }
                           
                       }];
                      
-                     
-                     
-                     
-                     
-                     
-                     
                  }
-                 
-                 
-                 
-                 
+    
              }
-             
-             
-             
+ 
          }];
-        
-        
-        
-
-        
-        
-        
-    }
+}
     
-    
-    
-    
+ 
     if(buttonIndex == 1) {
         
         
@@ -299,64 +266,33 @@
         
         if([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied) {
             
-            
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Halfsies does not currently have permission to save photos to your library. Please go to Settings > Privacy > Photos and tap the button next to Halfsies." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            
-            
+    
             [alertView show];
-            
-            
         }
         
         if([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
             
-            
-            
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];
-            
-            
             
             [library writeImageToSavedPhotosAlbum:self.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
                 
-                
                 if(error) {
-                    
                     
                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Halfsies does not currently have permission to save photos to your library. Please go to Settings > Privacy > Photos and tap the button next to Halfsies." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     
-                    
                     [alertView show];
                     
+                } else if (!error) {
                     
-                    
-                } else {
-                    
-                    NSLog(@"No errors");
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                    UIAlertView *librarySaveSuccessAlertView = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully saved to your photo library!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [librarySaveSuccessAlertView show];
+               
                 }
                 
-                
-                
-                
-                
-                
             }];
-            
-            
-
-            
-            
-            
-            
-            
+    
         }
-        
         
         
         if([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
@@ -364,10 +300,7 @@
             
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];
             
-            
-
             [library writeImageToSavedPhotosAlbum:self.image.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error) {
-                
                 
                 if(error) {
                     
@@ -375,21 +308,12 @@
                     
                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     
-                    
                     [alertView show];
                     
+                } else if (!error) {
                     
-                    
-                } else {
-                    
-                    NSLog(@"No errors");
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                    UIAlertView *librarySaveSuccessAlertView = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully saved to your photo library!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [librarySaveSuccessAlertView show];
                 }
                 
                 
@@ -474,7 +398,7 @@
 - (void)dealloc
 {
     // Remove all notification center observers
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    //[[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 @end
