@@ -28,9 +28,63 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    // Final setup of View Controller
+    [self setupNavigation];
+    [self registerObserversForNotifications];
+    [self setupProperties];
+    [self setupViews];
+}
+
+#pragma mark - Setup View Controller's Properties
+- (void)setupProperties
+{
     
     
+    self.senderName = [self.messagePassedFromInbox objectForKey:@"senderName"];
+    self.recipientId = [self.messagePassedFromInbox objectForKey:@"recipientIds"];
+    self.originalSender = [self.messagePassedFromInbox objectForKey:@"originalSender"];
+    
+    self.currentUser = [PFUser currentUser];
+    
+    
+    PFFile *imageFile = [self.messagePassedFromInbox objectForKey:@"file"];
+    
+    self.imageFileURL = [[NSURL alloc]initWithString:imageFile.url];
+    
+    self.imageData = [NSData dataWithContentsOfURL:self.imageFileURL];
+    
+
+}
+
+#pragma mark - Setup View Controller's Views
+- (void)setupViews
+{
+    if([UIScreen mainScreen].bounds.size.height == 568) {
+        
+        self.image = [[UIImage alloc]initWithData:self.imageData];
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:self.image];
+        imageView.frame = CGRectMake(0, 0, 320, 568);
+        
+        [self.view addSubview:imageView];
+        [self.view sendSubviewToBack:imageView];
+        
+    } else {
+        
+        self.image = [[UIImage alloc]initWithData:self.imageData];
+        
+        UIImageView *imageView2 = [[UIImageView alloc]initWithImage:self.image];
+        imageView2.frame = CGRectMake(0, -30, 320, 568);
+        
+        [self.view addSubview:imageView2];
+        [self.view sendSubviewToBack:imageView2];
+    }
+}
+
+#pragma mark - Naviation Methods
+- (void)setupNavigation
+{
     [self.navigationController setNavigationBarHidden:YES];
     
     
@@ -43,64 +97,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
 
-    
-    self.senderName = [self.messagePassedFromInbox objectForKey:@"senderName"];
-    self.recipientId = [self.messagePassedFromInbox objectForKey:@"recipientIds"];
-    self.originalSender = [self.messagePassedFromInbox objectForKey:@"originalSender"];
-
-    self.currentUser = [PFUser currentUser];
-
-    
-    PFFile *imageFile = [self.messagePassedFromInbox objectForKey:@"file"];
-    
-    self.imageFileURL = [[NSURL alloc]initWithString:imageFile.url];
-    
-    self.imageData = [NSData dataWithContentsOfURL:self.imageFileURL];
-    
-    
-    
-    if([UIScreen mainScreen].bounds.size.height == 568) {
-        
-        
-    
-    self.image = [[UIImage alloc]initWithData:self.imageData];
-
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:self.image];
-
-    imageView.frame = CGRectMake(0, 0, 320, 568);
-    
-    [self.view addSubview:imageView];
-    [self.view sendSubviewToBack:imageView];
-        
-    } else {
-    
-   
-
-    self.image = [[UIImage alloc]initWithData:self.imageData];
-
-
-    UIImageView *imageView2 = [[UIImageView alloc]initWithImage:self.image];
-   
-    
-    imageView2.frame = CGRectMake(0, -30, 320, 568);
-    
-    [self.view addSubview:imageView2];
-    [self.view sendSubviewToBack:imageView2];
-        
-    }
-    
 }
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -109,35 +106,42 @@
 
 
 
-
-
-#pragma mark Share Button Methods
-- (IBAction)shareButton {
-    
-    
-    
-    self.shareButtonForActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter", @"Save to Library" ,@"Copy Share Link", @"Report User", nil];
-    
-    
-    [self.shareButtonForActionSheet showInView:self.view];
-    
-    
-
+#pragma mark - Notification Observers
+- (void)registerObserversForNotifications
+{
+    // Twitter share notifications
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTwitterShareSuccessAlertView) name:@"twitterShareSuccess" object:self];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTwitterShareFailureAlertView) name:@"twitterShareFailure" object:self];
     
 }
 
+#pragma mark - Notification Observer Selectors
+- (void)showTwitterShareSuccessAlertView
+{
+    UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [twitterShareSuccess show];
+}
 
+- (void)showTwitterShareFailureAlertView
+{
+    UIAlertView *twitterShareFailure = [[UIAlertView alloc]initWithTitle:@"Failure" message:@"Something went wrong when trying to share to Twitter. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [twitterShareFailure show];
+}
+
+#pragma mark - Share Button Methods
+- (IBAction)shareButton
+{
+    self.shareButtonForActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter", @"Save to Library" ,@"Copy Share Link", @"Report User", nil];
+    
+    [self.shareButtonForActionSheet showInView:self.view];
+}
+
+#pragma mark - Action Sheet Methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
-    
-    
-    
-    if (buttonIndex == 0)
-        
-    {
-        
-        
+    if (buttonIndex == 0) {
         
         //Twitter code from Techtopia
         
@@ -150,16 +154,13 @@
                                       completion:^(BOOL granted, NSError *error)
          {
              
-             
              if(error) {
                  
                  NSLog(@"There has been an error: %@", error);
-                 
              }
              
              
              if(granted == NO) {
-                 
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      
@@ -246,10 +247,6 @@
                               NSLog(@"Twitter HTTP response: %i",
                                     [urlResponse statusCode]);
                               
-                              UIAlertView *twitterSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                              [twitterSuccess show];
-                          
-                          
                           
                           if(error) {
                               
@@ -452,26 +449,6 @@
     
 }
 
-
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    
-    if(buttonIndex == 1) {
-        
-        
-        
-        
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-    
-    
-    
-    
-}
-
-
-
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
 
 {
@@ -479,14 +456,25 @@
     
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1) {
+        
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+}
 
--(IBAction)backButton {
-    
-    
+- (IBAction)backButton
+{
     HALInboxViewController *ivc;
     [self.navigationController pushViewController:ivc animated:YES];
 }
 
-
+#pragma mark - Dealloc Override
+- (void)dealloc
+{
+    // Remove all notification center observers
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 @end
