@@ -11,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordEntry;
 @property UITextField * activeField;
 @property (strong, nonatomic) NSString *userSubmittedUsername;
+@property (strong, nonatomic) NSString *lowercaseUsername;
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *userSubmittedPassword;
 @property (strong, nonatomic) NSString *userSubmittedEmail;
@@ -32,6 +33,8 @@
     [super viewDidLoad];
     
     [self navigationSetup];
+    
+    [self addNotificationObservers];
     
     self.backgroundImage.image = [UIImage imageNamed:@"launchBackgroundSignup"];
 
@@ -66,6 +69,47 @@
     
     [self.navigationItem setHidesBackButton:YES animated:YES];
     [self.navigationItem setBackBarButtonItem:nil];
+}
+
+#pragma mark - Notification Observers
+- (void)addNotificationObservers
+{
+    // Add self as observer for both successful signup and unsuccessful signup
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveLowercaseUsername)
+                                                 name:@"successfulUserSignup"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(genericSignupAlert)
+                                                 name:@"unsuccessfulUserSignup"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(successfulSignupSegue) name:@"lowercaseUsernameSaved" object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(signUpNewUser) name:@"usernameIsAvailable" object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(usernameNotAvailableAlertView) name:@"usernameIsNotAvailable" object:nil];
+}
+
+- (void)signUpNewUser
+{
+    // Call signup user method
+    [HALParseConnection signupNewUserWithUsername:self.userSubmittedUsername password:self.userSubmittedPassword email:self.userSubmittedEmail];
+}
+
+- (void)saveLowercaseUsername
+{
+  
+    PFUser *currentUser = [PFUser currentUser];
+    [currentUser setObject:self.lowercaseUsername forKey:@"lowercaseUsername"];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"There was an error trying to set the user's lowercaseUsername key");
+        } else if (succeeded == 1) {
+            NSLog(@"The user's lowercaseUsername key was successfully set.");
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"lowercaseUsernameSaved" object:self];
+        }
+    }];
 }
 
 #pragma mark - Text Field Methods
@@ -138,6 +182,12 @@
     [alert show];
 }
 
+- (void)usernameNotAvailableAlertView
+{
+    UIAlertView *usernameNotAvailableAlertView = [[UIAlertView alloc]initWithTitle:@"Username Taken" message:@"That username has already been taken. Please choose a new one" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [usernameNotAvailableAlertView show];
+}
+
 #pragma mark - IBAction Methods
 - (IBAction)didTapSignup:(id)sender
 {
@@ -155,17 +205,11 @@
         
     } else {
         
-        // Add self as observer for both successful signup and unsuccessful signup
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(successfulSignupSegue)
-                                                     name:@"successfulUserSignup"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(genericSignupAlert)
-                                                     name:@"unsuccessfulUserSignup"
-                                                   object:nil];
-        // Call signup user method
-        [HALParseConnection signupNewUserWithUsername:self.userSubmittedUsername password:self.userSubmittedPassword email:self.userSubmittedEmail];
+        self.lowercaseUsername = [self.userSubmittedUsername lowercaseString];
+        
+        // Make sure it passes the lowercaseUsername test
+        [HALParseConnection isUsernameAvailable:self.lowercaseUsername];
+        
     }
 }
 

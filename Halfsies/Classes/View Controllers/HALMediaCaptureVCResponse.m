@@ -379,7 +379,7 @@ float finalXValueForCrop;
         self.image = nil;
         self.topHalfView.image = nil;
         
-        self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Back to Inbox",@"Report User", nil];
+        self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"destructive text" otherButtonTitles:@"Back to Inbox",@"Report User", nil];
         
         [self.xButtonBeforePhotoTaken showInView:self.view];
     }

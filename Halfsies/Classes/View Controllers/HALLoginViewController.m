@@ -35,11 +35,27 @@
     
     [self navigationSetup];
     
+    [self addNotificionObservers];
+    
     [self.usernameEntry becomeFirstResponder];
 
     // Retrieve stored username
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [self.usernameEntry setText:[standardDefaults objectForKey:@"username"]];
+}
+
+#pragma mark - Notification Observers
+- (void)addNotificionObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(successfulLoginSegue)
+                                                 name:@"successfulUserLogin"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginFailedAlert)
+                                                 name:@"unsuccessfulUserLogin"
+                                               object:nil];
 }
 
 #pragma mark - Navigation Methods
@@ -131,15 +147,6 @@
         
     } else {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(successfulLoginSegue)
-                                                     name:@"successfulUserLogin"
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(genericLoginAlert)
-                                                     name:@"unsuccessfulUserLogin"
-                                                   object:nil];
 
         [HALParseConnection loginUserWithUsername:username password:password];
         

@@ -98,6 +98,7 @@
     newUser.password = password;
     newUser.email = email;
     
+    
     // Signup new parse user
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
@@ -119,6 +120,22 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"successfulUserSignup"
                                                                 object:self
                                                               userInfo:nil];
+        }
+    }];
+}
+
++ (void)isUsernameAvailable:(NSString *)lowercaseUsername
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"lowercaseUsername" equalTo:lowercaseUsername];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (error) {
+            NSLog(@"There was an error when querying Parse for the lowercaseUsername key");
+        } else if (objects.count == 0) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"usernameIsAvailable" object:self];
+        } else if (objects.count == 1) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"usernameIsNotAvailable" object:self];
         }
     }];
 }
