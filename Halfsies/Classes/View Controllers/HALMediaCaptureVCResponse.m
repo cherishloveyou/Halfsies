@@ -559,7 +559,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                      
                      //This code below creates a new message to post to the user's Twitter feed.
                      
-                     NSString *twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies get.halfsies.co", self.senderName];
+                     NSString *twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies halfsies.co/app", self.senderName];
                      
                      NSDictionary *message = @{ @"status": twitterStatus};
                      
@@ -600,6 +600,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                               
                               NSLog(@"There was an error when trying to post to Twitter.");
                               
+                          } else if (!error) {
+                              
+                              UIAlertView *twitterSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                              [twitterSuccess show];
                           }
                           
                           
@@ -877,8 +881,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.fileType = @"image";
     self.halfOrFull = @"full";
     
-    NSData *imageData = UIImageJPEGRepresentation(self.image, 0.7);
-    self.imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
+    self.imageData = UIImageJPEGRepresentation(self.image, 0.7);
+    self.imageFile = [PFFile fileWithName:@"Image.jpg" data:self.imageData];
     
     self.originalSenderId = [self.message objectForKey:@"senderId"];
     

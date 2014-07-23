@@ -25,16 +25,6 @@
 
 @implementation HALFinishedHalfsieVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -120,10 +110,9 @@
 
 
 
+
 #pragma mark Share Button Methods
-
-
--(IBAction)shareButton {
+- (IBAction)shareButton {
     
     
     
@@ -207,7 +196,7 @@
                      if([self.currentUser.username isEqualToString:self.senderName]) {
                          
                          
-                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies get.halfsies.co", self.originalSender];
+                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies halfsies.co/app", self.originalSender];
                          
                          
                      }
@@ -216,7 +205,7 @@
                          
                          
                          
-                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies get.halfsies.co", self.senderName];
+                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies halfsies.co/app", self.senderName];
                          
                      }
                      
@@ -252,14 +241,28 @@
                       performRequestWithHandler:^(NSData *responseData,
                                                   NSHTTPURLResponse *urlResponse, NSError *error)
                       {
-                          NSLog(@"Twitter HTTP response: %i",
-                                [urlResponse statusCode]);
+                          
+                              
+                              NSLog(@"Twitter HTTP response: %i",
+                                    [urlResponse statusCode]);
+                              
+                              UIAlertView *twitterSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                              [twitterSuccess show];
+                          
+                          
                           
                           if(error) {
                               
-                              NSLog(@"There was an error when trying to post to Twitter.");
+                              [[NSNotificationCenter defaultCenter]postNotificationName:@"twitterShareFailure" object:self];
                               
+                              
+                          } else if (!error) {
+                              
+                              [[NSNotificationCenter defaultCenter]postNotificationName:@"twitterShareSuccess" object:self];
                           }
+                              
+                          
+                          
                           
                           
                       }];
@@ -481,15 +484,7 @@
     
     
     HALInboxViewController *ivc;
-    
-    
     [self.navigationController pushViewController:ivc animated:YES];
-    
-    
-    
-    
-    
-    
 }
 
 
