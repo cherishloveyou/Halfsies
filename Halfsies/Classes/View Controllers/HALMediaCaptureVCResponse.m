@@ -306,7 +306,7 @@ float finalXValueForCrop;
 - (IBAction)sendButton
 {
     // Disable the sendToFriend button
-    [self.sendToFriend setUserInteractionEnabled:NO];
+    [self.sendToFriend setHidden:YES];
     
     [self uploadPhoto];
 }
@@ -598,12 +598,22 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                           
                           if(error) {
                               
-                              NSLog(@"There was an error when trying to post to Twitter.");
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  
+                                  UIAlertView *twitterShareFailure = [[UIAlertView alloc]initWithTitle:@"Failure" message:@"Something went wrong when trying to share to Twitter. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                  
+                                  [twitterShareFailure show];
+                              });
                               
                           } else if (!error) {
                               
-                              UIAlertView *twitterSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                              [twitterSuccess show];
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  
+                                  UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success" message:@"Your finished halfsie was successfully shared to Twitter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                  
+                                  [twitterShareSuccess show];
+                              });
+
                           }
                           
                           
@@ -1019,8 +1029,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Could not save photo to your library. Please enable Halfsies in Settings > Privacy > Photos." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
             
-        } else {
-       
+            CGImageRelease([self.image CGImage]);
+
+        } else if (!error) {
+            
+            UIAlertView *librarySaveSuccessAlertView = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully saved to your photo library!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [librarySaveSuccessAlertView show];
+
          CGImageRelease([self.image CGImage]);
             
         }

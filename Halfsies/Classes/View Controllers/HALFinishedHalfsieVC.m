@@ -31,7 +31,6 @@
     
     // Final setup of View Controller
     [self setupNavigation];
-    //[self registerObserversForNotifications];
     [self setupProperties];
     [self setupViews];
 }
@@ -103,13 +102,6 @@
 {
     return YES;
 }
-
-
-
-#pragma mark - Notification Observers
-
-
-#pragma mark - Notification Observer Selectors
 
 #pragma mark - Share Button Methods
 - (IBAction)shareButton
@@ -238,8 +230,6 @@
                               
                           } else if (!error) {
                               
-                              //[[NSNotificationCenter defaultCenter]postNotificationName:@"twitterShareSuccess" object:self];
-                              
                               dispatch_async(dispatch_get_main_queue(), ^{
                                   
                                   UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success" message:@"Your finished halfsie was successfully shared to Twitter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -316,61 +306,27 @@
                     [librarySaveSuccessAlertView show];
                 }
                 
-                
-                
-                
-                
-                
             }];
-            
-            
-            
-            
-            
+       
         }
-        
-        
-        
-        
+  
     }
     
     
     
     if(buttonIndex == 2) {
         
-        
-       
-        
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        
-        
         pasteboard.URL = self.imageFileURL;
-        
-
-        
-        
     }
     
     
     if(buttonIndex == 3) {
         
-        
-        
        UIAlertView *reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         
-        
         [reportAlertView show];
-
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-    
+}
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
@@ -394,11 +350,5 @@
     [self.navigationController pushViewController:ivc animated:YES];
 }
 
-#pragma mark - Dealloc Override
-- (void)dealloc
-{
-    // Remove all notification center observers
-    //[[NSNotificationCenter defaultCenter]removeObserver:self];
-}
 
 @end
