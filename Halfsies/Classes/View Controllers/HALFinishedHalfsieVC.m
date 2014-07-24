@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSString *recipientId;
 @property (strong, nonatomic) NSString *originalSender;
 @property (strong, nonatomic) NSString *twitterStatus;
+@property (strong, nonatomic) UIAlertView *reportAlertView;
 
 @end
 
@@ -117,14 +118,15 @@
     
     if (buttonIndex == self.shareButtonForActionSheet.destructiveButtonIndex) {
         
-        UIAlertView *reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        self.reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         
-        [reportAlertView show];
+        [self.reportAlertView show];
     }
     
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
-    if (buttonIndex == 0) {
+    if (buttonIndex == 1) {
         
+        NSLog(@"twitter2");
         //Twitter code from Techtopia
         
         ACAccountStore *account = [[ACAccountStore alloc] init];
@@ -257,7 +259,7 @@
 }
     
  
-    if(buttonIndex == 1) {
+    if(buttonIndex == 2) {
         
         
         
@@ -322,14 +324,14 @@
     
     
     
-    if(buttonIndex == 2) {
+    if(buttonIndex == 3) {
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.URL = self.imageFileURL;
     }
     
     
-    if(buttonIndex == 3) {
+    if(buttonIndex == 4) {
         
         NSLog(@"old report");
 }
@@ -342,14 +344,16 @@
     
 }
 
+#pragma mark - Alert View Methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 1) {
-        
+    if(self.reportAlertView && buttonIndex == 1) {
+
         [self.navigationController popViewControllerAnimated:NO];
     }
 }
 
+#pragma mark - Back Button
 - (IBAction)backButton
 {
     HALInboxViewController *ivc;

@@ -47,12 +47,14 @@
     [super viewDidLoad];
     
     // Setup navigation
-    [self navigationSetup];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self navigationSetup];
+
     
     [self retreiveStoredMessages];
     

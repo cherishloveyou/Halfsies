@@ -26,13 +26,13 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+				<string>fb565793133529347</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.2.3</string>
-	<key>FacebookDisplayName</key>
-	<string>Halfsies</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSContactsUsageDescription</key>
@@ -44,6 +44,10 @@
 		<string>armv7</string>
 		<string>still-camera</string>
 	</array>
+	<key>FacebookDisplayName</key>
+	<string>Halfsies</string>
+	<key>FacebookAppID</key>
+	<string>565793133529347</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
