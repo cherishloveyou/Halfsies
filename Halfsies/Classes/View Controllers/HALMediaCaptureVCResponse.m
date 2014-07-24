@@ -1028,37 +1028,25 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 #pragma mark - Save Photo To Library
 - (void)saveToLibray
 {
-    NSLog(@"save to lib1");
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    NSLog(@"save to lib2");
 
     // Request to save the image to camera roll
     [library writeImageToSavedPhotosAlbum:[self.image CGImage] orientation:(ALAssetOrientation)[self.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-        NSLog(@"save to lib3");
 
         if (error) {
-            
-            NSLog(@"no error");
             
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Could not save photo to your library. Please enable Halfsies in Settings > Privacy > Photos." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
             
-            CGImageRelease([self.image CGImage]);
+            //CGImageRelease([self.image CGImage]);
 
         } else if (!error) {
             
-            NSLog(@"no error");
-            
             UIAlertView *librarySaveSuccessAlertView = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully saved to your photo library!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             
-            NSLog(@"no error");
-
             [librarySaveSuccessAlertView show];
             
-            NSLog(@"no error");
-
-
-         CGImageRelease([self.image CGImage]);
+         //CGImageRelease([self.image CGImage]);
             
         }
     }];

@@ -106,7 +106,7 @@
 #pragma mark - Share Button Methods
 - (IBAction)shareButton
 {
-    self.shareButtonForActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter", @"Save to Library" ,@"Copy Share Link", @"Report User", nil];
+    self.shareButtonForActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:@"Share on Twitter", @"Save to Library" ,@"Copy Share Link",nil];
     
     [self.shareButtonForActionSheet showInView:self.view];
 }
@@ -114,6 +114,14 @@
 #pragma mark - Action Sheet Methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    
+    if (buttonIndex == self.shareButtonForActionSheet.destructiveButtonIndex) {
+        
+        UIAlertView *reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        
+        [reportAlertView show];
+    }
+    
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
     if (buttonIndex == 0) {
         
@@ -323,9 +331,7 @@
     
     if(buttonIndex == 3) {
         
-       UIAlertView *reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-        
-        [reportAlertView show];
+        NSLog(@"old report");
 }
 }
 
