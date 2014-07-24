@@ -359,11 +359,10 @@ float finalXValueForCrop;
         
     } else {
       
-        [self.session removeInput:self.deviceInput];
+        /*[self.session removeInput:self.deviceInput];
         
         [self.session removeOutput:self.stillImageOutput];
         
-        [self.session stopRunning];
         
         self.session = nil;
         
@@ -377,9 +376,12 @@ float finalXValueForCrop;
         
         self.imageData = nil;
         self.image = nil;
-        self.topHalfView.image = nil;
+        self.topHalfView.image = nil;*/
         
-        self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"destructive text" otherButtonTitles:@"Back to Inbox",@"Report User", nil];
+        [self.session stopRunning];
+
+        
+        self.xButtonBeforePhotoTaken = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:@"Back to Inbox", nil];
         
         [self.xButtonBeforePhotoTaken showInView:self.view];
     }
@@ -453,10 +455,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     // Check if it's the correct action sheet and the delete button (the only one) has been selected.
     if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 0)
     {
-        
         //Now, after the user has captured a photo, if they press the "Delete" button on the action sheet, it will call this method below which basically refreshes the sublayer.
         
-        
+        NSLog(@"retake your half");
+        self.hasUserTakenAPhoto = @"NO";
+
         //We set the self.afterPhotoView to hidden "YES" becuase this is the UIView we display only after the photo is taken.
         
         [self.afterPhotoView setHidden:YES];
@@ -472,7 +475,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         [self.session startRunning];
     }
     
-    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+    if (actionSheet == self.xButtonBeforePhotoTaken && buttonIndex == self.xButtonBeforePhotoTaken.destructiveButtonIndex) {
+        
+        self.reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        
+        [self.reportAlertView show];
         
         [self.topHalfView setHidden:NO];
     
@@ -498,6 +505,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if (actionSheet == self.xButtonAfterPhotoTaken && buttonIndex == 1) {
         
+        [self.sendToFriend setHidden:YES];
         [self uploadPhoto];
     }
     
@@ -650,22 +658,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
     
     if(actionSheet == self.uploadPhotoShareSheet && buttonIndex == 3) {
-        
-        //Take the user back to their inbox.
-        
+
+        NSLog(@"back to inbox pressed after taking photo.");
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
 }
     
-    if(actionSheet == self.xButtonBeforePhotoTaken && buttonIndex == 0) {
+    if(actionSheet == self.xButtonBeforePhotoTaken && buttonIndex == self.xButtonBeforePhotoTaken.cancelButtonIndex) {
         
-        [self performSegueWithIdentifier:@"segueToInbox" sender:self];
+        [self.session startRunning];
+        NSLog(@"cancel1");
 }
 
     if(actionSheet == self.xButtonBeforePhotoTaken && buttonIndex == 1) {
         
-        self.reportAlertView = [[UIAlertView alloc]initWithTitle:@"Report User" message:@"By tapping the OK button, you will be reporting this user and the content they sent you as inappropriate." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         
-        [self.reportAlertView show];
+        //Take the user back to their inbox.
+        
+        [self performSegueWithIdentifier:@"segueToInbox" sender:self];
 }
 }
 
@@ -1019,12 +1028,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 #pragma mark - Save Photo To Library
 - (void)saveToLibray
 {
+    NSLog(@"save to lib1");
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    
+    NSLog(@"save to lib2");
+
     // Request to save the image to camera roll
     [library writeImageToSavedPhotosAlbum:[self.image CGImage] orientation:(ALAssetOrientation)[self.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-        
+        NSLog(@"save to lib3");
+
         if (error) {
+            
+            NSLog(@"no error");
             
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Could not save photo to your library. Please enable Halfsies in Settings > Privacy > Photos." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
@@ -1033,8 +1047,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
         } else if (!error) {
             
+            NSLog(@"no error");
+            
             UIAlertView *librarySaveSuccessAlertView = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully saved to your photo library!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            
+            NSLog(@"no error");
+
             [librarySaveSuccessAlertView show];
+            
+            NSLog(@"no error");
+
 
          CGImageRelease([self.image CGImage]);
             
@@ -1057,6 +1079,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         [self.uploadPhotoShareSheet showInView:self.view];
         
         [self.sharePhotoView setHidden:NO];
+    }
+    
+    if(alertView == self.reportAlertView && buttonIndex == self.reportAlertView.cancelButtonIndex) {
+        
+        NSLog(@"User pressed the cancel button.");
+        
+        [self.session startRunning];
     }
     
     if(alertView == self.reportAlertView && buttonIndex == 1) {
