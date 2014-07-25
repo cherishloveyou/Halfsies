@@ -13,6 +13,7 @@
 
 @interface HALMediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate, UIDocumentInteractionControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UIImageView *crazyImageView;
 @property (strong, nonatomic) NSData *imageData;
 @property (strong, nonatomic) NSString *photo;
 @property (strong, nonatomic) UIImageView *imageView;
@@ -22,23 +23,23 @@
 @property NSString *halfOrFull;
 @property PFFile *imageFile;
 @property NSString *originalSenderId;
-@property (nonatomic,retain) AVCaptureSession *session;
-@property (nonatomic, retain) AVCaptureStillImageOutput *stillImageOutput;
-@property (nonatomic, retain) AVCaptureVideoDataOutput *videoOutput;
-@property (nonatomic, retain) AVCaptureVideoPreviewLayer *previewLayer;
-@property (nonatomic, retain) AVCaptureDevice *inputDevice;
-@property (nonatomic, retain) NSString *hasUserTakenAPhoto;
-@property (nonatomic, retain) CALayer *rootLayer;
-@property (nonatomic, retain) UIActionSheet *xButtonAfterPhotoTaken;
-@property (nonatomic, retain) UIActionSheet *xButtonBeforePhotoTaken;
-@property (nonatomic, retain) UIActionSheet *shareSheet;
-@property (nonatomic, retain) UIActionSheet *uploadPhotoShareSheet;
-@property (nonatomic, retain) NSString *xButtonActionSheetTitle;
-@property (nonatomic, retain) AVCaptureDeviceInput *deviceInput;
-@property (nonatomic, retain) NSMutableArray *usersToAddToFriendsList;
-@property (nonatomic, retain) NSString *justFinishedSigningUp;
-@property (nonatomic, retain) NSArray *usersToInviteToHalfsies;
-@property (nonatomic, retain) NSString *textMessageInviteText;
+@property (nonatomic, strong) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
+@property (nonatomic, strong) AVCaptureVideoDataOutput *videoOutput;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic, strong) AVCaptureDevice *inputDevice;
+@property (nonatomic, strong) NSString *hasUserTakenAPhoto;
+@property (nonatomic, strong) CALayer *rootLayer;
+@property (nonatomic, strong) UIActionSheet *xButtonAfterPhotoTaken;
+@property (nonatomic, strong) UIActionSheet *xButtonBeforePhotoTaken;
+@property (nonatomic, strong) UIActionSheet *shareSheet;
+@property (nonatomic, strong) UIActionSheet *uploadPhotoShareSheet;
+@property (nonatomic, strong) NSString *xButtonActionSheetTitle;
+@property (nonatomic, strong) AVCaptureDeviceInput *deviceInput;
+@property (nonatomic, strong) NSMutableArray *usersToAddToFriendsList;
+@property (nonatomic, strong) NSString *justFinishedSigningUp;
+@property (nonatomic, strong) NSArray *usersToInviteToHalfsies;
+@property (nonatomic, strong) NSString *textMessageInviteText;
 @property (nonatomic, strong) UIAlertView *uploadPhotoAlertView;
 @property (nonatomic, strong) UIAlertView *reportAlertView;
 @property (nonatomic, strong) NSString *photoUploadAlertViewMessage;
@@ -99,14 +100,17 @@ float finalXValueForCrop;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
- 
-   // Perform setup methods
+    NSLog(@"session is nil if ur right: %@", self.session);
+
+    // Perform setup methods
     [self setViewFrames];
     [self topHalfImageViewSetup];
     [self subviewsSetup];
     [self navigationSetup];
     [self videoSessionSetup];
+    [self addNotificationObservers];
 }
+
 
 #pragma mark - View Setup
 - (void)setViewFrames
@@ -123,6 +127,8 @@ float finalXValueForCrop;
     // I had to change the y parameter for bottomHalfView to 0 otherwise the screenshot was not capturing the full image contained in self.bottomHalfView.frame. It must just be because that view is the only view not hidden when the screenshot is captured?
     
     self.bottomHalfView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 284);
+    
+   
 }
 
 - (void)topHalfImageViewSetup
@@ -152,6 +158,31 @@ float finalXValueForCrop;
     [self.view sendSubviewToBack:self.imageView];
 }
 
+#pragma mark - Add Observers
+- (void)addNotificationObservers
+{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(crazyImageViewObserver) name:@"instagramSharingFinished" object:nil];
+}
+
+- (void)crazyImageViewObserver
+{
+    if([UIScreen mainScreen].bounds.size.height == 568) {
+        
+        
+        
+        self.crazyImageView.frame = CGRectMake(0, 0, 320, 568);
+        
+        
+    } else {
+        
+        self.crazyImageView.frame = CGRectMake(0, -30, 320, 568);
+        
+    }
+    
+    self.crazyImageView.image = self.image;
+
+}
+
 #pragma mark - Navigation Setup
 - (BOOL)prefersStatusBarHidden
 {
@@ -170,6 +201,9 @@ float finalXValueForCrop;
     self.session =[[AVCaptureSession alloc]init];
     [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
     
+    NSLog(@"session is NOT nil if ur right: %@", self.session);
+
+    
     // Create input device
     self.inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *error;
@@ -180,6 +214,7 @@ float finalXValueForCrop;
     
     // Setup the session's layers
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:self.session];
+    
     self.rootLayer = [[self view]layer];
     [self.rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:CGRectMake(0, self.rootLayer.bounds.size.height/2, self.rootLayer.bounds.size.width, self.rootLayer.bounds.size.height/2)];
@@ -254,6 +289,7 @@ float finalXValueForCrop;
     self.image = [self imageByCombiningImage:self.image9 withImage:self.image];
     [self.afterPhotoView setHidden:NO];
 
+    
     }
 }
 

@@ -716,6 +716,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36Y-Fb-tyD">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFi-yg-QKF">
                                         <rect key="frame" x="9" y="13" width="19" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -776,6 +780,7 @@
                     <navigationItem key="navigationItem" id="okL-jS-Fo4"/>
                     <connections>
                         <outlet property="afterPhotoView" destination="Bsi-r2-Rc0" id="qKB-cA-h5R"/>
+                        <outlet property="crazyImageView" destination="36Y-Fb-tyD" id="vor-ug-7H8"/>
                         <outlet property="sendToFriend" destination="z3q-r3-mOx" id="1TQ-B7-yMD"/>
                         <outlet property="sharePhotoView" destination="wWb-Yn-KIL" id="gwB-fJ-rEm"/>
                         <outlet property="takingPhotoView" destination="IZP-e4-akC" id="3Ss-Mq-YQ4"/>
@@ -1266,10 +1271,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="aI1-Zn-Bbo"/>
-        <segue reference="Sf9-Xo-8lW"/>
-        <segue reference="dLD-hY-enm"/>
-        <segue reference="iVv-Pa-lv8"/>
-        <segue reference="e8s-3Q-I0v"/>
+        <segue reference="mQK-9V-kgY"/>
+        <segue reference="1yh-n2-ILs"/>
+        <segue reference="5Ip-1E-UpN"/>
+        <segue reference="1ev-Pp-c9W"/>
         <segue reference="EGM-eB-W1A"/>
     </inferredMetricsTieBreakers>
 </document>
