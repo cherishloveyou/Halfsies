@@ -36,6 +36,9 @@
 		C3431E6D196F2313004822F7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3431E6C196F2313004822F7 /* Crashlytics.framework */; };
 		C3448070186FD9E800B9DB48 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344806F186FD9E800B9DB48 /* Parse.framework */; };
 		C3448078186FDC7300B9DB48 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */; };
+		C350E18C1982E4400073DB6C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C350E18B1982E4400073DB6C /* UIImage+Resize.m */; };
+		C350E1911982E4800073DB6C /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = C350E18E1982E4800073DB6C /* UIImage+Alpha.m */; };
+		C350E1921982E4800073DB6C /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = C350E1901982E4800073DB6C /* UIImage+RoundedCorner.m */; };
 		C3BE3B841970756B008705FD /* HALUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BE3B831970756B008705FD /* HALUserDefaults.m */; };
 		C3BE3B871970786A008705FD /* HALParseConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BE3B861970786A008705FD /* HALParseConnection.m */; };
 		C3C5DFC9196C5C4F00D0F0F8 /* HALAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C5DFC8196C5C4F00D0F0F8 /* HALAddressBook.m */; };
@@ -95,6 +98,12 @@
 		C3431E6C196F2313004822F7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C344806F186FD9E800B9DB48 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		C350E18A1982E4400073DB6C /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		C350E18B1982E4400073DB6C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		C350E18D1982E4800073DB6C /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		C350E18E1982E4800073DB6C /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		C350E18F1982E4800073DB6C /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		C350E1901982E4800073DB6C /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		C378735B186B4CC5009F7FFB /* Halfsies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfsies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BE3B821970756B008705FD /* HALUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HALUserDefaults.h; sourceTree = "<group>"; };
 		C3BE3B831970756B008705FD /* HALUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HALUserDefaults.m; sourceTree = "<group>"; };
@@ -209,6 +218,12 @@
 		C32028B51964D43100EE7553 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C350E18D1982E4800073DB6C /* UIImage+Alpha.h */,
+				C350E18E1982E4800073DB6C /* UIImage+Alpha.m */,
+				C350E18F1982E4800073DB6C /* UIImage+RoundedCorner.h */,
+				C350E1901982E4800073DB6C /* UIImage+RoundedCorner.m */,
+				C350E18A1982E4400073DB6C /* UIImage+Resize.h */,
+				C350E18B1982E4400073DB6C /* UIImage+Resize.m */,
 				C32028B61964D43100EE7553 /* NSObject+Properties.h */,
 				C32028B71964D43100EE7553 /* NSObject+Properties.m */,
 				C32028B81964D43100EE7553 /* PFACL+NSCoding.h */,
@@ -362,6 +377,7 @@
 			files = (
 				C3BE3B841970756B008705FD /* HALUserDefaults.m in Sources */,
 				C3C5DFC9196C5C4F00D0F0F8 /* HALAddressBook.m in Sources */,
+				C350E1911982E4800073DB6C /* UIImage+Alpha.m in Sources */,
 				C3C5DFCC196C69A600D0F0F8 /* HALContact.m in Sources */,
 				C32028861964D32100EE7553 /* HALAddFriendsViewController.m in Sources */,
 				C3BE3B871970786A008705FD /* HALParseConnection.m in Sources */,
@@ -375,6 +391,7 @@
 				C320288A1964D32100EE7553 /* HALInboxViewController.m in Sources */,
 				C32028921964D32100EE7553 /* HALSMSWindowViewController.m in Sources */,
 				AD7F4C28195DED16001B07E3 /* main.m in Sources */,
+				C350E1921982E4800073DB6C /* UIImage+RoundedCorner.m in Sources */,
 				C320288E1964D32100EE7553 /* HALMediaCaptureVCResponse.m in Sources */,
 				C320288C1964D32100EE7553 /* HALLoginViewController.m in Sources */,
 				C32028C01964D43100EE7553 /* NSObject+Properties.m in Sources */,
@@ -383,6 +400,7 @@
 				C32028C31964D43100EE7553 /* PFObject+NSCoding.m in Sources */,
 				AD7F4C29195DED16001B07E3 /* MBProgressHUD.m in Sources */,
 				C32028901964D32100EE7553 /* HALSendToFriendsViewController.m in Sources */,
+				C350E18C1982E4400073DB6C /* UIImage+Resize.m in Sources */,
 				C320288B1964D32100EE7553 /* HALLaunchViewController.m in Sources */,
 				C32028C21964D43100EE7553 /* PFFile+NSCoding.m in Sources */,
 			);
