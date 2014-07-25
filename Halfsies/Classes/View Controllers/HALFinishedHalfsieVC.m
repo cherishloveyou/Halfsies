@@ -12,8 +12,9 @@
 #import "HALAppDelegate.h"
 #import "HALInboxViewController.h"
 #import <Parse/Parse.h>
+#import "UIImage+Resize.h"
 
-@interface HALFinishedHalfsieVC () <UIActionSheetDelegate, UIAlertViewDelegate>
+@interface HALFinishedHalfsieVC () <UIActionSheetDelegate, UIAlertViewDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (strong, nonatomic) NSString *senderName;
 @property (strong, nonatomic) PFUser *currentUser;
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) NSString *originalSender;
 @property (strong, nonatomic) NSString *twitterStatus;
 @property (strong, nonatomic) UIAlertView *reportAlertView;
+@property (strong, nonatomic) UIDocumentInteractionController *dic;
 
 @end
 
@@ -35,6 +37,75 @@
     [self setupProperties];
     [self setupViews];
 }
+
+#pragma mark - Document Interaction Delegate
+- (UIDocumentInteractionController *) setupControllerWithURL: (NSURL*) fileURL usingDelegate: (id <UIDocumentInteractionControllerDelegate>) interactionDelegate
+{
+    UIDocumentInteractionController *interactionController = [UIDocumentInteractionController interactionControllerWithURL: fileURL];
+    interactionController.delegate = interactionDelegate;
+    return interactionController;
+}
+
+
+#pragma mark - Instagram
+- (void)shareToInstagram
+{
+    
+     //Create white image of 640 x 640
+     
+     CGSize imageSize = CGSizeMake(640, 640);
+     UIColor *fillColor = [UIColor whiteColor];
+     UIGraphicsBeginImageContextWithOptions(imageSize, YES, 0);
+     CGContextRef context = UIGraphicsGetCurrentContext();
+     [fillColor setFill];
+     CGContextFillRect(context, CGRectMake(0, 0, imageSize.width, imageSize.height));
+     UIImage *whiteSquareImage = UIGraphicsGetImageFromCurrentImageContext();
+     UIGraphicsEndImageContext();
+    
+    
+     //Scale down self.image
+     CGSize size = CGSizeMake(360, 640);
+     self.image = [self.image resizedImage:size interpolationQuality:kCGInterpolationLow];
+    
+     //Create the final image combining whiteSquareImage with self.image.
+     //self.image should be placed in the center of whiteSquareImage
+    
+     CGSize newSize = CGSizeMake(640, 640);
+     UIGraphicsBeginImageContext(newSize);
+     
+     // Use existing opacity as is
+     [whiteSquareImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+     
+     // Apply supplied opacity if applicable
+     [self.image drawInRect:CGRectMake(140,0,360,640) blendMode:kCGBlendModeNormal alpha:0.8];
+     
+     UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+     UIGraphicsEndImageContext();
+    
+    
+    UIImage *screenShot = finalImage;
+    NSString *savePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.igo"];
+    [UIImagePNGRepresentation(screenShot) writeToFile:savePath atomically:YES];
+    
+    CGRect rect = CGRectMake(0 ,0 , 0, 0);
+    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.igo"];
+    NSURL *igImageHookFile = [[NSURL alloc] initWithString:[[NSString alloc] initWithFormat:@"file://%@", jpgPath]];
+    self.dic.UTI = @"com.instagram.photo";
+    self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
+    self.dic=[UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
+    [self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
+    NSURL *instagramURL = [NSURL URLWithString:@"instagram://media?id=MEDIA_ID"];
+    if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
+    {
+        [self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
+    }
+    else
+    {
+        NSLog(@"No Instagram Found");
+    }
+}
+
+
 
 #pragma mark - Setup View Controller's Properties
 - (void)setupProperties
@@ -107,7 +178,7 @@
 #pragma mark - Share Button Methods
 - (IBAction)shareButton
 {
-    self.shareButtonForActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:@"Share on Twitter", @"Save to Library" ,@"Copy Share Link",nil];
+    self.shareButtonForActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:@"Share on Instagram", @"Share on Twitter", @"Save to Library" ,@"Copy Share Link",nil];
     
     [self.shareButtonForActionSheet showInView:self.view];
 }
@@ -123,8 +194,13 @@
         [self.reportAlertView show];
     }
     
-    // Check if it's the correct action sheet and the delete button (the only one) has been selected.
     if (buttonIndex == 1) {
+        NSLog(@"Instagram share button pressed.");
+        [self shareToInstagram];
+    }
+    
+    // Check if it's the correct action sheet and the delete button (the only one) has been selected.
+    if (buttonIndex == 2) {
         
         NSLog(@"twitter2");
         //Twitter code from Techtopia
@@ -259,7 +335,7 @@
 }
     
  
-    if(buttonIndex == 2) {
+    if(buttonIndex == 3) {
         
         
         
@@ -324,14 +400,14 @@
     
     
     
-    if(buttonIndex == 3) {
+    if(buttonIndex == 4) {
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.URL = self.imageFileURL;
     }
     
     
-    if(buttonIndex == 4) {
+    if(buttonIndex == 5) {
         
         NSLog(@"old report");
 }

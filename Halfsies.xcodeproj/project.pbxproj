@@ -33,6 +33,7 @@
 		C32028C21964D43100EE7553 /* PFFile+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028BB1964D43100EE7553 /* PFFile+NSCoding.m */; };
 		C32028C31964D43100EE7553 /* PFObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028BD1964D43100EE7553 /* PFObject+NSCoding.m */; };
 		C32028C41964D43100EE7553 /* UIImage+so1.m in Sources */ = {isa = PBXBuildFile; fileRef = C32028BF1964D43100EE7553 /* UIImage+so1.m */; };
+		C342BA781982D07F007BB674 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C342BA771982D07F007BB674 /* UIImage+Resize.m */; };
 		C3431E6D196F2313004822F7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3431E6C196F2313004822F7 /* Crashlytics.framework */; };
 		C3448070186FD9E800B9DB48 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C344806F186FD9E800B9DB48 /* Parse.framework */; };
 		C3448078186FDC7300B9DB48 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */; };
@@ -92,6 +93,8 @@
 		C32028BD1964D43100EE7553 /* PFObject+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+NSCoding.m"; sourceTree = "<group>"; };
 		C32028BE1964D43100EE7553 /* UIImage+so1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+so1.h"; sourceTree = "<group>"; };
 		C32028BF1964D43100EE7553 /* UIImage+so1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+so1.m"; sourceTree = "<group>"; };
+		C342BA761982D07F007BB674 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "../../../../../Downloads/UIImage-Categories-master/UIImage+Resize.h"; sourceTree = "<group>"; };
+		C342BA771982D07F007BB674 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "../../../../../Downloads/UIImage-Categories-master/UIImage+Resize.m"; sourceTree = "<group>"; };
 		C3431E6C196F2313004822F7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C344806F186FD9E800B9DB48 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C3448077186FDC7300B9DB48 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
@@ -209,6 +212,8 @@
 		C32028B51964D43100EE7553 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C342BA761982D07F007BB674 /* UIImage+Resize.h */,
+				C342BA771982D07F007BB674 /* UIImage+Resize.m */,
 				C32028B61964D43100EE7553 /* NSObject+Properties.h */,
 				C32028B71964D43100EE7553 /* NSObject+Properties.m */,
 				C32028B81964D43100EE7553 /* PFACL+NSCoding.h */,
@@ -383,6 +388,7 @@
 				C32028C31964D43100EE7553 /* PFObject+NSCoding.m in Sources */,
 				AD7F4C29195DED16001B07E3 /* MBProgressHUD.m in Sources */,
 				C32028901964D32100EE7553 /* HALSendToFriendsViewController.m in Sources */,
+				C342BA781982D07F007BB674 /* UIImage+Resize.m in Sources */,
 				C320288B1964D32100EE7553 /* HALLaunchViewController.m in Sources */,
 				C32028C21964D43100EE7553 /* PFFile+NSCoding.m in Sources */,
 			);
