@@ -551,7 +551,7 @@
                                 </state>
                                 <connections>
                                     <action selector="backButton" destination="PU1-Jt-ywD" eventType="touchUpInside" id="Lat-uM-lIm"/>
-                                    <segue destination="pWR-b5-OLO" kind="push" id="Sf9-Xo-8lW"/>
+                                    <segue destination="pWR-b5-OLO" kind="push" identifier="finishedToInbox" id="Sf9-Xo-8lW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCW-hU-xSE">
@@ -1266,10 +1266,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="aI1-Zn-Bbo"/>
-        <segue reference="20G-jq-rhA"/>
+        <segue reference="Sf9-Xo-8lW"/>
         <segue reference="dLD-hY-enm"/>
-        <segue reference="e8s-3Q-I0v"/>
         <segue reference="iVv-Pa-lv8"/>
+        <segue reference="e8s-3Q-I0v"/>
         <segue reference="EGM-eB-W1A"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -90,17 +90,32 @@
     CGRect rect = CGRectMake(0 ,0 , 0, 0);
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.igo"];
     NSURL *igImageHookFile = [[NSURL alloc] initWithString:[[NSString alloc] initWithFormat:@"file://%@", jpgPath]];
+
+    
+    //self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
+    self.dic = [UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
+    
     self.dic.UTI = @"com.instagram.photo";
-    self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
-    self.dic=[UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
-    [self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
+    
+    if([self.currentUser.username isEqualToString:self.senderName]) {
+        
+        self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies @halfsiesapp", self.originalSender] forKey:@"InstagramCaption"];
+        
+    } else if(![self.currentUser.username isEqualToString:self.senderName]) {
+        
+        self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies @halfsiesapp", self.senderName] forKey:@"InstagramCaption"];
+        }
+
+    
+    [self.dic presentOpenInMenuFromRect:rect inView:self.view animated:YES];
     NSURL *instagramURL = [NSURL URLWithString:@"instagram://media?id=MEDIA_ID"];
-    if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
-    {
+    
+    if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+        
         [self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
-    }
-    else
-    {
+        
+    } else {
+        
         NSLog(@"No Instagram Found");
     }
 }
