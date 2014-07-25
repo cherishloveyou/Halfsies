@@ -242,7 +242,7 @@
                               
                               dispatch_async(dispatch_get_main_queue(), ^{
                                   
-                                  UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success" message:@"Your finished halfsie was successfully shared to Twitter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                  UIAlertView *twitterShareSuccess = [[UIAlertView alloc]initWithTitle:@"Success!" message:@"Your finished halfsie was successfully shared to Twitter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                   
                                   [twitterShareSuccess show];
                               });
