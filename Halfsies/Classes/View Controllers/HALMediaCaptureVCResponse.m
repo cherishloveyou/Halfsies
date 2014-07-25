@@ -9,8 +9,9 @@
 #import <AVFoundation/AVVideoSettings.h>
 #import "HALSendToFriendsViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "UIImage+Resize.h"
 
-@interface HALMediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface HALMediaCaptureVCResponse () <UIActionSheetDelegate, AVCaptureFileOutputRecordingDelegate,AVCaptureVideoDataOutputSampleBufferDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (strong, nonatomic) NSData *imageData;
 @property (strong, nonatomic) NSString *photo;
@@ -46,6 +47,8 @@
 @property (nonatomic, strong) PFFile *finishedImageFile;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *image9;
+@property (strong, nonatomic) UIDocumentInteractionController *dic;
+
 
 #pragma mark - IBoutlets
 @property (nonatomic, retain) IBOutlet UIView *takingPhotoView;
@@ -296,7 +299,7 @@ float finalXValueForCrop;
 {
     //Create the new action sheet for sharing.
     
-    self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
+    self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Instagram", @"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
     
     //Display the new sharing action sheet.
     
@@ -522,6 +525,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if ((actionSheet == self.shareSheet && buttonIndex == 0) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 0)) {
         
+        [self shareToInstagram];
+    }
+    
+    if ((actionSheet == self.shareSheet && buttonIndex == 1) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 1)) {
+        
         
         
         ACAccountStore *account = [[ACAccountStore alloc] init];
@@ -643,13 +651,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     
-    if((actionSheet == self.shareSheet && buttonIndex == 1) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 1)) {
+    if((actionSheet == self.shareSheet && buttonIndex == 2) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 2)) {
         
         [self saveToLibray];
 }
     
         
-    if((actionSheet == self.shareSheet && buttonIndex == 2) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 2)) {
+    if((actionSheet == self.shareSheet && buttonIndex == 3) || (actionSheet == self.uploadPhotoShareSheet && buttonIndex == 3)) {
        
         //Copy imageFileURL to the user's clipboard.
         
@@ -657,7 +665,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         pasteboard.URL = self.finishedImageFileURL;
 }
     
-    if(actionSheet == self.uploadPhotoShareSheet && buttonIndex == 3) {
+    if(actionSheet == self.uploadPhotoShareSheet && buttonIndex == 4) {
 
         NSLog(@"back to inbox pressed after taking photo.");
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
@@ -1061,7 +1069,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         NSLog(@"Sweet! button was pressed.");
         
         //Create the new action sheet for sharing.
-        self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
+        self.uploadPhotoShareSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Take Me To My Inbox" destructiveButtonTitle:nil otherButtonTitles:@"Share on Instagram", @"Share on Twitter",@"Save to Library", @"Copy Share Link", nil];
         
         //Display the new sharing action sheet.
         [self.uploadPhotoShareSheet showInView:self.view];
@@ -1081,6 +1089,73 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         NSLog(@"User pressed the OK button.");
         
         [self performSegueWithIdentifier:@"segueToInbox" sender:self];
+    }
+}
+
+#pragma mark - Document Interaction Delegate
+- (UIDocumentInteractionController *) setupControllerWithURL: (NSURL*) fileURL usingDelegate: (id <UIDocumentInteractionControllerDelegate>) interactionDelegate
+{
+    UIDocumentInteractionController *interactionController = [UIDocumentInteractionController interactionControllerWithURL: fileURL];
+    interactionController.delegate = interactionDelegate;
+    return interactionController;
+}
+
+
+#pragma mark - Instagram
+- (void)shareToInstagram
+{
+    
+    //Create white image of 640 x 640
+    
+    CGSize imageSize = CGSizeMake(640, 640);
+    UIColor *fillColor = [UIColor whiteColor];
+    UIGraphicsBeginImageContextWithOptions(imageSize, YES, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [fillColor setFill];
+    CGContextFillRect(context, CGRectMake(0, 0, imageSize.width, imageSize.height));
+    UIImage *whiteSquareImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    //Scale down self.image
+    CGSize size = CGSizeMake(360, 640);
+    self.image = [self.image resizedImage:size interpolationQuality:kCGInterpolationLow];
+    
+    //Create the final image combining whiteSquareImage with self.image.
+    //self.image should be placed in the center of whiteSquareImage
+    
+    CGSize newSize = CGSizeMake(640, 640);
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Use existing opacity as is
+    [whiteSquareImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Apply supplied opacity if applicable
+    [self.image drawInRect:CGRectMake(140,0,360,640) blendMode:kCGBlendModeNormal alpha:0.8];
+    
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    UIImage *screenShot = finalImage;
+    NSString *savePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.igo"];
+    [UIImagePNGRepresentation(screenShot) writeToFile:savePath atomically:YES];
+    
+    CGRect rect = CGRectMake(0 ,0 , 0, 0);
+    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.igo"];
+    NSURL *igImageHookFile = [[NSURL alloc] initWithString:[[NSString alloc] initWithFormat:@"file://%@", jpgPath]];
+    self.dic.UTI = @"com.instagram.photo";
+    self.dic = [self setupControllerWithURL:igImageHookFile usingDelegate:self];
+    self.dic=[UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
+    [self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
+    NSURL *instagramURL = [NSURL URLWithString:@"instagram://media?id=MEDIA_ID"];
+    if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
+    {
+        [self.dic presentOpenInMenuFromRect: rect    inView: self.view animated: YES ];
+    }
+    else
+    {
+        NSLog(@"No Instagram Found");
     }
 }
 
