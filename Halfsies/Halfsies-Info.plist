@@ -17,22 +17,22 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.3</string>
+	<string>1.2.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.mitchellporter.halfsies</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>halfsies</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>com.mitchellporter.halfsies</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.2.3</string>
+	<string>1.2.4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSContactsUsageDescription</key>

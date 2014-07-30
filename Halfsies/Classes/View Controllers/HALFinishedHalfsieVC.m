@@ -99,11 +99,11 @@
     
     if([self.currentUser.username isEqualToString:self.senderName]) {
         
-        self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies @halfsiesapp", self.originalSender] forKey:@"InstagramCaption"];
+        self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies #halfsiesapp @halfsiesapp", self.originalSender] forKey:@"InstagramCaption"];
         
     } else if(![self.currentUser.username isEqualToString:self.senderName]) {
         
-        self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies @halfsiesapp", self.senderName] forKey:@"InstagramCaption"];
+        self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies #halfsiesapp @halfsiesapp", self.senderName] forKey:@"InstagramCaption"];
         }
 
     
@@ -272,7 +272,7 @@
                      if([self.currentUser.username isEqualToString:self.senderName]) {
                          
                          
-                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies halfsies.co/app", self.originalSender];
+                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. @gethalfsies #halfsies #halfsiesapp halfsies.co/app", self.originalSender];
                          
                          
                      }
@@ -281,7 +281,7 @@
                          
                          
                          
-                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies halfsies.co/app", self.senderName];
+                         self.twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. @gethalfsies #halfsies #halfsiesapp halfsies.co/app", self.senderName];
                          
                      }
                      

@@ -611,7 +611,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                      
                      //This code below creates a new message to post to the user's Twitter feed.
                      
-                     NSString *twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies halfsies.co/app", self.senderName];
+                     NSString *twitterStatus = [[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. @gethalfsies #halfsies #halfsiesapp halfsies.co/app", self.senderName];
                      
                      NSDictionary *message = @{ @"status": twitterStatus};
                      
@@ -1186,7 +1186,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
     
     self.dic.UTI = @"com.instagram.photo";
-    self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies @halfsiesapp", self.senderName] forKey:@"InstagramCaption"];
+    self.dic.annotation = [NSDictionary dictionaryWithObject:[[NSString alloc]initWithFormat:@"Just finished going halfsies with %@. #halfsies #halfsiesapp @halfsiesapp", self.senderName] forKey:@"InstagramCaption"];
     
     
     [self.dic presentOpenInMenuFromRect:rect inView:self.view animated:YES];
