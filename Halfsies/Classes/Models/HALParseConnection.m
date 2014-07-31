@@ -15,6 +15,7 @@
 
 @implementation HALParseConnection
 
+
 #pragma mark - Query Methods
 + (void)performHalfImageQuery
 {

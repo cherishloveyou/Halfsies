@@ -17,7 +17,9 @@
 @property NSArray *contacts;
 
 #pragma mark - Instance Methods
-
 - (BOOL)isAccessGranted;
+
+#pragma mark - Singleton Method
++ (HALAddressBook *)sharedHALAddressBook;
 
 @end

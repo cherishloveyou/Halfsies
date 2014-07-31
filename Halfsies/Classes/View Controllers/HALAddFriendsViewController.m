@@ -47,8 +47,8 @@
     
     [super viewDidAppear:NO];
     
-    // Create an instance of HALAddressBook
-    HALAddressBook *addressBook = [[HALAddressBook alloc]init];
+    // Use HALAddressBook singleton
+    HALAddressBook *addressBook = [HALAddressBook sharedHALAddressBook];
     
     // Ask for access to the user's address book
     BOOL result = [addressBook isAccessGranted];

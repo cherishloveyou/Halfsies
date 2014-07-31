@@ -10,6 +10,20 @@
 
 @implementation HALAddressBook
 
+#pragma mark - Singleton Method
++ (HALAddressBook *)sharedHALAddressBook
+{
+    static HALAddressBook *sharedHALAddressBook = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedHALAddressBook = [[self alloc]init];
+    });
+    
+    return sharedHALAddressBook;
+}
+
+
 - (BOOL)isAccessGranted
 {
 

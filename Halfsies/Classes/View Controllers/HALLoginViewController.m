@@ -147,10 +147,7 @@
         
     } else {
         
-
         [HALParseConnection loginUserWithUsername:username password:password];
-        
-        
     }
 }
 
