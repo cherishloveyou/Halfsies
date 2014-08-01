@@ -11,12 +11,12 @@
 @interface HALContact : NSObject
 
 #pragma mark - Properties
-@property NSArray *phoneNumbers;
-@property NSString *mainPhoneNumber;
-@property NSString *firstName;
-@property ABRecordRef contactRef;
+@property (nonatomic) NSArray *phoneNumbers;
+@property (nonatomic) NSString *mainPhoneNumber;
+@property (nonatomic) NSString *firstName;
+@property (nonatomic) ABRecordRef contactRef;
 
-#pragma mark - Instance Variables
+#pragma mark - Instance Methods
 - (BOOL)hasMultiplePhoneNumbers;
 
 @end

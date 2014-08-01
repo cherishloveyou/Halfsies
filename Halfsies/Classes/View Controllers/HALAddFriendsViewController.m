@@ -18,9 +18,9 @@
 #pragma mark - Properties
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *friendsToInvite;
-@property HALAddressBook *addressBook;
-@property HALContact *currentContact;
-@property NSMutableArray *friends;
+@property (nonatomic) HALAddressBook *addressBook;
+@property (nonatomic) HALContact *currentContact;
+@property (nonatomic) NSMutableArray *friends;
 @property (nonatomic, strong) PFUser *currentUser;
 
 #pragma mark - IBoutlets

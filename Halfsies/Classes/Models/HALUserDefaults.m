@@ -14,6 +14,20 @@
 
 @implementation HALUserDefaults
 
+#pragma  mark - Singleton Method
++ (HALUserDefaults *)sharedUserDefaults
+{
+    static HALUserDefaults *sharedUserDefaults = nil;
+    
+    dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        sharedUserDefaults = [[self alloc]init];
+    });
+    
+    return sharedUserDefaults;
+}
+
 
 + (NSArray *)retrieveHalfImageMessages
 {

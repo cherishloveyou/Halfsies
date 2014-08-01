@@ -9,7 +9,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailEntry;
 @property (weak, nonatomic) IBOutlet UITextField *usernameEntry;
 @property (weak, nonatomic) IBOutlet UITextField *passwordEntry;
-@property UITextField * activeField;
+@property (nonatomic) UITextField * activeField;
 @property (strong, nonatomic) NSString *userSubmittedUsername;
 @property (strong, nonatomic) NSString *lowercaseUsername;
 @property (strong, nonatomic) NSString *objectId;

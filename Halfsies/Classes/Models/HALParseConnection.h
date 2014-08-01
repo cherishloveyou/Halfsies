@@ -18,6 +18,4 @@
 + (void)performFriendsRelationForCurrentUserQuery;
 + (void)isUsernameAvailable:(NSString *)lowercaseUsername;
 
-
-
 @end

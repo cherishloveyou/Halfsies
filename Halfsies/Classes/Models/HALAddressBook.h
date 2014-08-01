@@ -14,7 +14,7 @@
 @interface HALAddressBook : NSObject
 
 #pragma mark - Properties
-@property NSArray *contacts;
+@property (nonatomic) NSArray *contacts;
 
 #pragma mark - Instance Methods
 - (BOOL)isAccessGranted;

@@ -6,7 +6,7 @@
 @interface HALSearchViewController () <UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate>
 
 #pragma mark - Properties
-@property NSArray *parseUsers;
+@property (nonatomic) NSArray *parseUsers;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
