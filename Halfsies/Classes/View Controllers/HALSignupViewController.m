@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (nonatomic) HALParseConnection *parseConnection;
 
 #pragma mark - IBActions
 - (IBAction)didTapSignup:(id)sender;
@@ -93,7 +94,8 @@
 - (void)signUpNewUser
 {
     // Call signup user method
-    [HALParseConnection signupNewUserWithUsername:self.userSubmittedUsername password:self.userSubmittedPassword email:self.userSubmittedEmail];
+    self.parseConnection = [HALParseConnection sharedHALParseConnection];
+    [self.parseConnection signupNewUserWithUsername:self.userSubmittedUsername password:self.userSubmittedPassword email:self.userSubmittedEmail];
 }
 
 - (void)saveLowercaseUsername
@@ -208,7 +210,8 @@
         self.lowercaseUsername = [self.userSubmittedUsername lowercaseString];
         
         // Make sure it passes the lowercaseUsername test
-        [HALParseConnection isUsernameAvailable:self.lowercaseUsername];
+        self.parseConnection = [HALParseConnection sharedHALParseConnection];
+        [self.parseConnection isUsernameAvailable:self.lowercaseUsername];
         
     }
 }

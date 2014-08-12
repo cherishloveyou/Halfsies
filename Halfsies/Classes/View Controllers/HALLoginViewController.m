@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *loginBackgroundImageView;
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (nonatomic) HALParseConnection *parseConnection;
 
 #pragma mark - IBActions
 - (IBAction)didTapLoginButton:(id)sender;
@@ -39,9 +40,13 @@
     
     [self.usernameEntry becomeFirstResponder];
 
-    // Retrieve stored username
+    //Retrieve stored username
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [self.usernameEntry setText:[standardDefaults objectForKey:@"username"]];
+    
+    //Get parse connection singleton
+    self.parseConnection = [HALParseConnection sharedHALParseConnection];
+    
 }
 
 #pragma mark - Notification Observers
@@ -147,7 +152,7 @@
         
     } else {
         
-        [HALParseConnection loginUserWithUsername:username password:password];
+        [self.parseConnection loginUserWithUsername:username password:password];
     }
 }
 

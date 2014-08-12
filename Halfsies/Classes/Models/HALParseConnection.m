@@ -11,13 +11,28 @@
 
 @interface HALParseConnection ()
 
+@property (nonatomic) HALUserDefaults *userDefaults;
+
 @end
 
 @implementation HALParseConnection
 
+#pragma mark - Singleton Method
++ (HALParseConnection *)sharedHALParseConnection
+{
+    static HALParseConnection *sharedHALParseConnection = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        sharedHALParseConnection = [[self alloc]init];
+    });
+    
+    return sharedHALParseConnection;
+}
 
 #pragma mark - Query Methods
-+ (void)performHalfImageQuery
+- (void)performHalfImageQuery
 {
     // Setup and execute the query
     
@@ -33,7 +48,9 @@
         } else {
             
             // Store the returned objects and post notification
-            [HALUserDefaults storeHalfImageMessages:objects];
+            self.userDefaults = [HALUserDefaults sharedHALUserDefaults];
+            [self.userDefaults storeHalfImageMessages:objects];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"queryHasFinished"
                                                                 object:self
                                                               userInfo:nil];
@@ -42,7 +59,7 @@
     }];
 }
 
-+ (void)performFullImageQuery
+- (void)performFullImageQuery
 {
     // Setup and execute the query
     PFQuery *query2 = [PFQuery queryWithClassName:@"Messages"];
@@ -62,7 +79,9 @@
         } else {
             
             // Store the returned objects and post notification
-            [HALUserDefaults storeFullImageMessages:objects];
+            self.userDefaults = [HALUserDefaults sharedHALUserDefaults];
+            [self.userDefaults storeFullImageMessages:objects];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"query2and3HasFinished"
                                                                 object:self
                                                               userInfo:nil];
@@ -70,7 +89,7 @@
     }];
 }
 
-+ (void)performFriendsRelationForCurrentUserQuery
+- (void)performFriendsRelationForCurrentUserQuery
 {
     PFRelation *friendsRelation = [[PFUser currentUser]objectForKey:@"friendsRelation"];
     PFQuery *query = [friendsRelation query];
@@ -91,7 +110,7 @@
 }
 
 #pragma mark - Signup Methods
-+ (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email
+- (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email
 {
     // Create new parse user
     PFUser *newUser = [PFUser user];
@@ -114,8 +133,9 @@
         
         } else {
             
-            // Persist user's username            
-            [HALUserDefaults storeUsername:username];
+            // Persist user's username
+            self.userDefaults = [HALUserDefaults sharedHALUserDefaults];
+            [self.userDefaults storeUsername:username];
             
             // Post notification for signup completion
             [[NSNotificationCenter defaultCenter] postNotificationName:@"successfulUserSignup"
@@ -125,7 +145,7 @@
     }];
 }
 
-+ (void)isUsernameAvailable:(NSString *)lowercaseUsername
+- (void)isUsernameAvailable:(NSString *)lowercaseUsername
 {
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"lowercaseUsername" equalTo:lowercaseUsername];
@@ -142,7 +162,7 @@
 }
 
 #pragma mark - Login Methods
-+ (void)loginUserWithUsername:(NSString *)username password:(NSString *)password
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password
 {
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
@@ -157,7 +177,8 @@
         if (user) {
             
             // Persist username
-            [HALUserDefaults storeUsername:user.username];
+            self.userDefaults = [HALUserDefaults sharedHALUserDefaults];
+            [self.userDefaults storeUsername:user.username];
             
             // Post notification for signup completion
             [[NSNotificationCenter defaultCenter] postNotificationName:@"successfulUserLogin"

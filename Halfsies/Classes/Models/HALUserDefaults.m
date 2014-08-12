@@ -15,7 +15,7 @@
 @implementation HALUserDefaults
 
 #pragma  mark - Singleton Method
-+ (HALUserDefaults *)sharedUserDefaults
++ (HALUserDefaults *)sharedHALUserDefaults
 {
     static HALUserDefaults *sharedUserDefaults = nil;
     
@@ -29,7 +29,7 @@
 }
 
 
-+ (NSArray *)retrieveHalfImageMessages
+- (NSArray *)retrieveHalfImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"halfImageMessages"];
@@ -38,7 +38,7 @@
     return retrievedArray;
 }
 
-+ (NSArray *)retrieveFullImageMessages
+- (NSArray *)retrieveFullImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [standardDefaults objectForKey:@"fullImageMessages"];
@@ -47,21 +47,21 @@
     return retreivedArray;
 }
 
-+ (void)storeHalfImageMessages:(id)halfImageMessages
+- (void)storeHalfImageMessages:(id)halfImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:halfImageMessages] forKey:@"halfImageMessages"];
     //[standardDefaults synchronize];
 }
 
-+ (void)storeFullImageMessages:(id)fullImageMessages
+- (void)storeFullImageMessages:(id)fullImageMessages
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     [standardDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:fullImageMessages] forKey:@"fullImageMessages"];
     //[standardDefaults synchronize];
 }
 
-+ (void)storeUsername:(NSString *)username
+- (void)storeUsername:(NSString *)username
 {
     NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
     

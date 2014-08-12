@@ -23,6 +23,8 @@
 @property (nonatomic, strong) PFObject *selectedMessage;
 @property (nonatomic, strong) NSArray *halfImageMessages;
 @property (nonatomic, strong) NSArray *fullImageMessages;
+@property (nonatomic) HALUserDefaults *userDefaults;
+@property (nonatomic) HALParseConnection *parseConnection;
 
 #pragma mark - IBOutlets
 @property (strong, nonatomic) IBOutlet UIImageView *settingsBackground;
@@ -59,6 +61,10 @@
     [self retreiveStoredMessages];
     
     [self parseQueries];
+    
+    //Get user defaults and parse connection singletons
+    self.userDefaults = [HALUserDefaults sharedHALUserDefaults];
+    self.parseConnection = [HALParseConnection sharedHALParseConnection];
 }
 
 #pragma mark - Stored Data Methods
@@ -68,8 +74,8 @@
     self.fullImageMessages = [[NSArray alloc]init];
     
     // Retreive any stored messages
-    self.halfImageMessages = [HALUserDefaults retrieveHalfImageMessages];
-    self.fullImageMessages = [HALUserDefaults retrieveFullImageMessages];
+    self.halfImageMessages = [self.userDefaults retrieveHalfImageMessages];
+    self.fullImageMessages = [self.userDefaults retrieveFullImageMessages];
     
     // Reload table view
     [self.tableView reloadData];
@@ -81,8 +87,8 @@
 - (void)parseQueries
 {
     // Execute Parse queries
-    [HALParseConnection performHalfImageQuery];
-    [HALParseConnection performFullImageQuery];
+    [self.parseConnection performHalfImageQuery];
+    [self.parseConnection performFullImageQuery];
     
     // Register for notifications that are posted in HALParseConnection class
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -98,7 +104,7 @@
 - (void)parseQueryFinished
 {
     // Retreive newly updated halfImageMessages
-    self.halfImageMessages = [HALUserDefaults retrieveHalfImageMessages];
+    self.halfImageMessages = [self.userDefaults retrieveHalfImageMessages];
     
     [self.tableView reloadData];
 }
@@ -106,7 +112,7 @@
 - (void)parseQuery2and3Finished
 {
     // Retreive newly updated fullImageMessages
-    self.fullImageMessages = [HALUserDefaults retrieveFullImageMessages];
+    self.fullImageMessages = [self.userDefaults retrieveFullImageMessages];
     
     [self.tableView reloadData];
 }

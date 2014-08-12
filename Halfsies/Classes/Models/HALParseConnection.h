@@ -11,11 +11,14 @@
 @interface HALParseConnection : NSObject
 
 #pragma mark - Class Methods
-+ (void)performHalfImageQuery;
-+ (void)performFullImageQuery;
-+ (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email;
-+ (void)loginUserWithUsername:(NSString *)username password:(NSString *)password;
-+ (void)performFriendsRelationForCurrentUserQuery;
-+ (void)isUsernameAvailable:(NSString *)lowercaseUsername;
++ (HALParseConnection *)sharedHALParseConnection;
+
+#pragma mark - Instance Methods
+- (void)performHalfImageQuery;
+- (void)performFullImageQuery;
+- (void)signupNewUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email;
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password;
+- (void)performFriendsRelationForCurrentUserQuery;
+- (void)isUsernameAvailable:(NSString *)lowercaseUsername;
 
 @end

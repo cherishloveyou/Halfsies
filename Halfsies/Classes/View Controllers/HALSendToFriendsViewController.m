@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *recipients;
 @property (nonatomic, strong) UIAlertView *alertView1;
 @property (nonatomic, strong) UIAlertView *alertView2;
+@property (nonatomic) HALParseConnection *parseConnection;
 
 #pragma mark - Instance Methods
 - (void)uploadPhoto;
@@ -40,6 +41,9 @@
     // Setup navigation and query parse for friends list
     [self navigationSetup];
     [self parseConnectionQuery];
+    
+    //Get parse connection singleton
+    self.parseConnection = [HALParseConnection sharedHALParseConnection];
 }
 
 #pragma mark - HALParseConnection Queries
@@ -49,7 +53,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(parseQueryFailed:) name:@"performFriendsRelationForCurrentUserQueryFailed" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(parseQuerySucceeded:) name:@"performFriendsRelationForCurrentUserQuerySucceeded" object:nil];
     
-    [HALParseConnection performFriendsRelationForCurrentUserQuery];
+    [self.parseConnection performFriendsRelationForCurrentUserQuery];
 }
 
 - (void)parseQueryFailed:(NSNotification *)aNotification
